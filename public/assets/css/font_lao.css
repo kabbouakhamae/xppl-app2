@@ -1,0 +1,12 @@
+
+
+@font-face {
+  font-family: 'Defago Noto Sans';
+  src: url("fonts/DefagoNotoSansLao.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.laofont {
+  font-family: 'Defago Noto Sans';
+}
