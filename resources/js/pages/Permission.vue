@@ -201,6 +201,10 @@
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
     
 </template>
@@ -216,8 +220,6 @@ export default {
             permissData: {
                 id: '',
                 permiss: '',
-                geo: '',
-                mining: '',
                 safety: '',
                 lkAdd: '',
                 lkEdit: '',
@@ -239,7 +241,10 @@ export default {
             },
             search: '',
             selectedRow: null,
-            selUser: null
+            selUser: null,
+
+            home: [],
+            admin: [],
         };
     },
 
@@ -257,6 +262,17 @@ export default {
     },
 
     methods: {
+        async onLoad(){
+            const homeRes = await axios.get('/api/permission/home')
+            this.home = homeRes.data;
+
+            const adminRes = await axios.get('/api/permission/admin')
+            this.admin = adminRes.data;
+
+
+
+        },
+
         async getPermiss(){
             const response = await axios.get('/api/permiss')
             this.loginPermiss = response.data;
@@ -279,8 +295,6 @@ export default {
             let dt = this.permissData;
                 dt.id = res.data.id;
                 dt.permiss = !!parseInt(res.data.permiss);
-                dt.geo = !!parseInt(res.data.geo);
-                dt.mining = !!parseInt(res.data.mining);
                 dt.safety = !!parseInt(res.data.safety);
                 dt.lkAdd = !!parseInt(res.data.lk_add);
                 dt.lkEdit = !!parseInt(res.data.lk_edit);
@@ -320,8 +334,6 @@ export default {
         resetForm(){
             let dt = this.permissData;
                 dt.permiss = '';
-                dt.geo = '';
-                dt.mining = '';
                 dt.safety = '';
                 dt.lkAdd = '';
                 dt.lkEdit = '';
@@ -347,6 +359,7 @@ export default {
     created(){
         this.getPermiss();
         this.getUsername();
+        this.onLoad();
     },
 
      beforeRouteEnter(to, from, next){

@@ -34,16 +34,31 @@
                             <i class="fe fe-search search-i text-muted"></i>
                         <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                     </div>
-                    <div class="d-flex justify-content-end mt-xl-0 mt-lg-0 mt-md-1 mt-1">
+                    <div class="d-md-flex justify-content-end mt-xl-0 mt-lg-1 mt-md-1 mt-1">
+                        <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1">
+                            <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="getScan()"/>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="wd-md-150 wd-100p">
+                                <input type="date" class="form-control" v-model="datefr" @change="getScan()">
+                            </div>
+                            <div class="wd-md-150 wd-100p ms-1">
+                                <input type="date" class="form-control" v-model="dateto" @change="getScan()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OLD -->
+                    <!-- <div class="d-flex justify-content-end mt-xl-0 mt-lg-0 mt-md-1 mt-1">
                         <div class="wd-lg-200 wd-md-200 wd-100p me-1">
                             <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="getScan()"/>
                         </div>
                         <div class="wd-md-150 wd-60p">
                             <input type="date" class="form-control" v-model="date" @change="getScan()">
                         </div>
-                    </div>
-                </div>
+                    </div> -->
 
+                </div>
                 <div class="table-responsive border" style="max-height: 73vh">
                     <table class="table main-table-reference text-nowrap mg-b-0">
                         <thead class="position-sticky" style="top: 0px; z-index: 1">
@@ -67,13 +82,14 @@
                                 <td class="px-1">{{row.position}}</td>
                                 <td class="px-1 text-center">{{row.scan}}</td>
                                 <td v-for="(col, colInx) in colData" :key="colInx" class="text-center px-1" :title="mentDate(col.colid) +'  '+ row[col.colid]" 
-                                    :style="code(row[col.colid]) == 'W' || code(row[col.colid]) == 'WN' ? 'background-color: #F2F4F8':
+                                    :style="code(row[col.colid]) == 'W' ? 'background-color: #F2F4F8':
                                             code(row[col.colid]) == 'W/2' ? 'background-color: #FFC000':
                                             code(row[col.colid]) == 'R' || code(row[col.colid]) == 'RW' ? 'background-color: #FFFFCC':
                                             code(row[col.colid]) == 'A' || code(row[col.colid]) == 'A/2' || code(row[col.colid])== 'H' || code(row[col.colid]) == 'P' ? 'background-color: #FFFF99':
                                             code(row[col.colid]) == 'S' ? 'background-color: #F2DCDB':
                                             code(row[col.colid]) == 'MR' ? 'background-color: #FF66FF':
-                                            code(row[col.colid]) == 'BWB' || code(row[col.colid]) == 'WO' ? 'background-color: #C6E0B4':
+                                            code(row[col.colid]) == 'BWB' || code(row[col.colid]) == 'WO' ? 'background-color: #e8f2e1':
+                                            code(row[col.colid]) == 'WN' ? 'background-color: #E0E0E0':
                                             code(row[col.colid]) == 'T' || code(row[col.colid]) == 'T-' ? 'background-color: #FF0000':''"> {{ code(row[col.colid]) }}
                                 </td>
                             </tr>
@@ -123,7 +139,8 @@
                                                             lst.actual == 'A' || lst.actual == 'A/2' || lst.actual == 'IA' || lst.actual == 'OA' || lst.actual == 'AA' || lst.actual == 'H' || lst.actual == 'OH' || lst.actual == 'IH' || lst.actual == 'P' ? 'background-color: #FFFF99':
                                                             lst.actual == 'S' || lst.actual == 'SS' ? 'background-color: #F2DCDB':
                                                             lst.actual == 'MR' ? 'background-color: #FF66FF':
-                                                            lst.actual == 'BWB' || lst.actual == 'WO' ? 'background-color: #C6E0B4':
+                                                            lst.actual == 'BWB' || lst.actual == 'WO' ? 'background-color: #e8f2e1':
+                                                            lst.actual == 'N5' || lst.actual == 'N6' || lst.actual == 'D4' ? 'background-color: #E0E0E0':
                                                             lst.actual == 'T' || lst.actual == 'T-' || lst.actual == 'IT' || lst.actual == 'OT' || lst.actual == 'TT' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0 cur-pointer"
                                                     
                                                     @click="editRos(lst.id, lst.date, lst.actual, lst.remarks)" title="Click to update Roster"
@@ -135,12 +152,13 @@
                                                 <td class="py-0 text-center border-bottom-0"> {{ lst.out1 }} </td>
                                                 <td class="py-0 text-center border-bottom-0"> {{ lst.in2 }} </td>
                                                 <td class="py-0 text-center border-bottom-0"> {{ lst.out2 }} </td>
-                                                <td :style="lst.timesheet == 'W' || lst.timesheet == 'WN' ? 'background-color: #F2F4F8':
+                                                <td :style="lst.timesheet == 'W' ? 'background-color: #F2F4F8':
                                                             lst.timesheet == 'W/2' ? 'background-color: #FFC000':
                                                             lst.timesheet == 'R' || lst.timesheet == 'RW' ? 'background-color: #FFFFCC':
                                                             lst.timesheet == 'A' || lst.timesheet == 'A/2' || lst.timesheet == 'H' || lst.timesheet == 'P' ? 'background-color: #FFFF99':
                                                             lst.timesheet == 'S' ? 'background-color: #F2DCDB':
                                                             lst.timesheet == 'MR' ? 'background-color: #FF66FF':
+                                                            lst.timesheet == 'WN' ? 'background-color: #E0E0E0':
                                                             lst.timesheet == 'T' || lst.timesheet == 'T-' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0"> {{ lst.timesheet }} 
                                                 </td>
                                                 <td class="py-0 laofont border-end-0 border-bottom-0"> {{ lst.remarks }} </td>
@@ -189,7 +207,7 @@
                     </div>                                              
                 </div>
 
-                <!-- Roster update -->
+                <!-- ROSTER UPDATE -->
                 <div class="modal fade effect-scale pd-t-100 bd-0 bg-black-5" id="roster" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="workOrderLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -198,62 +216,37 @@
                                 <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body pt-2">  
-                                <div class=" d-flex justify-content-start mb-2">
-                                    <label class="rdiobox cur-pointer"><input name="upd" type="radio" value="date" checked v-model="updMethod"><span>Date</span></label>
-                                    <label class="rdiobox cur-pointer ms-5"><input name="upd" type="radio" value="range" v-model="updMethod"><span>Date Range</span></label>  
-                                </div>
-                                <div v-if="updMethod == 'date'"> 
+                                <!-- <div class=" d-flex justify-content-start mb-2">
+                                    <label class="rdiobox cur-pointer"><input name="upd" type="radio" value="update" v-model="updMethod"><span>Update</span></label>
+                                    <label class="rdiobox cur-pointer ms-5"><input name="upd" type="radio" value="add" v-model="updMethod"><span>Add</span></label>  
+                                </div> -->
                                     <div class="row">
                                         <div class="col-6 pe-1">
                                             <div class="form-group">
-                                                <label class="mb-0">Date <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control px-2" v-model="rosForm.rdatefr">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 ps-1">
-                                        <div class="form-group">
-                                                <label class="mb-0">Code <span class="text-danger">*</span></label> 
-                                                <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" :options="lkCode"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-0">Comments</label>
-                                        <textarea class="form-control laofont" style="height: 100px" v-model="rosForm.comment"></textarea>
-                                    </div>   
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary" :class="rosDateDis" @click="updRosDate()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
-                                        <button type="button" class="btn btn-purple ms-1" :class="rosDateDis" @click="updRosDateRefresh()"><i class="fe fe-save"></i><span class="mx-1">Save and Refresh</span></button> 
-                                    </div>
-                                </div>
-                                <div v-else>
-                                    <div class="row">
-                                        <div class="col-6 pe-1">
-                                            <div class="form-group">
-                                                <label class="mb-0">From <span class="text-danger">*</span></label>
+                                                <!-- <label class="mb-0">Date From <span class="text-danger">*</span></label> -->
                                                 <input type="date" class="form-control px-2" v-model="rosForm.rdatefr">
                                             </div>
                                         </div>
                                         <div class="col-6 ps-1">
                                             <div class="form-group">
-                                                <label class="mb-0">To <span class="text-danger">*</span></label>
+                                                <!-- <label class="mb-0">Date To <span class="text-danger">*</span></label> -->
                                                 <input type="date" class="form-control px-2" v-model="rosForm.rdateto">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="mb-0">Code <span class="text-danger">*</span></label> 
-                                        <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" :options="lkCode"/>
+                                        <!-- <label class="mb-0">Roster Code <span class="text-danger">*</span></label>  -->
+                                        <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" placeholder="Roster code" :options="lkCode"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="mb-0">Comments</label>
-                                        <textarea class="form-control laofont" style="height: 100px" v-model="rosForm.comment"></textarea>
+                                        <!-- <label class="mb-0">Comment</label> -->
+                                        <textarea class="form-control laofont" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
                                     </div>   
+
                                     <div class="d-flex justify-content-end">
                                         <button type="button" class="btn btn-primary" :class="rosRangeDis" @click="updRosRange()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
-                                        <button type="button" class="btn btn-purple ms-1" :class="rosRangeDis" @click="updRosRangeRefresh()"><i class="fe fe-save"></i><span class="mx-1">Save and Refresh</span></button> 
+                                        <button type="button" class="btn btn-purple ms-1" :class="rosRangeDis" @click="updRosRangeRefresh()"><i class="fe fe-refresh-cw"></i><span class="mx-1">Save and Refresh</span></button> 
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>                                              
@@ -314,15 +307,15 @@ export default {
             detailData: [],
             acLogData: [],
             dept: '',
-            date: '',
-            days: '',
+            datefr: '',
+            dateto: '',
             search: '',
             btnClear: false,
             scanDate: '',
             loading: false,
             cdate: '',
             rosForm: {userid: '', rtype: 'A', rdatefr: '', rdateto: '', rcode: null, comment: ''},
-            updMethod: 'date',
+            updMethod: 'update',
             rosCodeData: []
 
         };
@@ -333,14 +326,6 @@ export default {
     },
 
     computed: {
-        rosDateDis(){
-            if (this.rosForm.rdatefr == '' || this.rosForm.rcode == null){
-                return 'disabled';
-            } else {
-                return '';
-            }
-        },
-
         rosRangeDis(){
             if (this.rosForm.rdatefr == '' || this.rosForm.rdateto == '' || this.rosForm.rcode == null){
                 return 'disabled';
@@ -362,13 +347,24 @@ export default {
 
             this.cdate = moment(new Date()).format('YYYY-MM-DD');
 
-            this.date = moment(new Date()).format('YYYY-MM-DD');
-            const colhead = await axios.get(`/api/fingerscan/datecol?date=${this.date}`)
+            // OLD FUNCTION
+            // this.date = moment(new Date()).format('YYYY-MM-DD');
+            // const colhead = await axios.get(`/api/fingerscan/datecol?date=${this.date}`)
+            // this.colData = colhead.data;
+
+            // const scan = await axios.get(`/api/fingerscan/summary?dept=${this.dept}&date=${this.date}&search=${this.search}`)
+            // this.scanData = scan.data;
+
+            let today = new Date();
+            this.datefr = moment(new Date(today.getFullYear(), today.getMonth() - 1)).format('YYYY-MM-26');
+            this.dateto = moment(new Date(today.getFullYear(), today.getMonth() + 1, 0)).format('YYYY-MM-25');
+
+            const colhead = await axios.get(`/api/fingerscan/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
             this.colData = colhead.data;
 
-            const scan = await axios.get(`/api/fingerscan/summary?dept=${this.dept}&date=${this.date}&search=${this.search}`)
+            const scan = await axios.get(`/api/fingerscan/summary?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
             this.scanData = scan.data;
-            
+
             this.loading = false;
 
             const depts = await axios.get('/api/lookup/depts')
@@ -381,10 +377,10 @@ export default {
         async getScan(){
             this.loading = true;
             if (this.dept != '' && this.date != ''){
-                const colhead = await axios.get(`/api/fingerscan/datecol?date=${this.date}`)
+                const colhead = await axios.get(`/api/fingerscan/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
                 this.colData = colhead.data;
 
-                const scan = await axios.get(`/api/fingerscan/summary?dept=${this.dept}&date=${this.date}&search=${this.search}`)
+                const scan = await axios.get(`/api/fingerscan/summary?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
                 this.scanData = scan.data;
             }
             this.loading = false;
@@ -420,7 +416,8 @@ export default {
 
             this.$axios.post('/api/fingerscan/detail', {
                 dept: this.dept,
-                date: this.date,
+                datefr: this.datefr,
+                dateto: this.dateto,
                 userid: id
             }).then(res => {
                 this.detailData = res.data;
@@ -451,25 +448,14 @@ export default {
                     timer: 1500
                 })
             } else {
-                this.rosFormClear();
+                this.updMethod = 'update';
                 this.rosForm.userid = id;
                 this.rosForm.rdatefr = date;
+                this.rosForm.rdateto = date;
                 this.rosForm.rcode = code;
                 this.rosForm.comment = comm;
                 $('#roster').modal('show');
             }
-        },
-
-        updRosDate(){
-            this.$axios.post('/api/roster/updrosdate', this.rosForm)
-            .then(res => {
-
-                $('#roster').modal('hide');
-                this.prvDetail(this.rosForm.userid, this.fullname);
-            
-            }).catch((error)=>{
-                console.log(error);
-            })
         },
 
         updRosRange(){
@@ -482,25 +468,11 @@ export default {
             })
         },
 
-        updRosDateRefresh(){
-            $('#roster').modal('hide');
-            $('#detail').modal('hide');
-            this.updRosDate();
-            this.getScan();
-        },
-
         updRosRangeRefresh(){
             $('#roster').modal('hide');
             $('#detail').modal('hide');
             this.updRosRange();
             this.getScan();
-        },
-
-        rosFormClear(){
-            this.updMethod = 'date';
-            let f = this.rosForm;
-                f.rdateto = '';
-                f.comment = '';
         },
 
         getRosCode(){

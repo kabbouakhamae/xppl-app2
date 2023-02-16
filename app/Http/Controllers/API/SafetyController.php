@@ -63,12 +63,10 @@ class SafetyController extends Controller
         $param = [
             $request->year,
             $request->search.'%',
-            $request->search.'%',
-            $request->search.'%',
-            $request->search.'%',
+            $request->search.'%'
         ];
         
-        $incRecord = DB::select("select * from saf_incident_records where year(inc_date) = ? and (inc_id like ? or inc_title like ? or company like ? or dept like ?) order by inc_id", $param);
+        $incRecord = DB::select("select * from saf_incident_records where year(inc_date) = ? and (inc_no like ? or inc_title like ?) order by inc_id", $param);
         return $incRecord;
     }
 
@@ -97,6 +95,7 @@ class SafetyController extends Controller
 
             DB::table('saf_incident_records')
                 ->insert([
+                    'inc_no' => $request->inc_no,
                     'inc_id' => $request->inc_id,
                     'inc_date' => $request->inc_date,
                     'inc_title' => $request->inc_title,
@@ -145,6 +144,7 @@ class SafetyController extends Controller
         DB::table('saf_incident_records')
             ->where('id', $request->id)
             ->update([
+                'inc_no' => $request->inc_no,
                 'inc_date' => $request->inc_date,
                 'inc_title' => $request->inc_title,
                 'company' => $request->company,
@@ -223,8 +223,7 @@ class SafetyController extends Controller
     }
 
     public function preview(Request $request){
-        $prev = DB::select("select a.*, b.descr as inj_type, c.descr as act_seq, d.descr as pot_seq from saf_incident_records a
-                            left outer join (select code,  descr + ' ('+ code +')' as descr from dbo.saf_lookup_code where category = 'injury type') as b on b.code = a.injury_type
+        $prev = DB::select("select a.*, c.descr as act_seq, d.descr as pot_seq from saf_incident_records a
                             left outer join (select code,  descr + ' ('+ code +')' as descr from dbo.saf_lookup_code where category = 'actual consequence') as c on c.code = a.actual_severity
                             left outer join (select code,  descr + ' ('+ code +')' as descr from dbo.saf_lookup_code where category = 'potential consequence') as d on d.code = a.potential_severity
                             where a.id = ?", [$request->id]);
@@ -312,6 +311,101 @@ class SafetyController extends Controller
         return $exInc;
     }
 
-    
+    public function addCate(Request $request)
+    {
+        $check = DB::table('saf_data_category')
+                    ->where('category', $request->category);
+        
+        if ($check->count()){
+            $success = false;
+            $message = 'Duplicate record!';
+        } else {        
+            DB::table('saf_data_category')
+                ->insert([
+                    'category' => $request->category,
+                    'descr' => $request->descr
+                ]);
+
+            $success = true;
+            $message = "Insert completed!";
+        }
+
+        $response = [
+            'success' => $success,
+            'message' => $message
+        ];
+        return response()->json($response);
+    }
+
+    public function safCategory()
+    {
+        $cate = DB::table('saf_data_category')->get();
+        return $cate;
+    }
+
+
+    public function addFile(Request $request){
+        if ($request->hasFile('file')){
+            // foreach ($request->file('file') as $file){
+                $filename = $request->cate.'-'.$request->file->getClientOriginalName();
+                $request->file->move(public_path('assets/safety/Files/'), $filename);
+                DB::table('saf_data_files')
+                    ->insert([
+                        'category' => $request->cate,
+                        'file_name' => $filename,
+                        'file_descr' => $request->descr
+                    ]);                
+            // }  
+        }
+    }
+
+    public function getFile(Request $request)
+    {
+        $files = DB::table('saf_data_files')
+                    ->where('category', $request->cate)
+                    ->get();
+        return $files;
+    }
+
+
+    public function downloadDoc($filename){
+        return response()->download(public_path('assets/safety/Files/'.$filename));
+    }
+
+    public function delDoc($filename){
+        DB::table('saf_data_files')
+            ->where('file_name', $filename)
+            ->delete();
+
+        if(file_exists(public_path('assets/safety/Files/'.$filename))){
+            unlink(public_path('assets/safety/Files/'.$filename));
+        }
+    }
+
+    public function FilterList(Request $request){
+        $colname = $request->filter;
+
+        $filter = DB::select("select distinct $colname as colname from saf_incident_records where $colname is not null and year(inc_date) = ?", [$request->year]);
+        return $filter;
+    }
+
+    public function FilterResult(Request $request){
+        $param = [
+            $request->values,
+            $request->filter,
+            $request->year
+        ];
+        $result = DB::select('exec usp_saf_incident_filter ?, ?, ?', $param);
+        return $result;
+    }
+
+
+
+    public function getMin()
+    {
+        $mn = DB::table('saf_data_category')->min('category');
+        return $mn;
+    }
+
 
 }

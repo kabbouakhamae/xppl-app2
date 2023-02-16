@@ -4,7 +4,7 @@
     </div> 
     <div v-else>
         <div class="card">
-            <div v-if="main">
+            <div v-if="view == 'data'">
                 <div class="card-header pd-r-15 pd-t-10 pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center">
@@ -25,19 +25,19 @@
                 <div class="card-body pd-t-0">
                     <div class="d-lg-flex justify-content-between mt-1 mb-1">
                         <div class="pos-relative wd-lg-300 wd-100p">
-                            <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search..." v-model="search" @input="searchChanged()" title="Search by name">
+                            <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search..." v-model="search" @input="searchChanged()" title="Search by Incident Number or Title">
                                 <i class="fe fe-search search-i text-muted"></i>
                             <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                         </div>
                         <div class="d-flex justify-content-end mt-xl-0 mt-lg-0 mt-md-1 mt-1">
-                            <div class="wd-md-150 wd-100p me-1">
+                            <div class="wd-md-150 wd-100p">
                                 <Multiselect v-model="year" :searchStart="true" :options="lkYear" @select="selChanged()"/>
                             </div>
-                            <div class="wd-35">
-                                <button type="button" class="btn btn-outline-primary p-0 border wd-35" title="Add new record" @click="newIncident()">
+                            <div class="wd-35 ms-1">
+                                <button type="button" class="btn btn-outline-primary p-0 border wd-35" title="Add new record" @click="newIncident(), btn =true">
                                     <i class="fa fa-plus tx-14"></i>
                                 </button>
-                            </div>
+                            </div> 
                         </div>
                     </div>
 
@@ -45,24 +45,82 @@
                         <table class="table main-table-reference text-nowrap mg-b-0">
                             <thead class="position-sticky" style="top: 0px; z-index: 1">
                                 <tr>
-                                    <th class="position-sticky border-start-0" style="left: -0.1px">ID</th>
-                                    <th>Date</th>
+                                    <!-- <th class="position-sticky border-start-0" style="left: -0.1px">ID</th> -->
+                                    <th class="border-start-0">No.</th>
+                                    <!-- <th>Inc No.</th> -->
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Inc No
+                                            <i v-if="filterMode =='inc_no'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_no'), filterName ='Incident Number'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_no'), filterName ='Incident Number'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Date
+                                            <i v-if="filterMode =='inc_date'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_date'), filterName ='Incident Date'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_date'), filterName ='Incident Date'"></i>
+                                        </div>
+                                    </th>
                                     <th>Incident Title</th>
-                                    <th>Company</th>
-                                    <th>Department</th>
-                                    <th>Incident Group</th>
-                                    <th>Incident Type</th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Company
+                                            <i v-if="filterMode =='company'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('company'), filterName ='Company'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('company'), filterName ='Company'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Department
+                                            <i v-if="filterMode =='dept'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('dept'), filterName ='Department'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('dept'), filterName ='Department'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Incident Group
+                                            <i v-if="filterMode =='inc_group'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_group'), filterName ='Incident Group'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_group'), filterName ='Incident Group'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Incident Type
+                                            <i v-if="filterMode =='inc_type'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_type'), filterName ='Incident Type'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_type'), filterName ='Incident Type'"></i>
+                                        </div>
+                                    </th>
                                     <th>Significant</th>
-                                    <th>Flash Alert 24h</th>
-                                    <th>Injury Type</th>
-                                    <th>Injury Group</th>
+                                    <th>Alert 24h</th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Injury Type
+                                            <i v-if="filterMode =='injury_type'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_type'), filterName ='Injury Type'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_type'), filterName ='Injury Type'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Injury Group
+                                            <i v-if="filterMode =='injury_group'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_group'), filterName ='Injury Group'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_group'), filterName ='Injury Group'"></i>
+                                        </div>
+                                    </th>
                                     <th>Injury Part</th>
-                                    <th>Actual Severity</th>
-                                    <th>Potential Severity</th>
-                                    <th>Risk Rating</th>
-                                    <th>invested status</th>
+                                    <th>Actual</th>
+                                    <th>Potential</th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Rating
+                                            <i v-if="filterMode =='risk_rating'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('risk_rating'), filterName ='Risk Rating'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('risk_rating'), filterName ='Risk Rating'"></i>
+                                        </div>
+                                    </th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">invested Status
+                                            <i v-if="filterMode =='invest_status'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('invest_status'), filterName ='Investigate Status'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('invest_status'), filterName ='Investigate Status'"></i>
+                                        </div>
+                                    </th>
                                     <th>invested Lead By</th>
-                                    <th>Action Status</th>
+                                    <th class="border-start-0">
+                                        <div class="d-flex justify-content-between">Action Status
+                                            <i v-if="filterMode =='action_status'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('action_status'), filterName ='Action Status'"></i>
+                                            <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('action_status'), filterName ='Action Status'"></i>
+                                        </div>
+                                    </th>
                                     <th>Action Due Date</th>
                                     <th>Incident Manager</th>
                                     <th>Follow up By</th>
@@ -72,10 +130,14 @@
                                 </tr>
                             </thead>
                             <tbody> 
-                                <tr v-for="row in incData" :key="row.id" class="tr-hover">
-                                    <td class="border-start-0 position-sticky cur-pointer" style="left: -0.1px; background-color: #FFFFFF" title="Double click to see details" @click="preview(row.id)" >{{row.inc_id}}</td>
+                                <tr v-for="(row, inx) in incData" :key="row.id" class="tr-hover">
+                                    <!-- <td class="border-start-0 position-sticky cur-pointer" style="left: -0.1px; background-color: #FFFFFF" title="Double click to see details" @click="preview(row.id)" >{{row.inc_id}}</td> -->
+                                    <td class="border-start-0 tx-center" >{{inx +1}}</td>
+                                    <th class="tx-center">{{row.inc_no}}</th>
                                     <td>{{dformat(row.inc_date)}}</td>
-                                    <td class="laofont">{{cutWord(row.inc_title)}}</td>
+                                    <td class="laofont bg-danger cur-pointer" v-if="row.risk_rating >=20" @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
+                                    <td class="laofont cur-pointer" v-else @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
+                                    <!-- <td class="laofont">{{cutWord(row.inc_title)}}</td> -->
                                     <td>{{row.company}}</td>
                                     <td>{{row.dept}}</td>
                                     <td>{{row.inc_group}}</td>
@@ -87,7 +149,8 @@
                                     <td class="laofont">{{ cutWord(row.injury_part) }}</td>
                                     <td>{{row.actual_severity}}</td>
                                     <td>{{row.potential_severity}}</td>
-                                    <td>{{row.risk_rating}}</td>
+                                    <td class="text-end bg-danger" v-if="row.risk_rating >= 20">{{row.risk_rating}}</td>
+                                    <td class="text-end" v-else> {{row.risk_rating}} </td>
                                     <td>{{row.invest_status}}</td>
                                     <td>{{row.invest_lead}}</td>
                                     <td>{{row.action_status}}</td>
@@ -101,7 +164,7 @@
                                             <button class="btn btn-sm btn-icon btn-i p-0" title="Preview" @click="preview(row.id, row.inc_id)">
                                                 <i class="bx bx-search text-primary" style="font-size: 16px"></i>
                                             </button> 
-                                            <button class="btn btn-sm btn-icon btn-i p-0" title="Edit" @click="editIncident(row.id, row.inc_id)">
+                                            <button class="btn btn-sm btn-icon btn-i p-0" title="Edit" @click="editIncident(row.id, row.inc_id), btn = false">
                                                 <i class="bx bx-edit text-info" style="font-size: 16px"></i>
                                             </button> 
                                             <button class="btn btn-sm btn-icon btn-i p-0" title="Delete" @click="delIncident(row.id, row.inc_id)">
@@ -116,39 +179,34 @@
                 </div>
             </div>
 
-            <!-- Preview -->
-            <div v-else >
-
+            <!-- PREVIEW -->
+            <div v-if="view =='prev'" >
                 <div class="card-header">
-                    
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center">
                             <!-- <h4 class="card-title mg-b-0 text-muted text-capitalize">Incident <span class="text-danger">#{{prevData[0].inc_id}}</span></h4> -->
                         </div>
                         <div class="d-flex justify-content-end align-items-center">
-                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover" @click="backMain()" title="Back to main">
+                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover" @click="backMain(), view ='data'" title="Back to main">
                                 <div><i class="fa fa-arrow-left me-1 text-primary tx-12"></i></div>
                                 <span class="text-primary tx-13">Back</span>
                             </div>
-                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover ms-3" @click="editIncident(this.prevData[0].id, this.prevData[0].inc_id)" title="Edit">
+                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover ms-3" @click="editIncident(this.prevData[0].id, this.prevData[0].inc_id), btn =false" title="Edit">
                                 <div><i class="fa fa-edit me-1 text-primary tx-12"></i></div>
                                 <span class="text-primary tx-13">Edit</span>
                             </div>
                         </div>
                     </div>
-
-                <div class="invoice-header mt-3">
-                    <h4 class="invoice-title">Incident {{prevData[0].inc_id}}</h4>
-                    <div class="billed-from">
-                        <h6>Incident Title</h6>
-                        <span class="laofont tx-14">{{prevData[0].inc_title}}</span>
+                    <div class="invoice-header mt-3">
+                        <!-- <h4 class="invoice-title">Incident {{prevData[0].inc_id}}</h4> -->
+                        <h4 class="invoice-title">Incident {{prevData[0].inc_no}}</h4>
+                        <div class="billed-from">
+                            <h6>Incident Title</h6>
+                            <span class="laofont tx-15">{{prevData[0].inc_title}}</span>
+                        </div>
                     </div>
                 </div>
-
-                </div>
-
                 <div class="card-body pd-t-20">
-
                     <div class="row">
                         <div class="col-xl-3">
                             <h6>Incident Information</h6>
@@ -173,7 +231,6 @@
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].inc_type}}</span></span> 
                             </div>
                         </div>
-                        
                         <div class="col-xl-3">
                             <h6>Significant and Risk Rating</h6>
                             <div class="d-flex justify-content-start">
@@ -202,7 +259,7 @@
                             <h6>Injury Details</h6>
                             <div class="d-flex justify-content-start">
                                 <span class="tx-name">Injury Type</span>
-                                <span class="tx-data">:<span class="ps-2">{{prevData[0].inj_type}}</span></span> 
+                                <span class="tx-data">:<span class="ps-2">{{prevData[0].injury_type}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
                                 <span class="tx-name">Body Group</span>
@@ -241,18 +298,21 @@
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].followup_by}}</span></span> 
                             </div>
                         </div>
-     
                     </div>
-
-                    <h6 class="mg-t-40">Corrective Action</h6>
-                    <div class="laofont tx-13 f-color">
-                        {{prevData[0].comments}}
+                    <div class="row">
+                        <div class="col-xl-6 mg-t-20 bd-xl-r">
+                            <h6 class="">Incident Description</h6>
+                            <div class="laofont tx-14">
+                                {{prevData[0].inc_descr}}
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <h6 class="mg-t-20">Corrective Action</h6>
+                            <div class="laofont tx-14">
+                                {{prevData[0].comments}}
+                            </div>
+                        </div>
                     </div>
-                    <h6 class="mg-t-20">Incident Description</h6>
-                    <div class="laofont tx-13 f-color">
-                        {{prevData[0].inc_descr}}
-                    </div>
-
                     <h6 class="mg-t-40">Attachments</h6>
                     <div>
                         <div v-for="(lst, inx) in fileData" :key="inx">
@@ -265,39 +325,42 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade effect-scale bd-0" id="incident" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="incidentLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header pb-1 bd-b-0">
-                    <h6 class="text-muted">Incident <span class="text-danger">{{incForm.inc_id}}</span></h6>
-                    <div v-if="data" class="d-flex justify-content-start align-items-center cur-pointer add-hover" @click="document()" title="Attache files">
-                        <div><i class="mdi mdi-paperclip text-primary tx-16"></i></div>
-                        <span class="text-primary tx-14">Attachments</span>
-                    </div>
-                    <div v-else class="d-flex justify-content-start align-items-center cur-pointer add-hover" @click="back()" title="Back">
-                        <div><i class="fa fa-arrow-left me-1 text-primary tx-12"></i></div>
-                        <span class="text-primary tx-14">Back</span>
-                    </div>
-                </div>
-                <div class="modal-body pt-1">                                   
-                    <div v-if="data">
-                        <div class="row">
+            <!-- ADD NEW/EDIT INCIDENT -->
+            <div v-if="view =='new'">
+                <div class="card-body">
+                    <h4 v-if="attachMode" class="card-title mg-b-0 text-muted text-capitalize">Add new incident ID {{incForm.inc_id}}</h4>
+                    <h4 v-else class="card-title mg-b-0 text-muted text-capitalize">Edit incident ID {{incForm.inc_id}}</h4>
+                    <div class="row mt-2">
+                            <div class="col-xl-1 col-lg-2">
+                                <div class="form-group">
+                                    <label class="mb-0">No. <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" v-model="incForm.inc_no">
+                                </div>
+                            </div>
                             <div class="col-xl-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="mb-0">Incident Date  <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" v-model="incForm.inc_date">
                                 </div>
                             </div>
-                            <div class="col-xl-5 col-lg-9">
+                            <div class="col-xl-5 col-lg-7">
                                 <div class="form-group">
                                     <label class="mb-0">Incident Title  <span class=" text-danger">*</span></label>
                                     <input type="text" class="form-control laofont" v-model="incForm.inc_title">
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-4 col-6">
+                                <div class="form-group">
+                                    <label class="mb-0">Significant  <span class=" text-danger">*</span></label> 
+                                    <Multiselect v-model="incForm.significant" :options="lkYesNo"/>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-4 col-6">
+                                <div class="form-group">
+                                    <label class="mb-0">Flash Alert 24h  <span class=" text-danger">*</span></label> 
+                                    <Multiselect v-model="incForm.flash_alert" :options="lkYesNo"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-3">
@@ -325,31 +388,20 @@
                                     <Multiselect v-model="incForm.inc_type" :searchable="true" :searchStart="true" :options="lkIncType"/>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-lg-4 col-6">
-                                <div class="form-group">
-                                    <label class="mb-0">Significant  <span class=" text-danger">*</span></label> 
-                                    <Multiselect v-model="incForm.significant" :options="lkYesNo"/>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-6">
-                                <div class="form-group">
-                                    <label class="mb-0">Flash Alert 24h  <span class=" text-danger">*</span></label> 
-                                    <Multiselect v-model="incForm.flash_alert" :options="lkYesNo"/>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4">
+                            
+                            <div class="col-xl-2 col-lg-4">
                                 <div class="form-group">
                                     <label class="mb-0">Injury Type  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inj_type" :searchable="true" :searchStart="true" :options="lkInjType"/>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-4">
+                            <div class="col-xl-2 col-lg-4">
                                 <div class="form-group">
                                     <label class="mb-0">Injury Body Group  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inj_group" :searchable="true" :searchStart="true" :options="lkInjGroup"/>
                                 </div>
                             </div>
-                            <div class="col-xl-5 col-lg-4">
+                            <div class="col-xl-4 col-lg-4">
                                 <div class="form-group">
                                     <label class="mb-0">Injury Body Part</label>
                                     <input type="text" class="form-control laofont" v-model="incForm.inj_part">
@@ -367,13 +419,13 @@
                                     <Multiselect v-model="incForm.pot_seq" :options="lkPotSeq"/>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-6">
+                            <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
                                     <label class="mb-0">Investigate Status <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.invest_status" :options="lkInvest"/>
                                 </div>
                             </div>
-                            <div class="col-xl-5 col-lg-4 col-6">
+                            <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
                                     <label class="mb-0">Investigate Lead By</label>
                                     <input type="text" class="form-control" v-model="incForm.invest_lead">
@@ -391,113 +443,139 @@
                                     <input type="date" class="form-control" v-model="incForm.action_duedate">
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6">
+                            <div class="col-xl-2 col-lg-6">
                                 <div class="form-group">
                                     <label class="mb-0">Incident Manager</label>
                                     <input type="text" class="form-control" v-model="incForm.inc_manager">
                                 </div>
                             </div>
-                            <div class="col-xl-5 col-lg-6">
+                            <div class="col-xl-2 col-lg-6">
                                 <div class="form-group">
                                     <label class="mb-0">Follow Up By</label>
                                     <input type="text" class="form-control" v-model="incForm.followup_by">
                                 </div>
                             </div>   
-                            <div class="col-xl-4 col-lg-6 col-12">
-                                <div class="form-group">
-                                    <label class="mb-0">Corrective Action</label>
-                                    <textarea class="form-control laofont" style="height: 150px" v-model="incForm.comments"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-6 col-12">
+                            <div class="col-xl-6 col-12">
                                 <div class="form-group">
                                     <label class="mb-0">Incident Description <span class=" text-danger">*</span></label>
-                                    <textarea class="form-control laofont" style="height: 150px" v-model="incForm.inc_descr"></textarea>
+                                    <textarea class="form-control laofont" style="height: 165px" v-model="incForm.inc_descr"></textarea>
                                 </div>
                             </div> 
-                        </div>
-                    </div>
-                    <div v-else>
-                        <div v-if="btnShow">
-                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles()" title="Add new files">
-                                <div><i class="fa fa-plus me-1 text-primary tx-10 mb-2"></i></div>
-                                    <span class="text-primary tx-13">Add</span>
-                                <input class="d-none" ref="fileInput" type="file" multiple  @change="addTmp()">
-                            </div>
-
-                            <div class="table-responsive border-start border-end border-bottom mb-2" style="max-height: 600px">
-                                <table class="table main-table-reference text-nowrap mg-b-0">
-                                    <thead class="position-sticky" style="top: 0px">
-                                        <tr>
-                                            <th class="border-start-0 text-center wd-15">No</th>
-                                            <th>File Name</th>
-                                            <th class="border-end-0 wd-60p">Tools</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> 
-                                        <tr class="tr-hover" v-for="(lst, inx) in tmpFiles" :key="inx">
-                                            <td class="border-start-0 text-center">{{inx + 1}}</td>
-                                            <td>{{lst.name}}</td>
-                                            <td class="p-0 align-middle border-end-0">
-                                                <div class="d-flex justify-content-start ms-1">
-                                                    <button class="btn btn-sm btn-icon btn-i p-0" title="Remove file" @click="delTmp(inx)">
-                                                        <i class="fe fe-x text-danger" style="font-size: 16px"></i>
-                                                    </button> 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="col-xl-6 col-12">
+                                <div class="form-group">
+                                    <label class="mb-0">Corrective Action</label>
+                                    <textarea class="form-control laofont" style="height: 165px" v-model="incForm.comments"></textarea>
+                                </div>
                             </div>
                         </div>
-                        <div v-else >
-                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles()" title="Add new files">
-                                <div><i class="fa fa-plus me-1 text-primary tx-10 mb-2"></i></div>
-                                    <span class="text-primary tx-13">Add</span>
-                                <input class="d-none" ref="fileInput" type="file" multiple  @change="addFiles()">
-                            </div>
 
-                            <div class="table-responsive mb-2" style="max-height: 600px">     
-                                <table class="table main-table-reference text-nowrap mg-b-0">
-                                    <thead class="position-sticky" style="top: 0px">
-                                        <tr>
-                                            <th class="text-center wd-15">No</th>
-                                            <th>File Name</th>
-                                            <th class="wd-60p">Tools</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> 
-                                        <tr class="tr-hover" v-for="(lst, inx) in fileData" :key="lst.id">
-                                            <td class="text-center">{{inx + 1}}</td>
-                                            <td>{{lst.file_name}}</td>
-                                            <td class="p-0 align-middle">
-                                                <div class="d-flex justify-content-start ms-1">
-                                                    <button class="btn btn-sm btn-icon btn-i p-0" title="Download file" @click="downloadFile(lst.file_name)">
-                                                        <i class="bx bxs-download text-primary" style="font-size: 16px"></i>
-                                                    </button> 
-                                                    <button class="btn btn-sm btn-icon btn-i p-0" title="Delete file" @click="delFile(lst.file_name)">
-                                                        <i class="bx bx-trash text-danger" style="font-size: 16px"></i>
-                                                    </button> 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <!-- ATTACHEMENTS -->
+                        <div v-if="attachMode">
+                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles1()" title="Add new files">
+                                <div><i class="mdi mdi-paperclip me-1 text-primary tx-16"></i></div>
+                                    <span class="text-primary tx-14">Attachments</span>
+                                <input class="d-none" ref="fileInput1" type="file" multiple @change="addTmp()">
                             </div>
-                        </div> 
-                    </div>
+                            <div>
+                                <div v-for="(lst, inx) in tmpFiles" :key="inx">
+                                    <div class="d-flex justify-content-start align-items-center tx-13 f-color">
+                                        <div class="d-flex justify-content-start ms-1">
+                                            <button class="btn btn-sm btn-icon btn-i p-0" title="Remove file" @click="delTmp(inx)">
+                                                <i class="fe fe-x text-danger" style="font-size: 16px"></i>
+                                            </button> 
+                                        </div>
+                                        {{lst.name}} 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles2()" title="Add new files">
+                                <div><i class="mdi mdi-paperclip me-1 text-primary tx-16"></i></div>
+                                    <span class="text-primary tx-14">Attachments</span>
+                                <input class="d-none" ref="fileInput2" type="file" multiple @change="addFiles()">
+                            </div>
+                            <div v-for="(lst, inx) in fileData" :key="inx">
+                                <div class="d-flex justify-content-start align-items-center tx-13 f-color">
+                                    <div class="d-flex justify-content-start ms-1">
+                                        <button class="btn btn-sm btn-icon btn-i p-0" title="Download file" @click="downloadFile(lst.file_name)">
+                                            <i class="bx bxs-download text-primary" style="font-size: 16px"></i>
+                                        </button> 
+                                        <button class="btn btn-sm btn-icon btn-i p-0" title="Delete file" @click="delFile(lst.file_name)">
+                                            <i class="bx bx-trash text-danger" style="font-size: 16px"></i>
+                                        </button> 
+                                    </div>
+                                    {{lst.file_name}} 
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="d-flex justify-content-end">
-                        <button v-if="btnShow" type="button" class="btn btn-primary" :class="incAddDis" @click="addIncident()">
+                    <div class="d-flex justify-content-end mt-2 pb-2">
+                        <button v-if="btn" type="button" class="btn btn-primary" :class="incAddDis" @click="addIncident()">
                             <i class="fe fe-plus"></i><span class="mx-1">Add</span>
                         </button>
                         <button v-else type="button" class="btn btn-primary" :class="incAddDis" @click="updIncident()">
                             <i class="fe fe-save"></i><span class="mx-1">Save</span>
                         </button>
-                        <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal">
-                            <i class="fe fe-x"></i><span class="mx-1">Close</span>
+                        <button type="button" class="btn btn-secondary ms-1" @click="view ='data'"><i class="fe fe-x"></i> 
+                            <span class="mx-1">Close</span>
                         </button>
                     </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FILTER -->
+    <div class="modal fade effect-scale" id="Filter" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="positionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header pb-1 bd-b-0">
+                    <h6 class="main-content-label text-capitalize">Filter by {{filterName}}</h6>
+                    <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body pt-2">  
+                    <div class="table-responsive element border" style="max-height: 410px; min-height: 200px">
+                        <table class="table main-table-reference text-nowrap mg-b-0">
+                            <thead class="position-sticky" style="top: 0px; z-index: 1">
+                                <tr>
+                                    <th class="border-0" style="padding: 5px 10px">
+                                        <label class="form-checkbox m-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <input type="checkbox" v-model="filterAll" @click="SelectAllItem()">
+                                                <i class="form-icon"></i>
+                                                <!-- <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">{{filterName}} List</span> -->
+                                                <span v-if="filterAll" class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Unselect All</span>
+                                                <span v-else class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Select All</span>
+                                            
+                                            </div>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="tr-hover" v-for="(item, inx) in filterList" :key="inx">
+                                    <td class="border-0">
+                                        <label class="form-checkbox m-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <input type="checkbox" :value="item.colname" v-model="filterSelected">
+                                                <i class="form-icon"></i>
+                                                
+                                                <span v-if="filterBy == 'inc_date'" class="ms-2 cur-pointer">{{dformat(item.colname)}}</span>
+                                                <span v-else class="ms-2 cur-pointer">{{item.colname}}</span>
+
+                                            </div>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <button v-if="filterMode == filterBy" type="button" class="btn btn-secondary me-1" @click="getIncident()"><span class="px-3">Clear Filter</span></button> 
+                        <button type="button" class="btn btn-primary" :class="FilterDis" @click="FilterResult()"><span class="px-3">Filter</span></button> 
+                    </div>              
                 </div>
             </div>
         </div>                                              
@@ -527,22 +605,27 @@ export default {
             lkComp: [],
             lkDept: [],
 
-
             incData: [],
             prevData: [],
             tmpFiles: [],
             fileData: [],
-            incForm: {id: '', inc_id: '', inc_date: '', inc_type: null, inc_title: '', inc_descr: '', flash_alert: null, significant: null, inj_type: null, inj_group: null, inj_part: '', act_seq: null, pot_seq: null, invest_status: null, invest_lead: '', action_status: null,  action_duedate: '', inc_group: null, inc_manager: '', company: null, dept: '', followup_by: '', comments: ''},
+            incForm: {id: '', inc_id: '', inc_no: '', inc_date: '', inc_type: null, inc_title: '', inc_descr: '', flash_alert: null, significant: null, inj_type: null, inj_group: null, inj_part: '', act_seq: null, pot_seq: null, invest_status: null, invest_lead: '', action_status: null,  action_duedate: '', inc_group: null, inc_manager: '', company: null, dept: '', followup_by: '', comments: ''},
 
             year: '',
             search: '',
             btnClear: false,
-            main: true,
-            data: '',
-            btnShow: '',
-            addShow: '',
+
             loading: false,
             exIncData: [],
+
+            filterSelected: [],
+            filterAll: false,
+            filterList: [],
+            filterBy: '',
+            filterMode: '',
+
+            view: 'data',
+            attachMode: ''
             
         };
     },
@@ -554,7 +637,15 @@ export default {
     computed: {
         incAddDis(){
             let f = this.incForm;
-            if (f.inc_date == '' || f.inc_title == '' || f.company == null || f.inc_group == null || f.inc_type == null || f.significant == null || f.flash_alert == null || f.inj_type == null || f.inj_group == null || f.act_seq == null || f.pot_seq == null || f.invest_status == null || f.action_status == null || f.inc_descr == '') {
+            if (f.inc_no == '' || f.inc_date == '' || f.inc_title == '' || f.company == null || f.inc_group == null || f.inc_type == null || f.significant == null || f.flash_alert == null || f.inj_type == null || f.inj_group == null || f.act_seq == null || f.pot_seq == null || f.invest_status == null || f.action_status == null || f.inc_descr == '') {
+                return 'disabled';
+            } else {
+                return '';
+            }
+        },
+
+        FilterDis(){
+            if (this.filterSelected == ''){
                 return 'disabled';
             } else {
                 return '';
@@ -572,8 +663,6 @@ export default {
 
             // const info = await axios.get(`/api/annual/info?dept=${this.dept}&year=${this.year}&search=${this.search}`)
             // this.infoData = info.data;
-
-
 
             const dept = await axios.get('/api/lookup/dept')
             this.lkDept = dept.data;
@@ -620,16 +709,54 @@ export default {
 
         },
 
+        async FilterList(col){
+            this.filterSelected = [];
+            this.filterAll = false;
+            this.filterBy = col;
+
+            const res = await axios.get(`/api/safety/filterlist?filter=${col}&year=${this.year}`)
+            this.filterList = res.data;
+            $('#Filter').modal('show');
+        },
+
+        SelectAllItem(){
+            this.filterSelected = [];
+            if (!this.filterAll) {
+                for (let i in this.filterList) {
+                    this.filterSelected.push(this.filterList[i].colname);
+                }
+            }    
+        },
+
+        async FilterResult(){
+            this.search = '';
+            this.btnClear = false;
+            this.filterMode = this.filterBy;
+            
+            $('#Filter').modal('hide');
+            const res = await axios.post('/api/safety/filterresult', {
+                    values: "'" + this.filterSelected.join("','") + "'",
+                    year: this.year,
+                    filter: this.filterBy    
+                });
+            this.incData = res.data;    
+        },
+
         async selChanged(){
             this.loading = true; 
             const res = await axios.get(`/api/safety/increcord?year=${this.year}&search=${this.search}`)
             this.incData = res.data;
+            this.filterMode = '';
             this.loading = false; 
         },
 
         getIncident(){
             this.$axios.get(`/api/safety/increcord?year=${this.year}&search=${this.search}`)
-            .then(res => this.incData = res.data)
+            .then(res => {
+                this.incData = res.data;
+                this.filterMode = '';
+                $('#Filter').modal('hide');
+            })
         },
 
         searchChanged(){
@@ -649,7 +776,7 @@ export default {
         },
 
         async preview(id, incid){
-            this.main = false;
+            this.view = 'prev'
 
             const incdata = await axios.get(`/api/safety/preview?id=${id}`)
             this.prevData = incdata.data;
@@ -664,12 +791,10 @@ export default {
         },
 
         newIncident(){
-
-            this.btnShow = true;
-            this.data = true;
+            this.view = 'new';
+            this.attachMode = true;
             this.tmpFiles = [];
             this.incFormClear();
-            $('#incident').modal('show');
 
             this.$axios.get('/api/safety/newincid')
             .then(res => this.incForm.inc_id = res.data)
@@ -678,8 +803,6 @@ export default {
         async addIncident(){
             const inc = await axios.post('/api/safety/addincident', this.incForm)
             if(inc.data.success){
-
-                $('#incident').modal('hide');
                 this.getIncident();
 
                 // add attached file
@@ -691,7 +814,7 @@ export default {
                         fd.append('incid', this.incForm.inc_id);
                 }
                 const doc = await axios.post('/api/safety/addfiles', fd, {headers:{"Content-Type": "multipart/form-date"}})
-
+                this.view = 'data';
             } else {
                 alert(inc.data.message)
             };
@@ -699,14 +822,13 @@ export default {
 
         async editIncident(id, incid){
             this.incFormClear();
-            this.btnShow = false;
-            this.data = true;
-            this.main = true;
-            $('#incident').modal('show');
+            this.view = 'new';
+            this.attachMode = false;
 
             const inc = await axios.post(`/api/safety/editincident/${id}`)
             let f = this.incForm;
                 f.id = inc.data.id;
+                f.inc_no = inc.data.inc_no;
                 f.inc_id = inc.data.inc_id;
                 f.inc_date = moment(inc.data.inc_date).format('YYYY-MM-DD');
                 f.inc_title = inc.data.inc_title;
@@ -738,10 +860,8 @@ export default {
         updIncident(){
             this.$axios.post('/api/safety/updincident', this.incForm)
             .then((response)=>{
-
-                $('#incident').modal('hide');
                 this.getIncident();
-
+                this.view = 'data';
             }).catch((error)=>{
                 console.log(error);
             })
@@ -785,6 +905,7 @@ export default {
 
         incFormClear(){
             let f = this.incForm;
+                f.inc_no = '';
                 f.inc_date = '';
                 f.inc_type = null;
                 f.inc_title = '';
@@ -821,13 +942,16 @@ export default {
             .then(res => this.fileData = res.data);
         },
 
-        newFiles(){
-            this.$refs.fileInput.click();
+        newFiles1(){
+            this.$refs.fileInput1.click();
+        },
+        newFiles2(){
+            this.$refs.fileInput2.click();
         },
 
         addTmp(){
-            for (let i = 0; i < this.$refs.fileInput.files.length; i++){
-                this.tmpFiles.push(this.$refs.fileInput.files[i]);
+            for (let i = 0; i < this.$refs.fileInput1.files.length; i++){
+                this.tmpFiles.push(this.$refs.fileInput1.files[i]);
             }
         },
 
@@ -838,9 +962,9 @@ export default {
 
         addFiles(){
             let fd = new FormData();
-            for (let i = 0; i < this.$refs.fileInput.files.length; i++){
+            for (let i = 0; i < this.$refs.fileInput2.files.length; i++){
                 
-                let file = this.$refs.fileInput.files[i];
+                let file = this.$refs.fileInput2.files[i];
                     fd.append('files[' + i + ']', file);
                     fd.append('incid', this.incForm.inc_id);
             }
@@ -882,9 +1006,7 @@ export default {
                     if(result.isConfirmed){
                         this.$axios.post(`api/safety/delfile/${file}`)
                         .then(res => {
-                            this.data = false;
                             this.getFiles(this.incForm.inc_id);
-                            // $('#incident').modal('show');
                         })
                     } 
                     $('#incident').modal('show');
@@ -929,7 +1051,7 @@ export default {
                 }
             }
 		}
-
+ 
 
     },
 

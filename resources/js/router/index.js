@@ -14,15 +14,15 @@ import FuelReport from "../pages/FuelReport.vue";
 import FuelLookup from "../pages/FuelLookup.vue";
 import Lookup from "../pages/Lookup.vue";
 import Roster from "../pages/Roster.vue";
-import CarRentDetail from "../pages/CarRentDetail.vue";
-import CarRentReport from "../pages/CarRentReport.vue";
-import CarRentCode from "../pages/CarRentCode.vue";
 import Fingerscan from "../pages/Fingerscan.vue";
 import IncidentRecord from "../pages/IncidentRecord.vue";
 import IncidentLookup from "../pages/IncidentLookup.vue";
 import IncidentReport from "../pages/IncidentReport.vue";
 import Overtime from "../pages/Overtime.vue";
 import ProdEntry from "../pages/ProdEntry.vue";
+import PR from "../pages/PR.vue";
+import SafetyDocument from "../pages/SafetyDocument.vue";
+import MedicalRecord from "../pages/MedicalRecord.vue";
 import Macro from "../pages/Macro.vue";
 
 
@@ -95,21 +95,6 @@ const routes =[
         component: Roster
     },
     {
-        name: "carrentdetail",
-        path: "/carrentdetail",
-        component: CarRentDetail
-    },
-    {
-        name: "carrentreport",
-        path: "/carrentreport",
-        component: CarRentReport
-    },
-    {
-        name: "carrentcode",
-        path: "/carrentcode",
-        component: CarRentCode
-    },
-    {
         name: "macro",
         path: "/macro",
         component: Macro
@@ -143,6 +128,21 @@ const routes =[
         name: "prodentry",
         path: "/prodentry",
         component: ProdEntry
+    },
+    {
+        name: "pr",
+        path: "/pr",
+        component: PR
+    },
+    {
+        name: "safdocument",
+        path: "/safdocs",
+        component: SafetyDocument
+    },
+    {
+        name: "medicalrecord",
+        path: "/medicalrecord",
+        component: MedicalRecord
     },
 
 

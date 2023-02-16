@@ -20,9 +20,6 @@
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="breakInfo()">
                                 <i class="mdi mdi-airplane-takeoff tx-15 me-2"></i><span>Roster Break Info</span>
                             </div>
-                            <div class="dropdown-item cur-pointer dropdown-hover" @click="multiSearch()">
-                                <i class="mdi mdi-filter tx-15 me-2"></i><span>Filter by Names</span>
-                            </div>
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="shiftWork()">
                                 <i class="mdi mdi-brightness-6 tx-15 me-2"></i><span>Shift Work Update</span>
                             </div>
@@ -43,20 +40,25 @@
             <div class="card-body pd-t-0 pd-b-0">
                 <div class="d-xl-flex justify-content-between mt-1 mb-1">
                     <div class="pos-relative wd-lg-300 wd-100p">
-                        <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search for name" v-model="search" @input="searchChange()" @keyup.enter="getRoster()" title="Search by name, Crew or Section">
+                        <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search for name" v-model="search" @input="searchChange()" @keyup.enter="rosSearchName()" title="Search by name">
                             <i class="fe fe-search search-i text-muted"></i>
                         <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                     </div>
                     <div class="d-md-flex justify-content-end mt-xl-0 mt-lg-1 mt-md-1 mt-1">
-                        <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1" v-if="permiss.ros_all == 1" >
-                            <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="getRoster()"/>
+                        <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1" v-if="permiss.ros_all == 1" style="z-index: 999">
+                            <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="refreshRoster()"/>
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="wd-md-150 wd-100p">
-                                <input type="date" class="form-control" v-model="datefr" @change="getRoster()">
+                                <input type="date" class="form-control" v-model="datefr">
                             </div>
                             <div class="wd-md-150 wd-100p ms-1">
-                                <input type="date" class="form-control" v-model="dateto" @change="getRoster()">
+                                <input type="date" class="form-control" v-model="dateto">
+                            </div>
+                            <div class="wd-35 ms-1">
+                                <button type="button" class="btn btn-outline-primary p-0 border wd-35" title="Reload all" @click="getRoster()">
+                                    <i class="mdi mdi-reload tx-18"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -64,12 +66,27 @@
 
                 <div class="table-responsive border" style="max-height: 72vh">
                     <table class="table main-table-reference text-nowrap mg-b-0">
-                        <thead class="position-sticky" style="top: 0px; z-index: 1">
+                        <thead class="position-sticky" style="top: 0px; z-index: 99">
                             <tr>
                                 <th v-if="showCol.no" class="border-start-0 px-1">No</th>
-                                <th v-if="showCol.crew" class="px-1 border-start-0">Crew</th>
-                                <th class="px-1 position-sticky border-start-0" style="left: -1px">Name and Surname</th>
-                                <th v-if="showCol.position" class="px-1">Position</th>
+                                <th class="px-1 position-sticky border-start-0" style="left: -1px">
+                                    <div class="d-flex justify-content-between">Name and Surname
+                                        <i v-if="nameFilter == 'true'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="rosFilterNames()"></i>
+                                        <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="rosFilterNames()"></i>
+                                    </div>
+                                </th>
+                                <th v-if="showCol.position" class="px-1 border-start-0">
+                                    <div class="d-flex justify-content-between">Position
+                                        <i v-if="filterMode == 'Position'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterByPosition()"></i>
+                                        <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterByPosition()"></i>
+                                    </div>
+                                </th>
+                                <th v-if="showCol.crew" class="px-1 border-start-0">
+                                    <div class="d-flex justify-content-between">Crew
+                                        <i v-if="filterMode == 'Crew'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterByGroup()"></i>
+                                        <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterByGroup()"></i>
+                                    </div>
+                                </th>
                                 <th v-if="showCol.section" class="px-1">Section</th>
                                 <th v-if="showCol.type" class="px-1">Type</th>
                                 <th v-for="(col, colInx) in colData" :key="colInx" class="text-center" style="padding: 7px 5px" :title="col.mont" :style="headDate(col.colid) == cdate ? 'background-color: yellow; color: blue; font-weight: bold' : ''">
@@ -78,28 +95,68 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(row, rowInx) in rosData" :key="rowInx" @click="selectRow(rowInx, row.fullname, row.rtype)" :style="rowInx === rowSel && row.rtype == 'P' ? 'color: red; font-weight: 500' : rowInx === rowSel && row.rtype == 'A' ? 'color: blue; font-weight: 500' : ''" >
+                            <tr v-for="(row, rowInx) in rosData" :key="rowInx" @click="selectRow(row.userid, rowInx, row.fullname, row.rtype)" :style="rowInx === rowSel && row.rtype == 'P' ? 'color: red; font-weight: 500' : rowInx === rowSel && row.rtype == 'A' ? 'color: blue; font-weight: 500' : ''" >
                                 <td v-if="showCol.no" class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
-                                <td v-if="showCol.crew" class="px-1 border-start-0 cur-pointer" @dblclick="newCrew(row.id)">{{row.crew}}</td>
-                                <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px" title="Double click to see Roster details" @dblclick="rosDetail(row.userid)">{{row.fullname}}</td>
+                                <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px;" title="Double click to see Roster details" @dblclick="rosDetail(row.userid)">
+                                    <div v-if="!row.al">{{row.fullname}}</div>
+                                    <div v-else class="d-flex justify-content-between">
+                                        <span>{{row.fullname}}</span>
+                                        <span class="ms-1" title="Annual Leave">{{formatNumber(row.al)}}</span>
+                                    </div>
+                                </td>
                                 <td v-if="showCol.position" class="px-1" :title="row.position">{{cutWord(row.position)}}</td>
+                                <td v-if="showCol.crew" class="px-1 border-start-0 cur-pointer" @dblclick="newCrew(row.id)">{{row.crew}}</td>
                                 <td v-if="showCol.section" class="px-1 cur-pointer" @dblclick="newSection(row.id)">{{row.section}}</td>
                                 <td v-if="showCol.type" class="px-1 text-center">{{row.rtype}}</td>
-                                <td v-for="(col, colInx) in colData" :key="colInx" class="px-1 text-center cur-pointer" :title="mentDate(col.colid) +'  '+ row[col.colid]" 
+
+                                <td v-for="(col, colInx) in colData" :key="colInx" class="px-1 text-center align-middle" style="font-size: 12px" :title="comm(row[col.colid]) ? mentDate(col.colid) +'  '+ comm(row[col.colid]) : mentDate(col.colid)"
                                     :style="code(row[col.colid]) == 'W' || code(row[col.colid]) == 'WN' ? 'background-color: #F2F4F8':
                                             code(row[col.colid]) == 'W/2' ? 'background-color: #FFC000':
                                             code(row[col.colid]) == 'R' || code(row[col.colid]) == 'RW' || code(row[col.colid]) == 'OR' || code(row[col.colid]) == 'IR' ? 'background-color: #FFFFCC':
-                                            code(row[col.colid]) == 'A' || code(row[col.colid]) == 'A/2' || code(row[col.colid]) == 'IA' || code(row[col.colid]) == 'OA' || code(row[col.colid]) == 'AA' || code(row[col.colid])== 'H' || code(row[col.colid]) == 'OH' || code(row[col.colid]) == 'IH' || code(row[col.colid]) == 'OP' || code(row[col.colid]) == 'P' ? 'background-color: #FFFF99':
+                                            code(row[col.colid]) == 'A' || code(row[col.colid]) == 'A/2' || code(row[col.colid]) == 'IA' || code(row[col.colid]) == 'OA' || code(row[col.colid]) == 'AA' || code(row[col.colid])== 'H' || code(row[col.colid])== 'HH' || code(row[col.colid]) == 'OH' || code(row[col.colid]) == 'IH' || code(row[col.colid]) == 'OP' || code(row[col.colid]) == 'P' ? 'background-color: #FFFF99':
                                             code(row[col.colid]) == 'S' || code(row[col.colid]) == 'SS' || code(row[col.colid]) == 'IS' || code(row[col.colid]) == 'OS' ? 'background-color: #F2DCDB':
                                             code(row[col.colid]) == 'MR' ? 'background-color: #FF66FF':
                                             code(row[col.colid]) == 'N5' || code(row[col.colid]) == 'N6' || code(row[col.colid]) == 'D4' ? 'background-color: #E0E0E0':
-                                            code(row[col.colid]) == 'BWB' || code(row[col.colid]) == 'WO' || code(row[col.colid]) == 'IW' || code(row[col.colid]) == 'OW' ? 'background-color: #C6E0B4':
+                                            code(row[col.colid]) == 'BWB' || code(row[col.colid]) == 'WO' || code(row[col.colid]) == 'IW' || code(row[col.colid]) == 'OW' ? 'background-color: #e8f2e1':
                                             code(row[col.colid]) == 'T' || code(row[col.colid]) == 'T-' || code(row[col.colid]) == 'IT' || code(row[col.colid]) == 'OT' || code(row[col.colid]) == 'TT' ? 'background-color: #FF0000':''" 
-                                    
-                                    @dblclick="editRos(row.userid, col.colid, row.rtype, code(row[col.colid]), row.name, comments(row[col.colid]))"
                                     @click="countDay(rowInx, headDate1(col.colid))"
                                 >
-                                    {{ code(row[col.colid]) }}
+                                    <div v-if="code(row[col.colid])" class="cur-pointer" @dblclick="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx), optMode='Update'">
+                                        <div v-if="comm(row[col.colid])" class="text-decoration-underline">
+                                            {{code(row[col.colid])}}
+                                        </div>
+                                        <div v-else>
+                                            {{code(row[col.colid])}}
+                                        </div>
+                                        <!-- <div class="dropdown">
+                                            <div data-bs-toggle="dropdown" type="button">
+                                                <div v-if="comm(row[col.colid])" class="text-decoration-underline">
+                                                    {{code(row[col.colid])}}
+                                                </div>
+                                                <div v-else>
+                                                    {{code(row[col.colid])}}
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-menu tx-13" style="z-index: 99">
+                                                <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx)">
+                                                    <i class="fe fe-edit me-2"></i><span>Edit</span>
+                                                </div>
+                                                <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="DelRoster_Range(col.colid, colInx)">
+                                                    <i class="fe fe-trash-2 me-2"></i><span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div v-else class="p-0 cur-pointer" @dblclick="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx), optMode='Add'">
+                                        <button class="btn btn-sm p-0" style="width: 15px; height: 15px" title="Add"></button>
+
+                                        <!-- <button class="btn btn-sm p-0" style="width: 15px; height: 15px" data-bs-toggle="dropdown" title="Add"></button>
+                                        <div class="dropdown-menu tx-13">
+                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="AddRoster_Range(col.colid, colInx)">
+                                                <i class="fe fe-plus me-1"></i><span>Add</span>
+                                            </div>
+                                        </div> -->
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -114,69 +171,49 @@
             </div>
         </div>
 
-        <!-- Modal Update Rotser -->
-        <div class="modal fade effect-scale" id="roster" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="workOrderLabel" aria-hidden="true">
+        <!-- MODAL UPDATE, DELETE, ADD ROSTER -->
+        <div class="modal" id="modalUpdRoster" back data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
-                        <h6 class="main-content-label text-capitalize">{{shortname(fullname)}}: <span class="text-danger">{{type(rosForm.rtype)}}</span></h6>
-                        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
+                        <h6 class="main-content-label text-capitalize">{{shortname(fullname)}}. <span class="text-danger">{{type(rosForm.rtype)}}</span></h6>
                     </div>
-                    <div class="modal-body pt-2">  
-                        <div class=" d-flex justify-content-start mb-2">
-                            <label class="rdiobox cur-pointer"><input name="upd" type="radio" value="date" checked v-model="updMethod"><span>Date</span></label>
-                            <label class="rdiobox cur-pointer ms-5"><input name="upd" type="radio" value="range" v-model="updMethod"><span>Date Range</span></label>  
-                        </div>
-                        <div v-if="updMethod == 'date'"> 
-                             <div class="row">
-                                <div class="col-6 pe-1">
-                                    <div class="form-group">
-                                        <label class="mb-0">Date <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control px-2" v-model="rosForm.rdatefr">
-                                    </div>
-                                </div>
-                                <div class="col-6 ps-1">
-                                   <div class="form-group">
-                                        <label class="mb-0">Code <span class="text-danger">*</span></label> 
-                                        <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" :options="lkCode"/>
-                                    </div>
+                    <div class="modal-body pt-1">  
+                        <div class="row">
+                            <div class="col-5 pe-1">
+                                <div class="form-group">
+                                    <input type="date" class="form-control ps-2 pe-0" disabled v-model="rosForm.rdatefr">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="mb-0">Comments</label>
-                                <textarea class="form-control laofont" style="height: 100px" v-model="rosForm.comment"></textarea>
-                            </div>   
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" :class="rosDateDis" @click="updRosDate()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
-                                <button type="button" class="btn btn-purple ms-1" :class="rosDateDis" @click="updRosDateRefresh()"><i class="fe fe-save"></i><span class="mx-1">Save and Refresh</span></button> 
+                            <div class="col-5 ps-1 pe-1">
+                                <div class="form-group">
+                                    <input type="date" class="form-control ps-2 pe-1" v-model="rosForm.rdateto" @change="CountD()">
+                                </div>
+                            </div>
+                            <div class="col-2 ps-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control tx-center px-0" v-model="rosForm.days">
+                                </div>
                             </div>
                         </div>
-                        <div v-else>
-                            <div class="row">
-                                <div class="col-6 pe-1">
-                                    <div class="form-group">
-                                        <label class="mb-0">From <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control px-2" v-model="rosForm.rdatefr">
-                                    </div>
-                                </div>
-                                <div class="col-6 ps-1">
-                                    <div class="form-group">
-                                        <label class="mb-0">To <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control px-2" v-model="rosForm.rdateto">
-                                    </div>
-                                </div>
+                        <div v-if="optMode!='Delete'" class="form-group">
+                            <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" placeholder="Code" :options="lkCode"/>
+                        </div>
+                        <div v-if="optMode=='Update'" class="form-group">
+                            <textarea class="form-control laofont" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
+                        </div>  
+                        <div class="d-flex justify-content-between">
+                            <div v-if="optMode !='Add'">
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Update" checked><span class="ps-2">Update</span></label>
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Delete"><span class="ps-2">Delete</span></label>  
                             </div>
-                            <div class="form-group">
-                                <label class="mb-0">Code <span class="text-danger">*</span></label> 
-                                <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" :options="lkCode"/>
+                            <div v-else class="d-flex justify-content-center align-items-center">
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Add" checked><span class="ps-2">Add</span></label>  
                             </div>
-                            <div class="form-group">
-                                <label class="mb-0">Comments</label>
-                                <textarea class="form-control laofont" style="height: 100px" v-model="rosForm.comment"></textarea>
-                            </div>   
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" :class="rosRangeDis" @click="updRosRange()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
-                                <button type="button" class="btn btn-purple ms-1" :class="rosRangeDis" @click="updRosRangeRefresh()"><i class="fe fe-save"></i><span class="mx-1">Save and Refresh</span></button> 
+                                <button v-if="optMode=='Update'" type="button" class="btn btn-primary" :class="AddRosRangeDis" @click="UpdRoster_RangeCF()"><i class="fe fe-check-circle"></i><span class="mx-1">Update</span></button> 
+                                <button v-else-if="optMode=='Delete'" type="button" class="btn btn-danger" :class="DelRosRangeDis" @click="DelRoster_RangeCF()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button> 
+                                <button v-else type="button" class="btn btn-primary" :class="AddRosRangeDis" @click="AddRoster_RangeCF()"><i class="fe fe-plus-circle"></i><span class="mx-1">Add</span></button> 
                             </div>
                         </div>
                     </div>
@@ -227,11 +264,12 @@
                                         <td :style="lst.acode == 'W' || lst.acode == 'WN' ? 'background-color: #F2F4F8':
                                                     lst.acode == 'W/2' ? 'background-color: #FFC000':
                                                     lst.acode == 'R' || lst.acode == 'RW' || lst.acode == 'OR' || lst.acode == 'IR' ? 'background-color: #FFFFCC':
-                                                    lst.acode == 'A' || lst.acode == 'A/2' || lst.acode == 'IA' || lst.acode == 'OA' || lst.acode == 'AA' || lst.acode == 'H' || lst.acode == 'OH' || lst.acode == 'IH' || lst.acode == 'P' ? 'background-color: #FFFF99':
+                                                    lst.acode == 'A' || lst.acode == 'A/2' || lst.acode == 'IA' || lst.acode == 'OA' || lst.acode == 'AA' || lst.acode == 'H' || lst.acode == 'HH' || lst.acode == 'OH' || lst.acode == 'IH' || lst.acode == 'P' ? 'background-color: #FFFF99':
                                                     lst.acode == 'S' || lst.acode == 'SS' ? 'background-color: #F2DCDB':
                                                     lst.acode == 'MR' ? 'background-color: #FF66FF':
-                                                    lst.acode == 'BWB' || lst.acode == 'WO' ? 'background-color: #C6E0B4':
-                                                    lst.acode == 'T' || lst.acode == 'T-' || lst.acode == 'IT' || lst.acode == 'OT' || lst.acode == 'TT' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0"> {{ lst.acode }} 
+                                                    lst.acode == 'BWB' || lst.acode == 'WO' ? 'background-color: #e8f2e1':
+                                                    lst.acode == 'N5' || lst.acode == 'N6' || lst.acode == 'D4' ? 'background-color: #E0E0E0':
+                                                    lst.acode == 'T' || lst.acode == 'T-' || lst.acode == 'IT' || lst.acode == 'OT' || lst.acode == 'TT' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0">{{ lst.acode }}
                                         </td>
                                         <td class="py-0 text-center border-bottom-0"> {{ lst.working_time }} </td>
                                         <td class="py-0 text-muted border-bottom-0"> {{ date2(lst.updated_at) }} </td>
@@ -270,10 +308,11 @@
                                         <td :style="lst.actual == 'W' || lst.actual == 'WN' ? 'background-color: #F2F4F8':
                                                     lst.actual == 'W/2' ? 'background-color: #FFC000':
                                                     lst.actual == 'R' || lst.actual == 'RW' || lst.actual == 'OR' || lst.actual == 'IR' ? 'background-color: #FFFFCC':
-                                                    lst.actual == 'A' || lst.actual == 'A/2' || lst.actual == 'IA' || lst.actual == 'OA' || lst.actual == 'AA' || lst.actual == 'H' || lst.actual == 'OH' || lst.actual == 'IH' || lst.actual == 'P' ? 'background-color: #FFFF99':
+                                                    lst.actual == 'A' || lst.actual == 'A/2' || lst.actual == 'IA' || lst.actual == 'OA' || lst.actual == 'AA' || lst.actual == 'H' || lst.actual == 'HH' || lst.actual == 'OH' || lst.actual == 'IH' || lst.actual == 'P' ? 'background-color: #FFFF99':
                                                     lst.actual == 'S' || lst.actual == 'SS' ? 'background-color: #F2DCDB':
                                                     lst.actual == 'MR' ? 'background-color: #FF66FF':
-                                                    lst.actual == 'BWB' || lst.actual == 'WO' ? 'background-color: #C6E0B4':
+                                                    lst.actual == 'BWB' || lst.actual == 'WO' ? 'background-color: #e8f2e1':
+                                                    lst.actual == 'N5' || lst.actual == 'N6' || lst.actual == 'D4' ? 'background-color: #E0E0E0':
                                                     lst.actual == 'T' || lst.actual == 'T-' || lst.actual == 'IT' || lst.actual == 'OT' || lst.actual == 'TT' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0"
                                         > 
                                             {{ lst.actual }} 
@@ -301,7 +340,7 @@
             </div>                                              
         </div>  
 
-        <!-- Modal Add Delete -->        
+        <!-- Modal Roster Add Delete -->        
         <div class="modal fade effect-scale" id="addDelete" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
@@ -324,7 +363,7 @@
                                                 <th class="border-0" style="padding: 5px 10px">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" v-model="selectAll" @click="select()">
+                                                            <input type="checkbox" v-model="add_selectAll" @click="AddSelectAll_click()">
                                                             <i class="form-icon"></i>
                                                             <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Employee List</span>
                                                         </div>
@@ -333,11 +372,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr-hover" v-for="lst in empList" :key="lst.id">
+                                            <tr class="tr-hover" v-for="lst in empList" :key="lst.userid">
                                                 <td class="border-0">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" :value="lst.id" v-model="selected">
+                                                            <input type="checkbox" :value="lst.userid" v-model="add_selected">
                                                             <i class="form-icon"></i>
                                                             <span class="ms-2 cur-pointer">{{lst.name}}</span>
                                                         </div>
@@ -419,7 +458,7 @@
             </div>                                              
         </div>
 
-        <!-- Lookup Code Roster Add/Edite -->
+        <!-- Lookup Code Roster Add/Edit -->
         <div class="modal fade effect-scale pd-t-100 bd-0 bg-black-5" id="rosCodeEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="rosCodeLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
@@ -489,17 +528,17 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Crew</span>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="crew"  v-model="showCol.crew" @change='$emit("input", $event.target.checked)'>
-                                <label class="custom-control-label cur-pointer" for="crew"></label>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
                             <span>Position</span>
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="position"  v-model="showCol.position" @change='$emit("input", $event.target.checked)'>
                                 <label class="custom-control-label cur-pointer" for="position"></label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Crew</span>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="crew"  v-model="showCol.crew" @change='$emit("input", $event.target.checked)'>
+                                <label class="custom-control-label cur-pointer" for="crew"></label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
@@ -509,6 +548,7 @@
                                 <label class="custom-control-label cur-pointer" for="section"></label>
                             </div>
                         </div>
+
                         <div class="d-flex justify-content-between mb-2">
                             <span>Type</span>
                             <div class="custom-control custom-switch">
@@ -526,7 +566,7 @@
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
-                        <h6 class="text-muted main-content-label text-capitalize">Add New Crew</h6>
+                        <h6 class="text-muted main-content-label text-capitalize">Add New Group</h6>
                         <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body"> 
@@ -536,7 +576,7 @@
                                     <Multiselect v-model="crewForm.crew" :searchable="true" :options="lkCrew" @keydown.enter="addCrew()"/>
                                 </div>
                                 <div class="wd-35">
-                                    <button type="button" class="btn btn-primary wd-35 p-0" :class="addCrewDis" title="Add new crew" @click="addCrew()">
+                                    <button type="button" class="btn btn-primary wd-35 p-0" :class="addCrewDis" title="Add new group" @click="addCrew()">
                                         <i class="fa fa-plus"></i>
                                     </button>  
                                 </div>
@@ -596,7 +636,7 @@
                                                 <th class="border-0" style="padding: 5px 10px">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" v-model="selectAll" @click="select()">
+                                                            <input type="checkbox" v-model="add_selectAll" @click="AddSelectAll_click()">
                                                             <i class="form-icon"></i>
                                                             <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Employee List</span>
                                                         </div>
@@ -605,11 +645,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr-hover" v-for="lst in empList" :key="lst.id">
+                                            <tr class="tr-hover" v-for="lst in empList" :key="lst.userid">
                                                 <td class="border-0">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" :value="lst.id" v-model="selected">
+                                                            <input type="checkbox" :value="lst.userid" v-model="add_selected">
                                                             <i class="form-icon"></i>
                                                             <span class="ms-2 cur-pointer">{{lst.name}}</span>
                                                         </div>
@@ -646,8 +686,8 @@
             </div>                                              
         </div>
 
-        <!-- Search by selected employee name-->
-        <div class="modal fade effect-scale" id="searchName" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="searchNameLabel" aria-hidden="true">
+        <!-- Filter by selected employee names -->
+        <div class="modal fade effect-scale" id="searchName" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="searchNameLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
@@ -669,7 +709,7 @@
                                         <th class="border-0" style="padding: 5px 10px">
                                             <label class="form-checkbox m-0">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <input type="checkbox" v-model="selectAll" @click="select2()">
+                                                    <input type="checkbox" v-model="selectAllName" @click="onSelectAllName()">
                                                     <i class="form-icon"></i>
                                                     <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Employee List</span>
                                                 </div>
@@ -678,11 +718,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="tr-hover" v-for="lst in empList" :key="lst.id">
+                                    <tr class="tr-hover" v-for="lst in empList" :key="lst.userid">
                                         <td class="border-0">
                                             <label class="form-checkbox m-0">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <input type="checkbox" :value="lst.name" v-model="selected">
+                                                    <input type="checkbox" :value="lst.name" v-model="selectedName">
                                                     <i class="form-icon"></i>
                                                     <span class="ms-2 cur-pointer">{{lst.name}}</span>
                                                 </div>
@@ -694,8 +734,56 @@
                         </div>
 
                         <div class="d-flex justify-content-end mt-2">
-                            <button type="button" class="btn btn-primary" :class="multiSearchDis" @click="multiNameSearch()"><span class="px-3">OK</span></button> 
-                            <!-- <button type="button" class="btn btn-primary" :class="multiSearchDis" @click="multiNameSearch()"><i class="fe fe-check-circle"></i><span class="mx-1">OK</span></button>  -->
+                            <button type="button" class="btn btn-primary" :class="rosFilterNamesDis" @click="filterNames(), nameFilter ='true'"><span class="px-3">OK</span></button> 
+                            <!-- <button type="button" class="btn btn-primary" :class="rosFilterNamesDis" @click="filterNames()"><i class="fe fe-check-circle"></i><span class="mx-1">OK</span></button>  -->
+                        </div>              
+                    </div>
+                </div>
+            </div>                                              
+        </div>
+
+        <!-- Filter -->
+        <div class="modal fade effect-scale" id="Filter" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="positionLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label text-capitalize">Filter by {{filterBy}}</h6>
+                        <!-- <p class="tx-12 tx-gray-500 mb-0">Select one at least</p> -->
+                        <!-- <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button> -->
+                    </div>
+                    <div class="modal-body pt-2">  
+                        <div class="table-responsive element border" style="height: 410px">
+                            <table class="table main-table-reference text-nowrap mg-b-0">
+                                <thead class="position-sticky" style="top: 0px; z-index: 1">
+                                    <tr>
+                                        <th class="border-0" style="padding: 5px 10px">
+                                            <label class="form-checkbox m-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <input type="checkbox" v-model="valueAll" @click="SelectAllValue()">
+                                                    <i class="form-icon"></i>
+                                                    <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">{{filterBy}} List</span>
+                                                </div>
+                                            </label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="tr-hover" v-for="(lst, inx ) in filterList" :key="inx">
+                                        <td class="border-0">
+                                            <label class="form-checkbox m-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <input type="checkbox" :value="lst.colname" v-model="valueSelected">
+                                                    <i class="form-icon"></i>
+                                                    <span class="ms-2 cur-pointer">{{lst.colname}}</span>
+                                                </div>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button type="button" class="btn btn-primary" :class="FilterDis" @click="FilterResult()"><span class="px-3">OK</span></button> 
                         </div>              
                     </div>
                 </div>
@@ -707,7 +795,7 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
-                        <h6 class="main-content-label text-capitalize">Roster Break Info</h6>
+                        <h6 class="main-content-label text-capitalize laofont">ລາຍຊື່ພະນັກງານທີ່ໃກ້ຈະອອກເມື່ອພັກອີກພາຍໃນ 5 ວັນຂ້າງໜ້າ</h6>
                         <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body pt-0">                                   
@@ -772,12 +860,12 @@ export default {
             dateto: '',
             search: '',
             btnClear: '',
-            rosForm: {userid: '', rtype: '', rdatefr: '', rdateto: '', rcode: null, comment: ''},
+            rosForm: {userid: '', rtype: '', rdatefr: '', rdateto: '', days:'', rcode: null, comment: ''},
             rosCodeForm: {id: '', rcode: '', ref_code: '', descr_lao: '', descr_eng: '', working_time: '', used: '1'},
             rowSel: '',
             loading: false,
             cdate: '',
-            updMethod: 'date',
+
             addMethod: 'add',
             addDelDate: '',
             bntAddShow: '',
@@ -787,16 +875,33 @@ export default {
             text: '',
             crewForm: {id: '', crew: null},
             sectForm: {id: '', section: null},
-            showCol: {no: false, crew: false, position: true, section: true, type: false},
-            selected: [],
-		    selectAll: false,
+            showCol: {no: false, crew: false, position: true, section: false, type: false},
+            
+            filterMode: '',
+
+            selectedName: [],
+		    selectAllName: false,
+
+            add_selected: [],
+            add_selectAll: false,
+
+            valueSelected: [],
+            valueAll: false, 
+            filterList: [],
+
+            filterBy: '',
+
             empList: [],
             search2: '',
             btnClear2: '',
             breakData: [],
             detailMode: '',
             date: '',
-            scanData: []
+            scanData: [],
+
+            colinx:'',
+            optMode:'',
+
         };
     },
 
@@ -805,24 +910,8 @@ export default {
     },
 
     computed: {
-        rosDateDis(){
-            if (this.rosForm.rdatefr == '' || this.rosForm.rcode == null){
-                return 'disabled';
-            } else {
-                return '';
-            }
-        },
-
-        rosRangeDis(){
-            if (this.rosForm.rdatefr == '' || this.rosForm.rdateto == '' || this.rosForm.rcode == null){
-                return 'disabled';
-            } else {
-                return '';
-            }
-        },
-
         addDelDis(){
-            if (this.addDelDate == '' || this.selected == ''){
+            if (this.addDelDate == '' || this.add_selected == ''){
                 return 'disabled';
             } else {
                 return '';
@@ -846,20 +935,44 @@ export default {
         },
 
         shiftWorkDis(){
-            if (this.rosForm.rdatefr == '' || this.rosForm.rdateto == '' || this.rosForm.rcode == null || this.selected == ''){
+            if (this.rosForm.rdatefr == '' || this.rosForm.rdateto == '' || this.rosForm.rcode == null || this.add_selected == '' || this.rosForm.rdatefr > this.rosForm.rdateto){
                 return 'disabled';
             } else {
                 return '';
             }
         },
 
-        multiSearchDis(){
-            if (this.selected == ''){
+        rosFilterNamesDis(){
+            if (this.selectedName == ''){
                 return 'disabled';
             } else {
                 return '';
             }
         },
+
+        FilterDis(){
+            if (this.valueSelected == ''){
+                return 'disabled';
+            } else {
+                return '';
+            }
+        },
+
+        AddRosRangeDis(){
+            if (this.rosForm.rdateto =='' || this.rosForm.days =='' || this.rosForm.rcode ==null || this.rosForm.rdatefr > this.rosForm.rdateto){
+                return 'disabled';
+            } else {
+                return '';
+            }
+        },
+
+        DelRosRangeDis(){
+            if (this.rosForm.rdateto =='' || this.rosForm.days =='' || this.rosForm.rdatefr > this.rosForm.rdateto){
+                return 'disabled';
+            } else {
+                return '';
+            }
+        }
     },
 
     methods: {
@@ -901,9 +1014,24 @@ export default {
 
         },
 
+        refreshRoster(){
+            if (this.filterMode == 'name') {
+                this.rosSearchName();
+            } else if (this.filterMode == 'names') {
+                this.filterNames();
+            } else if (this.filterMode == 'Crew' || this.filterMode == 'Position') {
+                this.FilterResult();
+            } else {
+                this.getRoster();
+            }
+        },
+
         async getRoster(){
             this.loading = true;
             this.rowSel = '';
+            this.nameFilter = '';
+            this.groupFilter = '';
+            this.filterMode = ''
 
             if (this.dept != '' && this.datefr != '' && this.dateto != ''){
                 const resCol = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
@@ -912,8 +1040,221 @@ export default {
                 const resRos = await axios.get(`/api/roster/roster?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
                 this.rosData = resRos.data;
             }
-
             this.loading = false;
+        },
+
+        CountD(){
+            let d1 = moment(this.rosForm.rdatefr).format("MM-DD-YYYY");
+            let d2 = moment(this.rosForm.rdateto).format("MM-DD-YYYY");
+
+            let dat1 = new Date(d1);
+            let dat2 = new Date(d2);
+
+            let ddiff = dat2.getTime() - dat1.getTime();
+            this.rosForm.days = Math.ceil(ddiff / (1000 * 3600 * 24)) + 1;
+        },
+
+        UpdRoster_Range(date, code, comm, ix){
+            if(this.permiss.ros_edit == 0){
+                this.$swal.fire({
+                    text: "You don't have permission update!",
+                    icon: 'error',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                    timer: 1500
+                })
+            } else {
+                let d = moment(date.split('c')[1]).format('YYYY-MM-DD');
+                this.rosForm.rdatefr = d;
+                this.rosForm.rdateto = d;
+                this.rosForm.rcode = code;
+                this.rosForm.comment = comm;
+                this.colinx = ix;
+                this.CountD();
+                $('#modalUpdRoster').modal('show');
+            }
+        },
+
+        UpdRoster_RangeCF(){
+            $('#modalUpdRoster').modal('hide');
+            let dateList = [];
+            let n = this.colinx; //column index
+            for (let i = 0; i < this.rosForm.days; i++){
+                    let col = this.colData[n].colid;
+                    this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == this.rosForm.rtype)[col] = this.rosForm.rcode;
+                    this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == this.rosForm.rtype)[col] = this.rosForm.rcode;
+
+                    let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                    dateList.push(date);
+                    n = n + 1
+                }
+
+            this.$axios.post('/api/roster/updrosterrange', {
+                list: dateList,
+                userid: this.rosForm.userid,
+                type: this.rosForm.rtype,
+                code: this.rosForm.rcode,
+                comm: this.rosForm.comment
+            }).then(res => {
+                console.log('Update completed');
+            })
+
+        },
+
+        DelRoster_RangeCF(){
+            $('#modalUpdRoster').modal('hide');
+            this.$swal.fire({
+                text: "Are you sure?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fe fe-trash-2"></i> <span class="font-weight-light">Delete</span>',
+                cancelButtonText: '<i class="fe fe-x"></i> <span class="font-weight-light">Cancel</span>',
+                confirmButtonColor: '#d33',
+                allowEnterKey: false,
+                allowOutsideClick: false,
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    
+                    let dateList = [];
+                    let n = this.colinx; //column index
+                    for (let i = 0; i < this.rosForm.days; i++) {
+                            let col = this.colData[n].colid;
+                            this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == 'P')[col] = null;
+                            this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == 'A')[col] = null;
+
+                            let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                            dateList.push(date);
+                            n = n + 1
+                        }
+
+                    //delete in database
+                    this.$axios.post('/api/roster/delrosterrange', {
+                        list: dateList,
+                        userid: this.rosForm.userid
+                    }).then(res => {
+                        $('#modalUpdRoster').modal('hide');
+                    })
+                } else {
+                    $('#modalUpdRoster').modal('show');
+                }
+            });
+        },
+
+        AddRoster_RangeCF(){
+            $('#modalUpdRoster').modal('hide');
+            let dateList = [];
+            let n = this.colinx; //column index
+            for (let i = 0; i < this.rosForm.days; i++){
+                    let col = this.colData[n].colid;
+                    this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == 'P')[col] = this.rosForm.rcode;
+                    this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == 'A')[col] = this.rosForm.rcode;
+
+                    let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                    dateList.push(date);
+                    n = n + 1
+                }
+
+            this.$axios.post('/api/roster/addrosterrange', {
+                list: dateList,
+                userid: this.rosForm.userid,
+                code: this.rosForm.rcode
+            }).then(res => {
+                console.log('Add completed');
+            })
+        },
+
+        FilterByPosition(){
+            this.filterBy = 'Position'
+            this.FilterList();
+        },
+
+        FilterByGroup(){
+            this.filterBy = 'Crew'
+            this.FilterList();
+        },
+
+        FilterList(){
+            this.valueSelected = [];
+            this.valueAll = false;
+
+            this.$axios.get(`/api/roster/filterlist?dept=${this.dept}&filter=${this.filterBy}`)
+            .then(res => this.filterList = res.data)
+            $('#Filter').modal('show');
+        },
+
+        SelectAllValue() {
+            this.valueSelected = [];
+            if (!this.valueAll) {
+                for (let i in this.filterList) {
+                    this.valueSelected.push(this.filterList[i].colname);
+                }
+            }
+        },
+
+        async FilterResult(){
+            this.rowSel = '';
+            this.search = '';
+            this.btnClear = false;
+            
+            $('#Filter').modal('hide');
+
+            let fd = new FormData();
+                fd.append('values', this.valueSelected.toString());
+                fd.append('datefr', this.datefr);
+                fd.append('dateto', this.dateto);
+                fd.append('dept', this.dept);
+                fd.append('filter', this.filterBy);
+
+            if (this.dept != '' && this.datefr != '' && this.dateto != ''){
+                const resCol = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
+                this.colData = resCol.data;
+
+                const resRos = await axios.post('/api/roster/filterresult', fd, {headers:{"Content-Type": "multipart/form-date"}})
+                this.rosData = resRos.data;    
+
+                this.filterMode = this.filterBy;
+                this.nameFilter = '';
+            }
+        },
+
+        async rosSearchName(){
+            this.rowSel = '';
+            this.nameFilter = '';
+            this.groupFilter = '';
+            this.filterMode = 'name'
+
+            if (this.dept != '' && this.datefr != '' && this.dateto != ''){
+                const resCol = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
+                this.colData = resCol.data;
+
+                const resRos = await axios.get(`/api/roster/roster?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
+                this.rosData = resRos.data;
+            }
+        },
+
+        async filterNames(){
+            this.rowSel = '';
+            this.search = '';
+            this.btnClear = false;
+            
+            $('#searchName').modal('hide');
+
+            let fd = new FormData();
+                fd.append('names', this.selectedName.toString());
+                fd.append('datefr', this.datefr);
+                fd.append('dateto', this.dateto);
+                fd.append('dept', this.dept);
+
+            if (this.dept != '' && this.datefr != '' && this.dateto != ''){
+                const resCol = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
+                this.colData = resCol.data;
+
+                const resRos = await axios.post('/api/roster/rostermultiname', fd, {headers:{"Content-Type": "multipart/form-date"}})
+                this.rosData = resRos.data;    
+                this.filterMode = 'names'
+            }
         },
 
         async searchChange(){
@@ -940,70 +1281,13 @@ export default {
             this.getRoster();
         },
 
-        selectRow(inx, name, type){
-             this.rowSel = inx;
-             this.fullname = name;
-             this.rosForm.rtype = type;
+        selectRow(id, inx, name, type){
+            this.rowSel = inx;
+            this.fullname = name;
+            this.rosForm.userid = id;
+            this.rosForm.rtype = type;
         },
 
-        editRos(id, date, type, code, name, comm){
-            if(this.permiss.ros_edit == 0){
-                this.$swal.fire({
-                    text: "You don't have permission update!",
-                    icon: 'error',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timerProgressBar: true,
-                    timer: 1500
-                })
-            } else {
-                this.rosFormClear();
-                this.fullname = name;
-                this.rosForm.userid = id;
-                this.rosForm.rdatefr = moment(date.split('c')[1]).format('YYYY-MM-DD');
-                this.rosForm.rtype = type;
-                this.rosForm.rcode = code;
-                this.rosForm.comment = comm;
-                $('#roster').modal('show');
-            }
-        },
-
-        updRosDate(){
-            this.$axios.post('/api/roster/updrosdate', this.rosForm)
-            .then(res => {
-                this.rosForm.rdatefr = '';
-                this.rosForm.comment = '';
-                // $('#roster').modal('hide');
-            }).catch((error)=>{
-                console.log(error);
-            })
-        },
-
-        updRosDateRefresh(){
-            $('#roster').modal('hide');
-            this.updRosDate();
-            this.getRoster();
-        },
-        
-        updRosRange(){
-            this.$axios.post('/api/roster/updrosrange', this.rosForm)
-            .then(res => {
-                this.rosForm.rdatefr = '';
-                this.rosForm.rdateto = '';
-                this.rosForm.comment = '';
-                // $('#roster').modal('hide');
-            }).catch((error)=>{
-                console.log(error);
-            })
-        },
-
-        updRosRangeRefresh(){
-            $('#roster').modal('hide');
-            this.updRosRange();
-            this.getRoster();
-        },
-        
         async rosDetail(id){
             this.detailMode = 'roster';
             const rosDet = await axios.post('/api/roster/rosdetail', {
@@ -1015,29 +1299,15 @@ export default {
          
             this.detailData = rosDet.data;
             $('#detail').modal('show');
-          
+
             const scanDet = await axios.post('/api/fingerscan/detail', {
                 dept: this.dept,
-                date: this.date,
+                datefr: moment(new Date(new Date().getFullYear(), new Date().getMonth() - 1)).format('YYYY-MM-26'),
+                dateto: moment(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)).format('YYYY-MM-25'),
                 userid: id
             });
             this.scanData = scanDet.data;
         },
-
-        // this.date = moment(new Date()).format('YYYY-MM-DD');
-
-        // prvDetail(id, name){
-        //     this.fullname = name;
-        //     $('#detail').modal('show');
-
-        //     this.$axios.post('/api/fingerscan/detail', {
-        //         dept: this.dept,
-        //         date: this.date,
-        //         userid: id
-        //     }).then(res => {
-        //         this.detailData = res.data;
-        //     })
-        // },
 
         addDelete(){
             if (this.permiss.ros_edit == 0){
@@ -1053,22 +1323,22 @@ export default {
             } else {
                 this.addMethod = 'add'
                 this.addDelDate = '';
-                this.selected = [];
-                this.selectAll = false;
+                this.add_selected = [];
+                this.add_selectAll = false;
                 this.search2 = '';
-                $('#addDelete').modal('show');
                 this.nameList();
+                $('#addDelete').modal('show');
             }
         },
 
         addMethodChanged(){
-            this.selected = [];
+            this.add_selected = [];
             this.addDelDate = '';
         },
 
         addRos(){
             this.$axios.post('/api/roster/addros', {
-                list: this.selected,
+                list: this.add_selected,
                 date: this.addDelDate
             }).then(res => {
                 $('#addDelete').modal('hide');
@@ -1090,7 +1360,7 @@ export default {
             }).then((result)=>{
                 if(result.isConfirmed){
                     this.$axios.post('/api/roster/delros', {
-                        list: this.selected,
+                        list: this.add_selected,
                         date: this.addDelDate
                     }).then(res => {
                         $('#addDelete').modal('hide');
@@ -1209,7 +1479,7 @@ export default {
             let inx1 = this.selDate[0].inx;
             let inx2 = this.selDate[1].inx;
 
-            if (inx1 == inx2 && d1 !='' && d2 != '' && d2 > d1){
+            if (inx1 == inx2 && d1 !='' && d2 != '' && moment(d2).format("YYYYMMDD") > moment(d1).format("YYYYMMDD")){
                 let date1 = new Date(d1);
                 let date2 = new Date(d2);
 
@@ -1268,14 +1538,14 @@ export default {
                     timer: 1500
                 })
             } else {
-                this.rosFormClear();
-                this.selected = [];
-                this.selectAll = false;
+                this.selectedName = [];
+                this.selectAllName = false;
                 this.rosForm.rcode = '';
                 this.rosForm.rdatefr = '';
+                this.rosForm.comment = '';
                 this.search2 = '';
-                $('#shiftWork').modal('show');
                 this.nameList();
+                $('#shiftWork').modal('show');
             }
         },
 
@@ -1300,20 +1570,20 @@ export default {
             this.nameList();
         },
 
-        select() {
-            this.selected = [];
-            if (!this.selectAll) {
+        AddSelectAll_click() {
+            this.add_selected = [];
+            if (!this.add_selectAll) {
                 for (let i in this.empList) {
-                    this.selected.push(this.empList[i].id);
+                    this.add_selected.push(this.empList[i].userid);
                 }
             }
         },
 
-        select2() {
-            this.selected = [];
-            if (!this.selectAll) {
+        onSelectAllName() {
+            this.selectedName = [];
+            if (!this.selectAllName) {
                 for (let i in this.empList) {
-                    this.selected.push(this.empList[i].name);
+                    this.selectedName.push(this.empList[i].name);
                 }
             }
         },
@@ -1332,32 +1602,18 @@ export default {
             })
         },
 
-        multiSearch(){
-            this.selected = [];
-            this.selectAll = false;
+        rosFilterNames(){
+            this.selectedName = [];
+            this.selectAllName = false;
             this.search2 = '';
-            $('#searchName').modal('show');
             this.nameList();
+            $('#searchName').modal('show');
         },
 
         padding(value){
              if (value) {
                 return value.padStart(4, "0");
             }
-        },
-
-        multiNameSearch(){
-            let fd = new FormData();
-                fd.append('userid', this.selected.toString());
-                fd.append('datefr', this.datefr);
-                fd.append('dateto', this.dateto);
-                fd.append('dept', this.dept);
-
-            this.$axios.post('/api/roster/roster2', fd, {headers:{"Content-Type": "multipart/form-date"}})
-            .then(res => {
-                this.rosData = res.data;
-                $('#searchName').modal('hide');
-            })
         },
 
         breakInfo(){
@@ -1371,6 +1627,12 @@ export default {
         code(text){
             if (text) {
                 return text.split("_")[0];
+            }
+        },
+
+        comm(text){
+            if (text) {
+                return text.split("_")[1];
             }
         },
 
@@ -1396,13 +1658,6 @@ export default {
             if (text) {
                 return text.split("_")[1];
             }
-        },
-
-        rosFormClear(){
-            this.updMethod = 'date';
-            let f = this.rosForm;
-                f.rdateto = '';
-                f.comment = '';
         },
 
         date1(value){
@@ -1437,9 +1692,15 @@ export default {
 
         shortname(text){
             if (text) {
-                return text.split(" ")[0];
+                return text.split(" ")[1];
             }
         },
+
+        formatNumber(value) {
+			let val = (value / 1).toFixed(2).replace(",", ".");
+			return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+
         
     },
 
@@ -1463,7 +1724,6 @@ export default {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-
     .r-right{
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;

@@ -13,58 +13,75 @@
 					<!-- <a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="assets/img/brand/favicon-white.png" class="logo-icon dark-theme" alt="logo"></a> -->
 				</div>
 				<div class="main-sidemenu">
-					<div class="app-sidebar__user clearfix">
-	
-					</div>
+					<div class="app-sidebar__user clearfix"></div>
 					<ul class="side-menu">
 						<li class="side-item side-item-category"></li>
-						<li class="slide" @click="homeClick()">
-							<router-link class="side-menu__item " :class="homeAct"  to="/">
+
+						<li class="slide" @click="ResetExp(), ResetAct(), homeM='active'">
+							<router-link class="side-menu__item" :class="homeM" to="/">
 								<span class="side-menu__label"><i class="mdi mdi-home tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4">Home</span></span>
 							</router-link>
 						</li>
 
 						<!-- Admin Task -->
-                        <li class="slide" :class="adminExp" @click="adminTask()">
-							<a class="side-menu__item" :class="adminAct" href="#">
+                        <li class="slide" :class="admExp" @click="ResetExp(), admExp?admExp='':admExp='is-expanded'">
+							<a class="side-menu__item" :class="admM" href="#">
 								<span class="side-menu__label"><i class="mdi mdi-deskphone tx-21 tx-center wd-25"></i><span class="mg-l-10 mg-t-3">Admin Task</span></span>
 								<i class="angle fe fe-chevron-down mg-t-4"></i>
 							</a>
 							<ul class="slide-menu">
-								<li><router-link class="slide-item" :class="employeeAct" @click="employee()" to="/employee">Employee</router-link></li>
-								<li><router-link class="slide-item" :class="rosterAct" @click="roster()" to="/roster">Roster</router-link></li>
-								<li><router-link class="slide-item" :class="fingerAct" @click="finger()" to="/fingerscan">Finger Scan</router-link></li>			
-								<li><router-link class="slide-item" :class="overtimeAct" @click="overtime()" to="/overtime">Overtime</router-link></li>			
-								<li><router-link class="slide-item" :class="annualAct" @click="annual()" to="/annual">Annual Leave</router-link></li>			
-								<li><router-link class="slide-item" :class="leaveInfoAct" @click="leaveInfo()" to="/leaveinfo">Day Leave Info</router-link></li>			
-								<li><router-link class="slide-item" :class="transportAct" @click="transport()" to="/transport">Daily Transport</router-link></li>			
+								<li><router-link class="slide-item" :class="admS1" @click="ResetAct(), admS1='active', admM='active'" to="/employee">Employee</router-link></li>
+								<li><router-link class="slide-item" :class="admS2" @click="ResetAct(), admS2='active', admM='active'" to="/roster">Roster</router-link></li>
+								<li><router-link class="slide-item" :class="admS3" @click="ResetAct(), admS3='active', admM='active'" to="/fingerscan">Finger Scan</router-link></li>			
+								<li><router-link class="slide-item" :class="admS4" @click="ResetAct(), admS4='active', admM='active'" to="/overtime">Overtime</router-link></li>			
+								<li><router-link class="slide-item" :class="admS5" @click="ResetAct(), admS5='active', admM='active'" to="/annual">Annual Leave</router-link></li>			
+								<li><router-link class="slide-item" :class="admS6" @click="ResetAct(), admS6='active', admM='active'" to="/leaveinfo">Day Leave Info</router-link></li>			
+								<li><router-link class="slide-item" :class="admS7" @click="ResetAct(), admS7='active', admM='active'" to="/transport">Daily Transport</router-link></li>			
 							</ul>
 						</li>
 
 						<!-- FUEL -->
-						<div v-if="!!parseInt(permiss.fuel)">
-							<li class="slide" :class="fuelExp" @click="fuelClick()">
-								<a class="side-menu__item" :class="fuelAct" href="#">
+						<div v-if="permiss.fuel==1">
+							<li class="slide" :class="fueExp" @click="ResetExp(), fueExp?fueExp='':fueExp='is-expanded'">
+								<a class="side-menu__item" :class="fueM" href="#">
 									<span class="side-menu__label"><i class="mdi mdi-gas-station tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4">Fuels</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="fuelConsAct" @click="fuelConsClick()" to="/fuelcons">Reservation</router-link></li>
-									<li><router-link class="slide-item" :class="fuelReportAct" @click="fuelReportClick()" to="/fuelreport">Report</router-link></li>
-									<li><router-link class="slide-item" :class="fuelLookupAct" @click="fuelLookup()" to="/fuellookup">Lookup</router-link></li>
+									<li><router-link class="slide-item" :class="fueS1" @click="ResetAct(), fueS1='active', fueM='active'" to="/fuelcons">Reservation</router-link></li>
+									<li><router-link class="slide-item" :class="fueS2" @click="ResetAct(), fueS2='active', fueM='active'" to="/fuelreport">Report</router-link></li>
+									<li><router-link class="slide-item" :class="fueS3" @click="ResetAct(), fueS3='active', fueM='active'" to="/fuellookup">Lookup</router-link></li>
 								</ul>
 							</li>
 						</div>
 
+						<!-- INVENTORY -->
+						<!-- <div v-if="permiss.pr_acc == 1">
+							<li class="slide" :class="inventExp" @click="ResetExp(), inventExp?inventExp='':inventExp='is-expanded'">
+								<a class="side-menu__item" :class="inventM" href="#">
+									<span class="side-menu__label"><i class="fa fa-cubes tx-center tx-17 wd-25"></i><span class="mg-l-10 mg-t-4">Inventory</span></span>
+									<i class="angle fe fe-chevron-down mg-t-4"></i>
+								</a>
+								<ul class="slide-menu">
+									<li><router-link class="slide-item" :class="prAct" @click="prClick()" to="/pr">PR Records</router-link></li>
+									<li><router-link class="slide-item" :class="fuelReportAct" @click="fuelReportClick()" to="/fuelreport">Reservation</router-link></li>
+									<li><router-link class="slide-item" :class="fuelReportAct" @click="fuelReportClick()" to="/fuelreport">Stock Entries</router-link></li>
+									<li><router-link class="slide-item" :class="fuelReportAct" @click="fuelReportClick()" to="/fuelreport">Stock Balance</router-link></li>
+									<li><router-link class="slide-item" :class="fuelLookupAct" @click="fuelLookup()" to="/fuellookup">Lookup</router-link></li>
+								</ul>
+							</li>
+						</div> -->
+
 						<!-- PRODUCTION -->
-						<div v-if="permiss.prod_acc == 1">
-							<li class="slide" :class="prodExp" @click="prodClick()">
-								<a class="side-menu__item" :class="prodAct" href="#">
+						<div v-if="permiss.prod_acc==1">
+							<li class="slide" :class="proExp" @click="ResetExp(), proExp?proExp='':proExp='is-expanded'">
+								<a class="side-menu__item" :class="proM" href="#">
 									<span class="side-menu__label"><i class="mdi mdi-chart-line tx-center tx-18 wd-25"></i><span class="mg-l-10 mg-t-4">Production</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="prodEntryAct" @click="prodEntryClick()" to="/prodentry">Data Entry</router-link></li>
+									<li><router-link class="slide-item" :class="proS1" @click="ResetAct(), proS1='active', proM='active'" to="/prodentry">Data Entry</router-link></li>
+									
 									<!-- <li><router-link class="slide-item" :class="fuelReportAct" @click="fuelReportClick()" to="/fuelreport">Report</router-link></li>
 									<li><router-link class="slide-item" :class="fuelLookupAct" @click="fuelLookup()" to="/fuellookup">Lookup</router-link></li> -->
 								</ul>
@@ -72,51 +89,51 @@
 						</div>
 
 						<!-- SAFETY -->
-						<div v-if="!!parseInt(permiss.safety)">
-							<li class="slide" :class="safetyExp" @click="safety()">
-								<a class="side-menu__item" :class="safetyAct" href="#">
-									<span class="side-menu__label"><i class="mdi mdi-bullhorn tx-22 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">Safety</span></span>
+						<div v-if="permiss.safety==1">
+							<li class="slide" :class="safExp" @click="ResetExp(), safExp?safExp='':safExp='is-expanded'">
+								<a class="side-menu__item" :class="safM" href="#">
+									<span class="side-menu__label"><i class="fa fa-medkit tx-16 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">Safety</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="incRecordAct" @click="incRecord()" to="/increcord">Incidents</router-link></li>
-									<li><router-link class="slide-item" :class="incReportAct" @click="incReport()" to="/increport">Report</router-link></li>
-									<li><router-link class="slide-item" :class="incLookupAct" @click="incLookup()" to="/inclookup">Lookup</router-link></li>
+									<li><router-link class="slide-item" :class="safS1" @click="ResetAct(), safS1='active', safM='active'" to="/increcord">Incidents</router-link></li>
+									<!-- <li><router-link class="slide-item" :class="safS2" @click="ResetAct(), safS2='active', safM='active'" to="/increport">Report</router-link></li> -->
+									<li><router-link class="slide-item" :class="safS3" @click="ResetAct(), safS3='active', safM='active'" to="/inclookup">Lookup</router-link></li>
+									<!-- <li><router-link class="slide-item" :class="safS4" @click="ResetAct(), safS4='active', safM='active'" to="/safdocs">File Storage</router-link></li> -->
 								</ul>
 							</li>
 						</div>
 
-						<!-- Addmin Car Rental -->
-						<div v-if="!!parseInt(permiss.carAcc)">
-							<li class="slide" :class="carRentExp" @click="carRent()">
-								<a class="side-menu__item" :class="carRentAct" href="#">
-									<span class="side-menu__label"><i class="mdi mdi-car tx-22 tx-center wd-25"></i><span class="mg-l-10 mg-t-4">Car Rentals</span></span>
+						<!-- CLINIC -->
+						<div v-if="permiss.clinic_acc==1">
+							<li class="slide" :class="cliExp" @click="ResetExp(), cliExp?cliExp='':cliExp='is-expanded'">
+								<a class="side-menu__item" :class="cliM" href="#">
+									<span class="side-menu__label"><i class="fa fa-plus-square tx-17 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">Clinic</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="carRentDetalAct" @click="carRentDetail()" to="/carrentdetail">Rental Detail</router-link></li>
-									<li><router-link class="slide-item" :class="carRentReportAct" @click="carRentReport()" to="/carrentreport">Report</router-link></li>
-									<li><router-link class="slide-item" :class="carRentCodeAct" @click="carRentCode()" to="/carrentcode">Lookup</router-link></li>
+									<li><router-link class="slide-item" :class="cliS1" @click="ResetAct(), cliS1='active', cliM='active'" to="/medicalrecord">Medical Record</router-link></li>
+									<li><router-link class="slide-item" :class="cliS2" @click="ResetAct(), cliS2='active', cliM='active'" to="/inclookup">Drug Store</router-link></li>
+									<li><router-link class="slide-item" :class="cliS3" @click="ResetAct(), cliS3='active', cliM='active'" to="/safdocs">Code</router-link></li>
 								</ul>
 							</li>
 						</div>
-						
 
-
-						<!-- Setting -->
-						<li class="slide" :class="settExp" @click="settClick()">
-							<a class="side-menu__item" :class="settAct" href="#">
+						<!-- SETTING -->
+						<li class="slide" :class="setExp" @click="ResetExp(), setExp?setExp='':setExp='is-expanded'">
+							<a class="side-menu__item" :class="setM" href="#">
 								<span class="side-menu__label"><i class="typcn typcn-cog-outline tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-5">Setting</span></span>
 								<i class="angle fe fe-chevron-down mg-t-4"></i>
 							</a>
 							<ul class="slide-menu">
-								<li v-if="!!parseInt(permiss.lk_add)"><router-link class="slide-item" :class="lookupAct" @click="lookupClick()" to="/lookup">Lookup</router-link></li>
-								<li v-if="!!parseInt(permiss.permiss)"><router-link class="slide-item" :class="permissAct" @click="permissClick()" to="/permiss">Permission</router-link></li>
+								<li v-if="permiss.lk_add==1"><router-link class="slide-item" :class="setS1" @click="ResetAct(), setS1='active', setM='active'" to="/lookup">Lookup</router-link></li>
+								<li v-if="permiss.permiss==1"><router-link class="slide-item" :class="setS2" @click="ResetAct(), setS2='active', setM='active'" to="/permiss">Permission</router-link></li>
 							</ul>
 						</li>
 
-						<li v-if="!!parseInt(permiss.mac_acc)" class="slide " @click="macro()">
-							<router-link class="side-menu__item" :class="macroAct" to="/macro">
+						<!-- MACRO -->
+						<li v-if="permiss.mac_acc==1" class="slide" @click="ResetExp(), ResetAct(), macroM='active'">
+							<router-link class="side-menu__item" :class="macroM" to="/macro">
 								<span class="side-menu__label"><i class="mdi mdi-file-excel tx-22 tx-center wd-25"></i><span class="mg-l-10 mg-t-4">Excel Macro</span></span>
 							</router-link>
 						</li>
@@ -124,9 +141,9 @@
 					</ul>
 				</div>
 			</aside>
-			<!-- main-sidebar -->
 
-			<!-- main-content -->
+
+
 			<div :class="appClass">
 
 				<!-- main-header -->
@@ -213,10 +230,9 @@
 					<span>Copyright © 2022 <a href="#">XPPL</a>. Designed by <a href="#">Chamlong</a> All rights reserved.</span>
 				</div>
 			</div>
-			<!-- Footer closed -->
+
 
 		</div>
-		<!-- End Page -->
 
 
     </div>
@@ -231,46 +247,62 @@ export default {
             isSignin: false,
             appClass: '',
 
-			homeAct: '',
-			lookupAct: '',
-			permissAct: '',
+			homeM:'',
+			macroM: '',
 
-			adminAct: '',
-			employeeAct: '',
-			rosterAct: '',
-			fingerAct: '',
-			overtimeAct: '',
-			annualAct: '',
-			leaveInfoAct: '',
-			transportAct: '',
+		// ADMIN TASK
+			admExp:'',
+			admM:'',
+			admS1:'',
+			admS2:'',
+			admS3:'',
+			admS4:'',
+			admS5:'',
+			admS6:'',
+			admS7:'',
 
-			fuelAct: '',
-			fuelConsAct: '',
-			fuelReportAct: '',
-			fuelLookupAct: '',
+		// FUEL
+			fueExp:'',
+			fueM:'',
+			fueS1:'',
+			fueS2:'',
+			fueS3:'',
 
-			carRentAct: '',
-			carRentDetailAct: '',
-			carRentReportAct: '',
-			carRentCodeAct: '',
+		// PRODUCTION
+			proExp:'', 
+			proM:'', 
+			proS1:'',
 
-			safetyAct: '',
-			incRecordAct: '',
-			incReportAct: '',
-			incLookupAct: '',
+		// SAFETY
+			safExp: '',
+			safM: '',
+			safS1: '',
+			safS2: '',
+			safS3: '',
 
-			prodAct: '',
+		// INVENTORY
+			invExp: '',
 
 
-			adminExp: '',
-			fuelExp: '',
-			carRentExp: '',
-			settExp: '',
-			safetyExp: '',
-			prodExp: '',
+
+
+		// SETTING
+			setExp: '',
+			setM: '',
+			setS1: '',
+			setS2: '',
+		
+		// CLINIC
+			cliExp:'',
+			cliM:'',
+			cliS1:'',
+			cliS2:'',
+
 
 			profile: [],
-			permiss: []
+			permiss: [],
+
+
         };
     },
 
@@ -291,249 +323,57 @@ export default {
             });
         },
 
-		homeClick(){
-			this.clearAct();
-			this.homeAct = 'active';
+		ResetExp(){
+			this.admExp='';
+			this.setExp='';
+			this.safExp='';
+			this.proExp='';
+			this.invExp='';
+			this.fueExp='';
+			this.cliExp=''
 		},
 
-		employee(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.employeeAct = 'active';
-		},
-		
-		roster(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.rosterAct = 'active';
-		},
+		ResetAct(){
+			this.homeM='';
+			this.macroM='';
 
-		finger(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.fingerAct = 'active';
-		},
+			this.admM='';
+			this.admS1='';
+			this.admS2='';
+			this.admS3='';
+			this.admS4='';
+			this.admS5='';
+			this.admS6='';
+			this.admS7='';
 
-		overtime(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.overtimeAct = 'active';
-		},
-		
-		annual(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.annualAct = 'active';
-		},
+			this.fueM='';
+			this.fueS1='';
+			this.fueS2='';
+			this.fueS3='';
 
-		leaveInfo(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.leaveInfoAct = 'active';
-		},
+			this.cliM='';
+			this.cliS1='';
+			this.cliS2='';
+			this.cliS3='';
 
-		transport(){
-			this.clearAct();
-			this.adminAct = 'active';
-			this.transportAct = 'active';
-		},
+			this.safM='';
+			this.safS1='';
+			this.safS2='';
+			this.safS3='';
+			
+			this.proM='';
+			this.proS1='';
+			this.proS2='';
 
-		lookupClick(){
-			this.clearAct();
-			this.settAct = 'active';
-			this.lookupAct = 'active';
-		},
+			this.setM='';
+			this.setS1='';
+			this.setS2='';
 
-		permissClick(){
-			this.clearAct();
-			this.settAct = 'active';
-			this.permissAct = 'active';
-		},
 
-		fuelConsClick(){
-			this.clearAct();
-			this.fuelAct = 'active';
-			this.fuelConsAct = 'active';
-		},
 
-		fuelReportClick(){
-			this.clearAct();
-			this.fuelAct = 'active';
-			this.fuelReportAct = 'active';
-		},
+			
 
-		fuelLookup(){
-			this.clearAct();
-			this.fuelAct = 'active';
-			this.fuelLookupAct = 'active';
-		},
 
-		carRentDetail(){
-			this.clearAct();
-			this.carRentAct = 'active';
-			this.carRentDetailAct = 'active';
-		},
-
-		carRentReport(){
-			this.clearAct();
-			this.carRentAct = 'active';
-			this.carRentReportAct = 'active';
-		},
-
-		carRentCode(){
-			this.clearAct();
-			this.carRentAct = 'active';
-			this.carRentCodeAct = 'active';
-		},
-
-		incRecord(){
-			this.clearAct();
-			this.safetyAct = 'active';
-			this.incRecordAct = 'active';
-		},
-
-		incReport(){
-			this.clearAct();
-			this.safetyAct = 'active';
-			this.incReportAct = 'active';
-		},
-
-		incLookup(){
-			this.clearAct();
-			this.safetyAct = 'active';
-			this.incLookupAct = 'active';
-		},
-
-		prodEntryClick(){
-			this.clearAct();
-			this.prodAct = 'active';
-			this.prodEntryAct = 'active';
-		},
-
-		fuelClick(){
-			if (this.fuelExp){
-				this.fuelExp = '';
-			} else {
-				this.settExp = '';
-				this.adminExp = '';
-				this.carRentExp = '';
-				this.safetyExp = '',
-				this.prodExp = '';
-				this.fuelExp = 'is-expanded';
-			}
-		},
-
-		adminTask(){
-			if (this.adminExp){
-				this.adminExp = '';
-			} else {
-				this.settExp = '';
-				this.fuelExp = '';
-				this.carRentExp = '';
-				this.safetyExp = '',
-				this.prodExp = '';
-				this.adminExp = 'is-expanded';
-			}
-		},
-
-		carRent(){
-			if (this.carRentExp){
-				this.carRentExp = '';
-			} else {
-				this.settExp = '';
-				this.fuelExp = '';
-				this.adminExp = '';
-				this.safetyExp = '',
-				this.prodExp = '';
-				this.carRentExp = 'is-expanded';
-			}
-		},
-
-		settClick(){
-			if (this.settExp){
-				this.settExp = '';
-			} else {
-				this.adminExp = '';
-				this.fuelExp = '';
-				this.carRentExp = '';
-				this.safetyExp = '',
-				this.prodExp = '';
-				this.settExp = 'is-expanded';
-			}
-		},
-
-		safety(){
-			if (this.safetyExp){
-				this.safetyExp = '';
-			} else {
-				this.settExp = '';
-				this.fuelExp = '';
-				this.adminExp = '';
-				this.carRentExp = '';
-				this.prodExp = '';
-				this.safetyExp = 'is-expanded';
-			}
-		},
-
-		prodClick(){
-			if (this.prodExp){
-				this.prodExp = '';
-			} else {
-				this.settExp = '';
-				this.fuelExp = '';
-				this.adminExp = '';
-				this.carRentExp = '';
-				this.safetyExp = '';
-				this.prodExp = 'is-expanded';
-			}
-		},
-
-		macro(){
-			this.clearAct();
-			this.macroAct = 'active';
-		},
-
-		clearAct(){
-			this.homeAct ='';
-		
-			this.adminAct = '';
-			this.employeeAct = '';
-			this.rosterAct = '';
-			this.fingerAct = '';
-			this.overtimeAct = '';
-			this.annualAct = '';
-			this.leaveInfoAct = '';
-			this.transportAct = '';
-
-			this.lookupAct = '';
-			this.permissAct = '';
-			this.settAct = '';
-
-			this.fuelAct = '';
-			this.fuelConsAct = '';
-			this.fuelReportAct = '';
-			this.fuelLookupAct = '';
-
-			this.carRentAct = '';
-			this.carRentDetailAct = '';
-			this.carRentReportAct = '';
-			this.carRentCodeAct = '';
-			this.macroAct = '';
-
-			this.safetyAct = '';
-			this.incRecordAct = '';
-			this.incReportAct = '';
-			this.incLookupAct = '';
-
-			this.prodAct = '';
-			this.prodEntryAct = '';
-
-			this.fuelExp = '';
-			this.adminExp = '';
-			this.settExp = '';
-			this.carRentExp = '';
-			this.safetyExp = '';
-			this.prodExp = '';
 		},
 
 		async getProfile(){
@@ -546,6 +386,11 @@ export default {
 			this.permiss = response.data;
 		},
 
+		async menu(){
+			const menu = await axios.get('/api/menu')
+			this.menuAcc = menu.data;
+		},
+
     },
 
     created(){
@@ -556,9 +401,11 @@ export default {
         if(window.Laravel.isLoggedin_laravel){
             this.isSignin = true;
             this.appClass = "main-content app-content";
+
 			this.homeAct = 'active';
 			this.getProfile();
 			this.getPermiss();
+
         } else {
 			this.isSignin = false;
             this.appClass = '';

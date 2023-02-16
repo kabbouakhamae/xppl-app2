@@ -56,7 +56,16 @@
                         <tbody> 
                             <tr v-for="(lst, inx) in infoData" :key="lst.id" class="tr-hover">
                                 <td class="text-center border-start-0">{{inx + 1}}</td>
-                                <td>{{ lst.title }} {{ lst.name }} {{ lst.surname }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        <span>
+                                            {{ lst.title }} {{ lst.name }} {{ lst.surname }} 
+                                        </span>
+                                        <span class="ms-1 bg-orange-transparent al-show">
+                                            {{ formatNumber(lst.total) }}
+                                        </span>
+                                    </div>
+                                </td>
                                 <td class="laofont"> <span v-if="lst.namelao">{{ lst.titlelao }}</span> {{ lst.namelao }} {{ lst.surnamelao }}</td>
                                 <td> {{ lst.position }} </td>
                                 <td class="text-end"> {{ formatNumber(lst.remain) }} </td>
@@ -183,6 +192,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+    .al-show{
+        padding: 0px 5px 0px 5px;
+        border-radius: 10px;  
+    }
 </style>

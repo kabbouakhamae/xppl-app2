@@ -74,7 +74,7 @@ class LookupController extends Controller
         return $section;
     }
     public function crew(){
-        $crew = DB::select("select code as value, code as label from lookup_code where category ='crew' and used = 1");
+        $crew = DB::select("select code as value, descr as label from lookup_code where category ='crew' and used = 1");
         return $crew;
     }
 
@@ -191,8 +191,8 @@ class LookupController extends Controller
             $request->dept,
             $request->search.'%'
         ];
-        $emplist2 = DB::select("select a.id, case when a.surname is null then name else name +' '+ a.surname end as name, 0 as sel from emp_names a, 
-                               dbo.utfEmpDetails() b where a.id = b.userid and b.status = 'current' and b.department = ? and a.name like ? order by a.name", $param);
+
+        $emplist2 = DB::select("select userid, fullname as name from dbo.utfEmpDetails() where status = 'current' and department = ? and name like ? order by name", $param);
         return $emplist2;
     }
 

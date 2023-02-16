@@ -81,7 +81,7 @@ export default {
             let fd = new FormData();
                 fd.append('file', this.$refs.fileInput.files.file);
             
-            this.$axios.post('/api/carRent/addFile', fd, {headers:{"Content-Type": "multipart/form-date"}})
+            this.$axios.post('/api/permission/addFile', fd, {headers:{"Content-Type": "multipart/form-date"}})
             .then(response => {   
 
                     // this.getFiles(this.empForm.userid);
@@ -100,7 +100,7 @@ export default {
                     fd.append('file[' + i + ']', file);
             }
            
-                this.$axios.post('/api/carRent/addFile', fd, {headers:{"Content-Type": "multipart/form-date"}})
+                this.$axios.post('/api/permission/addFile', fd, {headers:{"Content-Type": "multipart/form-date"}})
                 .then(response => {   
 
                         this.getFiles();
@@ -113,12 +113,12 @@ export default {
         },
 
         getFiles(){
-            this.$axios.get('/api/carRent/files')
+            this.$axios.get('/api/permission/files')
             .then(res => this.files = res.data)
         },
 
         fileDownload(file){
-            const url = `/api/carRent/download/${file}`;
+            const url = `/api/permission/download/${file}`;
             window.location.href = url;
         },
 

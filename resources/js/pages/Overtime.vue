@@ -4,22 +4,18 @@
             <div class="card-header pd-r-15 pd-t-10 pb-0">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex justify-content-start align-items-center">
-                        <h4 class="card-title mg-b-0 text-muted text-capitalize">Overtime </h4>
+                        <h4 class="card-title mg-b-0 text-muted text-capitalize">Overtime {{testVal}}</h4>
                     </div>
                     <div class="d-flex justify-content-start">
                         <button class="btn btn-icon btn-sm btn-i p-0" data-bs-toggle="dropdown" title="Tools">
                             <i class="mdi mdi-dots-horizontal text-gray" style="font-size: 15px"></i>
                         </button> 
                         <div class="dropdown-menu tx-13">
-                            <!-- <div class="dropdown-item cur-pointer dropdown-hover" @click="showCols()">
-                                <i class="mdi mdi-eye me-2 tx-16"></i><span>Show Column</span>
-                            </div> -->
-
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="addDelete()">
                                 <i class="mdi mdi-contrast-box me-2 tx-16"></i><span>Add/Delete</span>
                             </div>
                             <div class="dropdown-item cur-pointer dropdown-hover">
-                                <i class="mdi mdi-file-excel me-2 tx-16"></i><span>Export To Excel</span>
+                                <i class="mdi mdi-file-excel me-2 tx-16"></i><span>Update Fingerscan</span>
                             </div>
                         </div>
                     </div>
@@ -28,20 +24,20 @@
             <div class="card-body pd-t-0 pd-b-0">
                 <div class="d-xl-flex justify-content-between mt-1 mb-1">
                     <div class="pos-relative wd-lg-300 wd-100p">
-                        <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search for name" v-model="search" @input="searchChange()" @keyup.enter="getRoster()" title="Search by name, Crew or Section">
+                        <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search for name" v-model="search" @input="searchChange()" @keyup.enter="getOvertime()" title="Search by name, Crew or Section">
                             <i class="fe fe-search search-i text-muted"></i>
                         <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                     </div>
                     <div class="d-md-flex justify-content-end mt-xl-0 mt-lg-1 mt-md-1 mt-1">
                         <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1" v-if="permiss.ros_all == 1" >
-                            <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="getRoster()"/>
+                            <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="getOvertime()"/>
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="wd-md-150 wd-100p">
-                                <input type="date" class="form-control" v-model="datefr" @change="getRoster()">
+                                <input type="date" class="form-control" v-model="datefr" @change="getOvertime()">
                             </div>
                             <div class="wd-md-150 wd-100p ms-1">
-                                <input type="date" class="form-control" v-model="dateto" @change="getRoster()">
+                                <input type="date" class="form-control" v-model="dateto" @change="getOvertime()">
                             </div>
                         </div>
                     </div>
@@ -51,50 +47,62 @@
                     <table class="table main-table-reference text-nowrap mg-b-0">
                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                             <tr>
-                                <!-- <th v-if="showCol.no" class="border-start-0 px-1">No</th>
-                                <th v-if="showCol.crew" class="px-1 border-start-0">Crew</th>
+                                <th class="border-start-0 px-1">No</th>
                                 <th class="px-1 position-sticky border-start-0" style="left: -1px">Name and Surname</th>
-                                <th v-if="showCol.position" class="px-1">Position</th>
-                                <th v-if="showCol.section" class="px-1">Section</th>
-                                <th v-if="showCol.type" class="px-1">Type</th> -->
-                                <!-- <th v-for="(col, colInx) in colData" :key="colInx" class="text-center" style="padding: 7px 5px" :title="col.mont" :style="headDate(col.colid) == cdate ? 'background-color: yellow; color: blue; font-weight: bold' : ''">
+                                <th class="px-1">Position</th>
+                                <!-- <th class="px-1 border-start-0">Crew</th> -->
+                                <th v-for="(col, colInx) in otHead" :key="colInx" class="text-center" style="padding: 7px 5px" :title="col.mont" :style="headDate(col.colid) == cdate ? 'background-color: yellow; color: blue; font-weight: bold' : ''">
                                     {{ col.colname }} 
-                                </th> -->
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr v-for="(row, rowInx) in rosData" :key="rowInx" @click="selectRow(rowInx, row.fullname, row.rtype)" :style="rowInx === rowSel && row.rtype == 'P' ? 'color: red; font-weight: 500' : rowInx === rowSel && row.rtype == 'A' ? 'color: blue; font-weight: 500' : ''" >
-                                <td v-if="showCol.no" class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
-                                <td v-if="showCol.crew" class="px-1 border-start-0 cur-pointer" @dblclick="newCrew(row.id)">{{row.crew}}</td>
+                            <tr v-for="(row, rowInx) in otData" :key="rowInx">
+                                <td class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
                                 <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px" title="Double click to see Roster details" @dblclick="rosDetail(row.userid)">{{row.fullname}}</td>
-                                <td v-if="showCol.position" class="px-1" :title="row.position">{{cutWord(row.position)}}</td>
-                                <td v-if="showCol.section" class="px-1 cur-pointer" @dblclick="newSection(row.id)">{{row.section}}</td>
-                                <td v-if="showCol.type" class="px-1 text-center">{{row.rtype}}</td>
-                                <td v-for="(col, colInx) in colData" :key="colInx" class="px-1 text-center cur-pointer" :title="mentDate(col.colid) +'  '+ row[col.colid]" 
-                                    :style="code(row[col.colid]) == 'W' || code(row[col.colid]) == 'WN' ? 'background-color: #F2F4F8':
-                                            code(row[col.colid]) == 'W/2' ? 'background-color: #FFC000':
-                                            code(row[col.colid]) == 'R' || code(row[col.colid]) == 'RW' || code(row[col.colid]) == 'OR' || code(row[col.colid]) == 'IR' ? 'background-color: #FFFFCC':
-                                            code(row[col.colid]) == 'A' || code(row[col.colid]) == 'A/2' || code(row[col.colid]) == 'IA' || code(row[col.colid]) == 'OA' || code(row[col.colid]) == 'AA' || code(row[col.colid])== 'H' || code(row[col.colid]) == 'OH' || code(row[col.colid]) == 'IH' || code(row[col.colid]) == 'P' ? 'background-color: #FFFF99':
-                                            code(row[col.colid]) == 'S' || code(row[col.colid]) == 'SS' || code(row[col.colid]) == 'IS' || code(row[col.colid]) == 'OS' ? 'background-color: #F2DCDB':
-                                            code(row[col.colid]) == 'MR' ? 'background-color: #FF66FF':
-                                            code(row[col.colid]) == 'BWB' || code(row[col.colid]) == 'WO' || code(row[col.colid]) == 'IW' || code(row[col.colid]) == 'OW' ? 'background-color: #C6E0B4':
-                                            code(row[col.colid]) == 'T' || code(row[col.colid]) == 'T-' || code(row[col.colid]) == 'IT' || code(row[col.colid]) == 'OT' || code(row[col.colid]) == 'TT' ? 'background-color: #FF0000':''" 
-                                    
-                                    @dblclick="editRos(row.userid, col.colid, row.rtype, code(row[col.colid]), row.name, comments(row[col.colid]))"
-                                    @click="countDay(rowInx, headDate1(col.colid))"
-                                >
-                                    {{ code(row[col.colid]) }}
+                                
+                                
+                                
+                                <td class="px-1" :title="row.position">{{cutWord(row.position)}}</td>
+                                
+                                <!-- <td class="px-1 border-start-0 cur-pointer">{{row.crew}}</td> -->
+
+
+                                <td v-for="(col, colInx) in otHead" :key="colInx" class="px-1 text-center" :title="code(row[col.colid])>0 ? mentDate(col.colid) +'  ('+ comm(row[col.colid]) +')':''"
+                                    :style="code(row[col.colid])>0 ? 'background-color: #FFFFCC':'background-color: #F2F4F8'"
+
+                                >   
+                                    <div v-if="code(row[col.colid])>0">
+                                        <div data-bs-toggle="dropdown" type="button">{{code(row[col.colid])}}</div>
+                                        <div class="dropdown-menu tx-13">
+                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
+                                                <i class="mdi mdi-file-excel me-2"></i><span>Update</span>
+                                            </div>
+                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
+                                                <i class="mdi mdi-file-excel me-2"></i><span>Delete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else class="p-0">
+                                        <button class="btn btn-sm p-0" style="width: 15px; height: 15px" data-bs-toggle="dropdown" title="Add" @click="test(col.colid)"></button>
+                                        <div class="dropdown-menu tx-13">
+                                            <h6 class="dropdown-header tx-11 tx-bold tx-inverse tx-spacing-1">{{testVal}}</h6>
+                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
+                                                <i class="mdi mdi-file-excel me-2"></i><span>Add</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="d-flex justify-content-between tx-13 pt-1 pd-b-6">
-                    <div class="text-muted">{{fullname}} Type: {{type(rosForm.rtype)}}</div>
+                <div class="d-flex justify-content-between tx-13 pt-1 pd-b-6">
+                    <div class="text-muted">{{fullname}}</div>
                     <div v-if="text" class="text-end me-1">
                         {{text}}<span class="fw-bold text-primary">{{count}}</span> days
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
 
@@ -115,29 +123,31 @@
                                         <i class="fe fe-search search-i text-muted"></i>
                                     <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear2" @click="searchClear2()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                                 </div>
-                                <div class="table-responsive element border" style="height: 334px">
+
+                                <div class="table-responsive element border" style="height: 405px">
                                     <table class="table main-table-reference text-nowrap mg-b-0">
                                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                                             <tr>
                                                 <th class="border-0" style="padding: 5px 10px">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" v-model="selectAll" @click="select()">
+                                                            <input type="checkbox" v-model="selectAll" @click="SelectAll()">
                                                             <i class="form-icon"></i>
-                                                            <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Employee List</span>
+                                                            <span v-if="selectAll" class="ms-2 cur-pointer mg-t-2" title="Unselect all">Unselect All</span>
+                                                            <span v-else class="ms-2 cur-pointer mg-t-2" title="Select all">Select All</span>
                                                         </div>
                                                     </label>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr-hover" v-for="(lst ) in empData" :key="lst.id">
+                                            <tr class="tr-hover" v-for="(item, inx) in empList" :key="inx">
                                                 <td class="border-0">
                                                     <label class="form-checkbox m-0">
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <input type="checkbox" :value="lst.id" v-model="selected">
+                                                            <input type="checkbox" :value="item.userid" v-model="selected">
                                                             <i class="form-icon"></i>
-                                                            <span class="ms-2 cur-pointer">{{lst.name}}</span>
+                                                            <span class="ms-2 cur-pointer">{{item.name}}</span>
                                                         </div>
                                                     </label>
                                                 </td>
@@ -149,8 +159,8 @@
 
                             <div class="col-lg-5">
                                 <div class=" d-flex justify-content-start mt-md-2 mt-4">
-                                    <label class="rdiobox cur-pointer" @click="addMethodChanged()"><input name="add" type="radio" value="add" checked v-model="opt"><span>Add</span></label>
-                                    <label class="rdiobox cur-pointer ms-5" @click="addMethodChanged()"><input name="add" type="radio" value="delete" v-model="opt"><span>Delete</span></label>  
+                                    <label class="rdiobox cur-pointer"><input name="add" type="radio" value="add" checked v-model="opt"><span>Add</span></label>
+                                    <label class="rdiobox cur-pointer ms-5"><input name="add" type="radio" value="delete" v-model="opt"><span>Delete</span></label>  
                                 </div>
                                 <div class="form-group mt-3">
                                     <label class="mb-0">Date From <span class="text-danger">*</span></label>
@@ -160,17 +170,33 @@
                                     <label class="mb-0">Date To <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" v-model="otForm.dateto">
                                 </div>
-                                <div class="form-group">
-                                    <label class="mb-0">Start <span class="text-danger">*</span></label>
-                                    <input type="time" class="form-control" v-model="otForm.time_start">
+                                <div class="row">
+                                    <div class="col-lg-6 pe-lg-1">
+                                        <div class="form-group">
+                                            <label class="mb-0">Start <span class="text-danger">*</span></label>
+                                            <input v-if="opt=='add'" type="time" class="form-control" v-model="otForm.time_start">
+                                            <input v-else type="time" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 ps-lg-1">
+                                        <div class="form-group">
+                                            <label class="mb-0">End <span class="text-danger">*</span></label>
+                                            <input v-if="opt=='add'" type="time" class="form-control" v-model="otForm.time_end">
+                                            <input v-else type="time" class="form-control" disabled>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="mb-0">End <span class="text-danger">*</span></label>
-                                    <input type="time" class="form-control" v-model="otForm.time_end">
+                                    <label class="mb-0">Type <span class="text-danger">*</span></label>
+                                    <Multiselect v-if="opt=='add'" v-model="otForm.ot_type" :searchable="false" :searchStart="true" :options="lkType"/>
+                                    <Multiselect v-else v-model="otForm.ot_type" disabled/>
                                 </div>
-
-                                <button v-if="opt == 'add'" type="button" class="btn btn-primary wd-100p" :class="addDelDis" @click="addOvertime()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
-                                <button v-else type="button" class="btn btn-danger wd-100p" :class="addDelDis" @click="delOvertime()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button> 
+                                <div class="form-group">
+                                    <label class="mb-0">Location <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" v-model="otForm.dateto">
+                                </div>
+                                <button v-if="opt=='add'" type="button" class="btn btn-primary wd-100p" :class="addOTDis" @click="addOvertime()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
+                                <button v-else type="button" class="btn btn-danger wd-100p" :class="delOTDis" @click="delOvertime()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button> 
                             </div>    
                         </div>
                         
@@ -179,7 +205,7 @@
             </div>                                              
         </div>
 
-        {{testData}}
+
         
 </template>
 
@@ -191,34 +217,61 @@ export default {
         return {
             permiss: [],
             lkDept: [],
-            lkCode: [],
-            lkEmp: [],
-            lkCrew: [],
-            lkSect: [],
-            empData: [],
+            
+            lkType:[
+                {value: 's', label: 'Start of Shift'},
+                {value: 'e', label: 'End of Shift'},
+                {value: 'n', label: 'At Noon'}
+            ],
 
-            selected: [],
-		    selectAll: false,
+            otHead:[],
+            otData:[],
+
+            empList:[],
+
+            selected:[],
+		    selectAll:false,
+
 
             dept: '',
             datefr: '',
             dateto: '',
             search: '',
-            btnClear: '',
             search2: '',
+            btnClear: '',
             btnClear2: '',
 
-            otForm: {id: '', userid: '', datefr: '', dateto: '', time_start: '18:00', time_end: '21:00', note: '', remarks: ''},
+            otForm: {id: '', userid: '', datefr: '', dateto: '', time_start: '18:00', time_end: '21:00', note: '', remarks: '', ot_type:'e'},
             opt: 'add',
+            
             inx: '',
-
             testData: [],
+
+            testVal: ''
 
         };
     },
 
     mounted() {
         
+    },
+
+    computed: {
+        addOTDis(){
+            if (this.selected =='' || this.otForm.datefr =='' || this.otForm.dateto =='' || this.otForm.time_start =='' || this.otForm.time_end =='' || this.otForm.ot_type ==null || this.otForm.datefr > this.otForm.dateto){
+                return 'disabled';
+            } else {
+                return '';
+            } 
+        },
+
+        delOTDis(){
+            if (this.selected =='' || this.otForm.datefr =='' || this.otForm.dateto =='' || this.otForm.datefr > this.otForm.dateto){
+                return 'disabled';
+            } else {
+                return '';
+            } 
+        }
     },
 
     methods: {
@@ -232,17 +285,20 @@ export default {
 
             let today = new Date();
             this.datefr = moment(new Date(today.getFullYear(), today.getMonth() - 1, 15)).format('YYYY-MM-DD');
-            this.dateto = moment(new Date(today.getFullYear(), today.getMonth() + 1, 15)).format('YYYY-MM-DD');
+            this.dateto = moment(new Date(today.getFullYear(), today.getMonth() + 1, 0)).format('YYYY-MM-DD');
 
             this.cdate = moment(today).format('YYYY-MM-DD');
 
-            // const colhead = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
-            // this.colData = colhead.data;
+            const colhead = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
+            this.otHead = colhead.data;
 
-            // const roster = await axios.get(`/api/roster/roster?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
-            // this.rosData = roster.data;
+            const ot = await axios.get(`/api/overtime/otsearch?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
+            this.otData = ot.data;
 
             // this.loading = false;
+
+
+
 
             const dept = await axios.get('/api/lookup/depts')
             this.lkDept = dept.data;
@@ -253,32 +309,61 @@ export default {
 
         },
 
-        select() {
-            this.selected = [];
-            if (!this.selectAll) {
-                for (let i in this.empData) {
-                    this.selected.push(this.empData[i].id);
-                }
+        test(text){
+            this.testVal = text;
+        },
+
+        async getOvertime(){
+            // this.loading = true;
+
+            if (this.dept != '' && this.datefr != '' && this.dateto != ''){
+                const colhead = await axios.get(`/api/roster/datecol?datefr=${this.datefr}&dateto=${this.dateto}`)
+                this.otHead = colhead.data;
+
+                const ot = await axios.get(`/api/overtime/otsearch?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}&search=${this.search}`)
+                this.otData = ot.data;
+            }
+            // this.loading = false;
+        },
+
+        async searchChange(){
+            if(this.search.length >0){
+                this.btnClear = true;
+                // const data = await this.getRoster();
+            } else {
+                this.btnClear = false;
+                // const data = await this.getRoster();
             }
         },
 
+        searchClear(){
+            this.search = '';
+            this.btnClear = false;
+            this.getOvertime();
+        },
+
+        SelectAll(){
+            this.selected = [];
+            if (!this.selectAll) {
+                for (let i in this.empList) {
+                    this.selected.push(this.empList[i].userid);
+                }
+            }    
+        },
+
         addDelete(){
-            // this.userids = [];
-            // this.addDelDate = '';
-            // this.addMethod = 'add'
-            
+            this.clearForm();
             this.selected = [];
             this.selectAll = false;
             this.opt = 'add';
 
             $('#addDelete').modal('show');
             this.nameList();
-
         },
 
         async nameList(){
             const names = await axios.get(`/api/lookup/emplist?dept=${this.dept}&search=${this.search2}`)
-            this.empData = names.data;
+            this.empList = names.data;
         },
 
         async searchChange2(){
@@ -303,10 +388,11 @@ export default {
                 datefr: this.otForm.datefr,
                 dateto: this.otForm.dateto,
                 start: this.otForm.time_start,
-                end: this.otForm.time_end
+                end: this.otForm.time_end,
+                type: this.otForm.ot_type
             }).then(res => {
                 $('#addDelete').modal('hide');
-                // this.getRoster();
+                this.getOvertime();
             })
         },
 
@@ -329,13 +415,81 @@ export default {
                         dateto: this.otForm.dateto
                     }).then(res => {
                         $('#addDelete').modal('hide');
-                        // this.getRoster();
+                        this.getOvertime();
                     })
                 } else {
                     $('#addDelete').modal('show');
                 }
             });
         },
+
+        clearForm(){
+            let f = this.otForm;
+            f.datefr='';
+            f.dateto='';
+            f.time_start='18:00';
+            f.time_end='21:00';
+            f.ot_type='e';
+            this.search2='';
+        },
+
+        code(text){
+            if (text) {
+                return text.split("_")[0];
+            }
+        },
+
+        mentDate(text){
+            if (text) {
+                return moment(text.split("c")[1]).format("DD/MM/YYYY");
+            }
+        },
+
+        comm(text){
+            if (text) {
+                return text.split("_")[1];
+            }
+        },
+
+        headDate(text){
+            if (text) {
+                return moment(text.split("c")[1]).format("YYYY-MM-DD");
+            }
+        },
+
+        headDate1(text){
+            if (text) {
+                return moment(text.split("c")[1]).format("MM-DD-YYYY");
+            }
+        },
+
+        comments(text){
+            if (text) {
+                return text.split("_")[1];
+            }
+        },
+
+        date1(value){
+            if (value) {
+                return moment(value).format("DD-MM-YYYY");
+            }
+        },
+
+        date2(value){
+            if (value) {
+                return moment(value).format("DD-MM-YYYY HH:ss");
+            }
+        },
+
+        cutWord(text){
+            if (!text == '') {
+                if(text.length > 20){
+                    return text.substring(0,20)+'...';
+                } else {
+                    return text;
+                }
+            }
+		},
 
     },
     

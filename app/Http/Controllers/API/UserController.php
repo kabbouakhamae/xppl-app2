@@ -103,8 +103,8 @@ class UserController extends Controller
     }
 
     public function permiss(){
-        $id = auth()->user()->userid;
-        $permiss = DB::table('permission')->where('userid', $id)->first();
+        $userid = auth()->user()->userid;
+        $permiss = DB::table('permission')->where('userid', $userid)->first();
         
         return $permiss;
     }
@@ -143,8 +143,6 @@ class UserController extends Controller
             ->where('id', $request->id)
             ->update([
                 'permiss' => $request->permiss,
-                'geo' => $request->geo,
-                'mining' => $request->mining,
                 'safety' => $request->safety,
                 'lk_add' => $request->lkAdd,
                 'lk_edit' => $request->lkEdit,
@@ -165,6 +163,5 @@ class UserController extends Controller
                 'ros_edit' => $request->rosEdit
             ]);
     }
-
 
 }

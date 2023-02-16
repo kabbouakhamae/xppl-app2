@@ -393,7 +393,7 @@ export default {
             year: new Date().getFullYear(),
             mont: new Date().toLocaleString('en-us', { month: 'long' }),
             headForm: {id: '', plant: 'XPPL', refuel_date: '', created_dept: '', cost_dept: null, cost_type: null, cost_no: '', location: '', approved_by: null},
-            detailForm: {id: '', head_id: '', work_shift: 'DS', equip_no: null, equip_descr: '', work_order: '', reserve_no: '', material: '40002084', smu: '', liter: '', driver: '', refuel_by: ''},
+            detailForm: {id: '', head_id: '', work_shift: 'DS', equip_no: null, equip_descr: '', work_order: '', reserve_no: '', material: '40023205', smu: '', liter: '', driver: '', refuel_by: ''},
             
             dateRowSel: '',
             headRowSel: '',
@@ -480,6 +480,10 @@ export default {
 
             const perRes = await axios.get('/api/permiss')
             this.permiss = perRes.data;
+
+            const mn = await axios.get('/api/fuel/getmin')
+            this.dateSelected(0, mn.data);
+
 		},
 
         getDate(){
@@ -530,8 +534,8 @@ export default {
             this.dateRowSel = '';
             this.headNewShow = '';
             this.detailNewShow = '';
-            this.headList = '';
-            this.detailList = '';
+            this.headList = [];
+            this.detailList = [];
         },
 
         montSelected(){
@@ -539,8 +543,8 @@ export default {
             this.dateRowSel = '';
             this.headNewShow = '';
             this.detailNewShow = '';
-            this.headList = '';
-            this.detailList = '';
+            this.headList = [];
+            this.detailList = [];
         },
 
         headSelected(key, id, type){
@@ -561,7 +565,7 @@ export default {
         headRefresh(){
             this.headRowSel = '';
             this.detailNewShow = false;
-            this.detailList = '';
+            this.detailList = [];
 
             this.$axios.post('/api/fuel/head', {
                 date: this.headForm.refuel_date,
@@ -835,7 +839,7 @@ export default {
                 f.equip_descr = '';
                 f.work_order = '';
                 f.reserve_no = '';
-                f.material = '40002084';
+                f.material = '40023205';
                 f.smu = '';
                 f.liter = '';
                 f.driver = '';

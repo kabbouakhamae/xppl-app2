@@ -241,4 +241,19 @@ class FuelConsController extends Controller
         return $code;
     }
 
+    public function getMin()
+    {
+        $cdate = date('Y-m-d');
+
+        $m = explode('-',$cdate)[1];
+        $y = explode('-',$cdate)[0];
+
+        $mn = DB::table('fuel_date')
+                ->whereYear('refuel_date', $y)
+                ->whereMonth('refuel_date', $m)
+                ->min('refuel_date');
+
+        return $mn;
+    }
+
 }

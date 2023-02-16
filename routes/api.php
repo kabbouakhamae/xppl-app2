@@ -17,11 +17,13 @@ use App\Http\Controllers\API\FuelConsController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\LookupSettController;
 use App\Http\Controllers\API\EmpRosterController;
-use App\Http\Controllers\API\CarRentController;
 use App\Http\Controllers\API\FingerscanController;
 use App\Http\Controllers\API\SafetyController;
 use App\Http\Controllers\API\OvertimeController;
 use App\Http\Controllers\API\ProductionController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\InventoryController;
+use App\Http\Controllers\API\ClinicController;
 use App\Http\Controllers\API\TestController;
 
 /*
@@ -43,6 +45,15 @@ Route::get('permiss', [UserController::class, 'permiss']);
 Route::get('username', [UserController::class, 'username']);
 Route::post('permissUpdate', [UserController::class, 'permissUpdate']);
 Route::post('permissEdit', [UserController::class, 'permissEdit']);
+
+Route::group(['prefix' => 'permission', 'middlewar' => 'auth:santum'], function(){
+    Route::get('/home', [PermissionController::class, 'home']);
+    Route::get('/admin', [PermissionController::class, 'admin']);
+
+    Route::post('/addFile', [PermissionController::class, 'addFile']);
+    Route::get('/files', [PermissionController::class, 'files']);
+    Route::get('/download/{file}', [PermissionController::class, 'download']);
+});
 
 
 Route::group(['prefix' => 'employee', 'middlewar' => 'auth:santum'], function(){
@@ -80,6 +91,7 @@ Route::group(['prefix' => 'bank', 'middlewar' => 'auth:santum'], function(){
     Route::post('/delete/{id}', [EmpBankController::class, 'delete']);
 });
 
+// CARD
 Route::group(['prefix' => 'card', 'middlewar' => 'auth:santum'], function(){
     Route::post('/data/{id}', [EmpCardController::class, 'data']);
     Route::post('/add', [EmpCardController::class, 'add']);
@@ -88,6 +100,7 @@ Route::group(['prefix' => 'card', 'middlewar' => 'auth:santum'], function(){
     Route::post('/delete/{id}', [EmpCardController::class, 'delete']);
 });
 
+// ANNUAL LEAVE
 Route::group(['prefix' => 'annual', 'middlewar' => 'auth:santum'], function(){
     Route::post('/data/{id}', [EmpAnnualController::class, 'data']);
     Route::post('/add', [EmpAnnualController::class, 'add']);
@@ -97,6 +110,7 @@ Route::group(['prefix' => 'annual', 'middlewar' => 'auth:santum'], function(){
     Route::get('/info', [EmpAnnualController::class, 'info']);
 });
 
+// FILE
 Route::group(['prefix' => 'file', 'middlewar' => 'auth:santum'], function(){
     Route::post('/data/{id}', [EmpFileController::class, 'data']);
     Route::post('/add', [EmpFileController::class, 'add']);
@@ -104,6 +118,7 @@ Route::group(['prefix' => 'file', 'middlewar' => 'auth:santum'], function(){
     Route::post('/delete/{file}', [EmpFileController::class, 'delete']);
 });
 
+// TRANSPORT
 Route::group(['prefix' => 'transport', 'middlewar' => 'auth:santum'], function(){
     Route::post('/out', [EmpTransController::class, 'out']);
     Route::post('/in', [EmpTransController::class, 'in']);
@@ -111,6 +126,7 @@ Route::group(['prefix' => 'transport', 'middlewar' => 'auth:santum'], function()
     Route::post('/dropoff', [EmpTransController::class, 'dropoff']);
 });
 
+// FUEL
 Route::group(['prefix' => 'fuel', 'middlewar' => 'auth:santum'], function(){
     Route::post('/date', [FuelConsController::class, 'date']);
     Route::post('/dateadd', [FuelConsController::class, 'dateAdd']);
@@ -127,8 +143,10 @@ Route::group(['prefix' => 'fuel', 'middlewar' => 'auth:santum'], function(){
     Route::post('/reserveadd', [FuelConsController::class, 'reserveAdd']);
     Route::get('/category', [FuelConsController::class, 'category']);
     Route::post('/code', [FuelConsController::class, 'code']);
+    Route::get('/getmin', [FuelConsController::class, 'getMin']);
 });
 
+// HOME
 Route::group(['prefix' => 'home', 'middlewar' => 'auth:santum'], function(){
     Route::get('/countcountry', [HomeController::class, 'countcountry']);
     Route::get('/countdept', [HomeController::class, 'countdept']);
@@ -139,6 +157,7 @@ Route::group(['prefix' => 'home', 'middlewar' => 'auth:santum'], function(){
     Route::post('/manpower', [HomeController::class, 'manpower']);
 });
 
+// ROTER
 Route::group(['prefix' => 'roster', 'middlewar' => 'auth:santum'], function(){
     Route::get('/rosCode', [EmpRosterController::class, 'rosCode']);
     Route::post('/rosCodeAdd', [EmpRosterController::class, 'rosCodeAdd']);
@@ -148,8 +167,8 @@ Route::group(['prefix' => 'roster', 'middlewar' => 'auth:santum'], function(){
     Route::get('/datecol', [EmpRosterController::class, 'dateCol']);
     Route::get('/roster', [EmpRosterController::class, 'roster']);
     Route::get('/rcode', [EmpRosterController::class, 'rcode']);
-    Route::post('/updrosdate', [EmpRosterController::class, 'updRosDate']);
-    Route::post('/updrosrange', [EmpRosterController::class, 'updRosRange']);
+
+
     Route::post('/rosdetail', [EmpRosterController::class, 'rosDetail']);
     Route::post('/emplist', [EmpRosterController::class, 'empList']);
     Route::post('/addros', [EmpRosterController::class, 'addRos']);
@@ -160,47 +179,21 @@ Route::group(['prefix' => 'roster', 'middlewar' => 'auth:santum'], function(){
     Route::post('/addcrew', [EmpRosterController::class, 'addCrew']);
     Route::post('/addsection', [EmpRosterController::class, 'addSection']);
     Route::post('/updshiftwork', [EmpRosterController::class, 'updShiftWork']);
-    Route::post('/roster2', [EmpRosterController::class, 'roster2']);
+    Route::post('/rostermultiname', [EmpRosterController::class, 'rosterMultiname']);
     Route::get('/breakinfo', [EmpRosterController::class, 'breakInfo']);
+    Route::get('/grouplist', [EmpRosterController::class, 'groupList']);
+    Route::post('/rosgroupfilter', [EmpRosterController::class, 'rosGroupFilter']);
+    Route::get('/positionlist', [EmpRosterController::class, 'PositionList']);
+    Route::post('/positionfilter', [EmpRosterController::class, 'PositionFilter']);
+    Route::get('/filterlist', [EmpRosterController::class, 'FilterList']);
+    Route::post('/filterresult', [EmpRosterController::class, 'FilterResult']);
+
+    Route::post('/addrosterrange', [EmpRosterController::class, 'AddRosterRange']);
+    Route::post('/updrosterrange', [EmpRosterController::class, 'UpdRosterRange']);
+    Route::post('/delrosterrange', [EmpRosterController::class, 'DelRosterRange']);
 });
 
-Route::group(['prefix' => 'carRent', 'middlewar' => 'auth:santum'], function(){
-    Route::post('/date', [CarRentController::class, 'date']);
-    Route::post('/addDate', [CarRentController::class, 'addDate']);
-    Route::get('/carComp', [CarRentController::class, 'carComp']);
-    Route::get('/carType', [CarRentController::class, 'carType']);
-    Route::get('/departPoint', [CarRentController::class, 'departPoint']);
-    Route::get('/destination', [CarRentController::class, 'destination']);
-    Route::get('/route', [CarRentController::class, 'route']);
-    Route::post('/fuelKm', [CarRentController::class, 'fuelKm']);
-    Route::get('/equipNo', [CarRentController::class, 'equipNo']);
-    Route::get('/departPoint', [CarRentController::class, 'departPoint']);
-    Route::get('/destination', [CarRentController::class, 'destination']);
-    Route::get('/paidType', [CarRentController::class, 'paidType']);
-    Route::get('/route', [CarRentController::class, 'route']);
-    Route::post('/routeKm', [CarRentController::class, 'routeKm']);
-    Route::post('/head', [CarRentController::class, 'head']);
-    Route::post('/addHead', [CarRentController::class, 'addHead']);
-    Route::post('/editHead/{id}', [CarRentController::class, 'editHead']);
-    Route::post('/updHead', [CarRentController::class, 'updHead']);
-    Route::post('/delHead/{id}', [CarRentController::class, 'delHead']);
-    Route::post('/detail', [CarRentController::class, 'detail']);
-    Route::post('/addDetail', [CarRentController::class, 'addDetail']);
-    Route::post('/editDetail/{id}', [CarRentController::class, 'editDetail']);
-    Route::post('/updDetail', [CarRentController::class, 'updDetail']);
-    Route::post('/delDetail/{id}', [CarRentController::class, 'delDetail']);
-    Route::post('/addFile', [CarRentController::class, 'addFile']);
-    Route::get('/files', [CarRentController::class, 'files']);
-    Route::get('/download/{file}', [CarRentController::class, 'download']);
-    Route::get('/category', [CarRentController::class, 'category']);
-    Route::post('/code', [CarRentController::class, 'code']);
-    Route::post('/editcode/{id}', [CarRentController::class, 'editCode']);
-    Route::post('/addcode', [CarRentController::class, 'addCode']);
-    Route::post('/updcode', [CarRentController::class, 'updCode']);
-    Route::post('/delcode/{id}', [CarRentController::class, 'delCode']);
-
-});
-
+// FINGER SCAN
 Route::group(['prefix' => 'fingerscan', 'middlewar' => 'auth:santum'], function(){
     Route::get('/datecol', [FingerscanController::class, 'dateCol']);
     Route::get('/summary', [FingerscanController::class, 'summary']);
@@ -214,6 +207,7 @@ Route::group(['prefix' => 'fingerscan', 'middlewar' => 'auth:santum'], function(
 
 });
 
+// SAFETY
 Route::group(['prefix' => 'safety', 'middlewar' => 'auth:santum'], function(){
     Route::get('/increcord', [SafetyController::class, 'incRecord']);
     Route::get('/incgroup', [SafetyController::class, 'incGroup']);
@@ -243,16 +237,38 @@ Route::group(['prefix' => 'safety', 'middlewar' => 'auth:santum'], function(){
     Route::post('/updcode', [SafetyController::class, 'updCode']);
     Route::post('/delcode/{id}', [SafetyController::class, 'delCode']);
     Route::get('/exincident', [SafetyController::class, 'exIncident']);
+    Route::get('/safcategory', [SafetyController::class, 'safCategory']);
+    Route::post('/cateadd', [SafetyController::class, 'addCate']);
+    Route::post('/addfile', [SafetyController::class, 'addFile']);
+    Route::post('/getfile', [SafetyController::class, 'getFile']);
+    Route::post('/deldoc/{filename}', [SafetyController::class, 'delDoc']);
+    Route::get('/downloaddoc/{filename}', [SafetyController::class, 'downloadDoc']);
+    Route::get('/filterlist', [SafetyController::class, 'FilterList']);
+    Route::post('/filterresult', [SafetyController::class, 'FilterResult']);
+
+    Route::get('/getmin', [SafetyController::class, 'getMin']);
 });
 
+// OVERTIME
 Route::group(['prefix' => 'overtime', 'middlewar' => 'auth:santum'], function(){
     Route::post('/addovertime', [OvertimeController::class, 'addOvertime']);
     Route::post('/delovertime', [OvertimeController::class, 'delOvertime']);
+    Route::get('/otsearch', [OvertimeController::class, 'otSearch']);
+
+
     Route::get('/test', [OvertimeController::class, 'test']);
 
 });
 
-// PRODUCTION 
+// CLINIC
+Route::group(['prefix' => 'clinic', 'middlewar' => 'auth:santum'], function(){
+    Route::post('/registername', [ClinicController::class, 'RegisterName']);
+    Route::get('/newid', [ClinicController::class, 'NewID']);
+
+
+});
+
+// PRODUCTION
 Route::group(['prefix' => 'production', 'middlewar' => 'auth:santum'], function(){
     Route::get('/proddate', [ProductionController::class, 'prodDate']);
     Route::get('/proddata', [ProductionController::class, 'prodData']);
@@ -260,6 +276,15 @@ Route::group(['prefix' => 'production', 'middlewar' => 'auth:santum'], function(
 
 });
 
+// INVENTORY
+Route::group(['prefix' => 'inventory', 'middlewar' => 'auth:santum'], function(){
+    Route::get('/prrecord', [InventoryController::class, 'prRecord']);
+    // Route::get('/proddata', [InventoryController::class, 'prodData']);
+
+
+});
+
+// LOOKUP
 Route::group(['prefix' => 'lookup', 'middlewar' => 'auth:santum'], function(){
     Route::get('/country', [LookupController::class, 'country']);
     Route::get('/province', [LookupController::class, 'province']);
@@ -295,6 +320,7 @@ Route::group(['prefix' => 'lookup', 'middlewar' => 'auth:santum'], function(){
     Route::get('/emplist', [LookupController::class, 'empList']);
 });
 
+// LOOKUP SETTING
 Route::group(['prefix' => 'lookupSett', 'middlewar' => 'auth:santum'], function(){
     Route::get('/genCategory', [LookupSettController::class, 'genCategory']);
     Route::post('/genLookup', [LookupSettController::class, 'genLookup']);

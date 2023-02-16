@@ -60,6 +60,7 @@
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">Employee ID</th>
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">Scan ID</th>
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">Food ID</th>
+                                    <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">User ID</th>
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">Roster</th>
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px" class="fw-bold text-white">Status</th>
                                     <th style="letter-spacing: 0.5px; padding: 7px 12px; width: 10%; right: -0.1px; z-index: 1; background-color: #5195D3" class="fw-bold text-white position-sticky">Tools</th>
@@ -119,6 +120,7 @@
                                     </td>
 
                                     <td style="padding: 6px 12px; ">{{ list.foodid }}</td>
+                                    <td style="padding: 6px 12px; ">{{ list.id }}</td>
                                     <td style="padding: 6px 12px; ">{{ list.roster }}</td>
 
                                     <td style="padding: 6px 12px; "> 
@@ -348,7 +350,7 @@
                                     </div>
                                     <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label class="mb-0">Crew</label> 
+                                            <label class="mb-0">Group</label> 
                                             <Multiselect v-model="empForm.crew" searchable="true" :options="lkCrew"/>
                                         </div>
                                     </div>
@@ -387,7 +389,7 @@
                                                     <th>Position</th>
                                                     <th>Department</th>
                                                     <th>Section</th>
-                                                    <th>Crew</th>
+                                                    <th>Group</th>
                                                     <th>Employee ID</th>
                                                     <th>Scan ID</th>
                                                     <th>Food ID</th>
@@ -726,7 +728,7 @@
                                 </div>
                                 <div class="col-xl-2 col-lg-3 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Crew</label> 
+                                        <label class="mb-0">Group</label> 
                                         <Multiselect v-model="empForm.crew" searchable="true" :options="lkCrew"/>
                                     </div>
                                 </div>
@@ -774,7 +776,7 @@
                                 </div>
                                 <div class="col-xl-2 col-lg-6">
                                     <div class="form-group">
-                                        <label class="mb-0">contact Type</label> 
+                                        <label class="mb-0">Contact Type</label> 
                                         <Multiselect v-model="empForm.contract" :options="lkContract"/>
                                     </div>
                                 </div>

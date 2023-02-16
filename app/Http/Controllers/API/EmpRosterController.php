@@ -91,56 +91,6 @@ class EmpRosterController extends Controller
         return $rcode;
     }
 
-    public function updRosDate(Request $request){
-        $datetime = now("Asia/Bangkok")->toDateTimeString();
-        $username = Str::lower(auth()->user()->username);
-
-        if ($request->rtype == 'A'){
-            DB::table('emp_rosters')
-                ->where('userid', $request->userid)
-                ->where('rdate', $request->rdatefr)
-                ->update([
-                    'acode' => $request->rcode,
-                    'anote' => $request->comment,
-                    'updated_at' => $datetime,
-                    'updated_by' => $username
-                ]);
-        } else {
-            DB::table('emp_rosters')
-                ->where('userid', $request->userid)
-                ->where('rdate', $request->rdatefr)
-                ->update([
-                    'pcode' => $request->rcode,
-                    'pnote' => $request->comment
-                ]);
-        }
-    }
-
-    public function updRosRange(Request $request){
-        $datetime = now("Asia/Bangkok")->toDateTimeString();
-        $username = Str::lower(auth()->user()->username);
-
-        if ($request->rtype == 'A'){
-            DB::table('emp_rosters')
-                ->where('userid', $request->userid)
-                ->whereBetween('rdate', [$request->rdatefr, $request->rdateto])
-                ->update([
-                    'acode' => $request->rcode,
-                    'anote' => $request->comment,
-                    'updated_at' => $datetime,
-                    'updated_by' => $username
-                ]);
-        } else {
-            DB::table('emp_rosters')
-                ->where('userid', $request->userid)
-                ->whereBetween('rdate', [$request->rdatefr, $request->rdateto])
-                ->update([
-                    'pcode' => $request->rcode,
-                    'pnote' => $request->comment
-                ]);
-        }   
-    }
-
     public function rosDetail(Request $request){
         $param = [
             $request->dept,
@@ -160,6 +110,9 @@ class EmpRosterController extends Controller
     }
 
     public function addRos(Request $request){
+        $datetime = now("Asia/Bangkok")->toDateTimeString();
+        $username = Str::lower(auth()->user()->username);
+
         foreach($request->list as $userid) {
             $rosdata = DB::table('emp_details as a')
                         ->select('a.roster')
@@ -174,22 +127,82 @@ class EmpRosterController extends Controller
             $param = [
                 $request->date,
                 $userid,
-                $roster
+                $roster,
+                $datetime,
+                $username
             ];
             
-            DB::select("exec uspEmpRosterAdd ?, ?, ?", $param);
+            DB::select("exec uspEmpRosterAdd ?, ?, ?, ?, ?", $param);
         }  
     }
 
     public function delRos(Request $request){
         foreach($request->list as $userid) {
-            
             DB::table('emp_rosters')
                 ->where('userid', $userid)
                 ->where('rdate', '>=', $request->date)
                 ->delete();
-            
         }  
+    }
+
+    public function AddRosterRange(Request $request){
+        $datetime = now("Asia/Bangkok")->toDateTimeString();
+        $username = Str::lower(auth()->user()->username);
+
+        foreach($request->list as $date){
+            $check = DB::table('emp_rosters')
+                        ->where('userid', $request->userid)
+                        ->where('rdate', $date);
+
+            if (!$check->count()){
+                DB::table('emp_rosters')
+                    ->insert([
+                        'userid' => $request->userid,
+                        'rdate' => $date,
+                        'pcode' => $request->code,
+                        'acode' => $request->code,
+                        'updated_at' => $datetime,
+                        'updated_by' => $username,
+                    ]);
+            };
+        } 
+    }
+
+    public function UpdRosterRange(Request $request){
+        $datetime = now("Asia/Bangkok")->toDateTimeString();
+        $username = Str::lower(auth()->user()->username);
+
+        foreach($request->list as $date){
+            if ($request->type == 'A'){
+                DB::table('emp_rosters')
+                    ->where('userid', $request->userid)
+                    ->where('rdate', $date)
+                    ->update([
+                        'acode' => $request->code,
+                        'anote' => $request->comm,
+                        'updated_at' => $datetime,
+                        'updated_by' => $username
+                    ]);
+            } else {
+                DB::table('emp_rosters')
+                    ->where('userid', $request->userid)
+                    ->where('rdate', $date)
+                    ->update([
+                        'pcode' => $request->code,
+                        'pnote' => $request->comm
+                    ]);
+            }
+        }   
+    }
+
+
+    public function DelRosterRange(Request $request){
+        foreach($request->list as $date){
+            DB::table('emp_rosters')
+                ->where('userid', $request->userid)
+                ->where('rdate', $date)
+                ->delete();
+        }
     }
 
     public function leaveInfo(Request $request){
@@ -254,21 +267,78 @@ class EmpRosterController extends Controller
         }
     }
 
-    public function roster2(Request $request){
+    public function rosterMultiname(Request $request){
         $param = [
             $request->datefr,
             $request->dateto,
-            $request->userid,
+            $request->names,
             $request->dept
         ];
 
-        $ros2 = DB::select('exec uspEmpRoster2 ?, ?, ?, ?', $param);
-        return $ros2;
+        $rosMultiname = DB::select('exec uspEmpRoster_multiname ?, ?, ?, ?', $param);
+        return $rosMultiname;
     }
-
+    
     public function breakInfo(Request $request){
         $break = DB::select('exec uspEmpComingBreak ?', [$request->dept]);
         return $break;
+    }
+    
+    public function grouplist(Request $request){
+        $group = DB::select("select distinct crew from emp_details where status = 'current' and crew is not null and department = ?", [$request->dept]);
+        return $group;
+    }
+    
+    public function rosGroupFilter(Request $request){
+        $param = [
+            $request->dept,
+            $request->group,
+            $request->datefr,
+            $request->dateto
+        ];
+
+        $groupFilter = DB::select('exec uspEmpRoster_groupfilter ?, ?, ?, ?', $param);
+        return $groupFilter;
+    }
+
+    public function PositionList(Request $request){
+        $position = DB::select("select distinct position from emp_details where status = 'current' and position is not null and department = ?", [$request->dept]);
+        return $position;
+    }
+
+    public function PositionFilter(Request $request){
+        $param = [
+            $request->dept,
+            $request->position,
+            $request->datefr,
+            $request->dateto
+        ];
+
+        $groupFilter = DB::select('exec uspEmpRoster_PositionFilter ?, ?, ?, ?', $param);
+        return $groupFilter;
+    }
+
+    public function FilterList(Request $request){
+
+        $colname = $request->filter;
+        $fdept = $request->dept;
+
+        $position = DB::select("select distinct $colname as colname from emp_details where status = 'current' and $colname is not null and department = ?", [$fdept]);
+        return $position;
+
+    }
+
+    public function FilterResult(Request $request){
+        $param = [
+            $request->dept,
+            $request->values,
+            $request->datefr,
+            $request->dateto,
+            $request->filter
+        ];
+
+        $filter = DB::select('exec uspEmpRoster_Filter ?, ?, ?, ?, ?', $param);
+        return $filter;
     }
 
 }

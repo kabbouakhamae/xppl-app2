@@ -17,10 +17,10 @@ class OvertimeController extends Controller
                 $request->datefr,
                 $request->dateto,
                 $request->start,
-                $request->end
+                $request->end,
+                $request->type
             ];
-
-            DB::insert("exec uspOvertimeAdd ?, ?, ?, ?, ?", $param);
+            DB::insert("exec uspOvertimeAdd ?, ?, ?, ?, ?, ?", $param);
         }
     }
 
@@ -31,9 +31,26 @@ class OvertimeController extends Controller
                 ->where('userid', $userid)
                 ->whereBetween('ot_date', [$request->datefr, $request->dateto])
                 ->delete();
-            
         }  
     }
+
+    public function otSearch(Request $request){
+        $param = [
+            $request->dept,
+            $request->datefr, 
+            $request->dateto,
+            $request->search.'%'
+        ];
+
+        $otsearch = DB::select("exec uspEmpOvertime_Search ?, ?, ?, ?", $param);
+        return $otsearch;
+    }
+
+
+
+
+
+
 
     public function test(){
         $test = DB::table('XPPL_PRODUCTION.dbo.tbl_MiningPit')
@@ -41,6 +58,7 @@ class OvertimeController extends Controller
 
         return $test;
     }
+
 
 }
 
