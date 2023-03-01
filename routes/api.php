@@ -45,6 +45,7 @@ Route::get('permiss', [UserController::class, 'permiss']);
 Route::get('username', [UserController::class, 'username']);
 Route::post('permissUpdate', [UserController::class, 'permissUpdate']);
 Route::post('permissEdit', [UserController::class, 'permissEdit']);
+Route::get('language', [UserController::class, 'Language']);
 
 Route::group(['prefix' => 'permission', 'middlewar' => 'auth:santum'], function(){
     Route::get('/home', [PermissionController::class, 'home']);
@@ -167,8 +168,6 @@ Route::group(['prefix' => 'roster', 'middlewar' => 'auth:santum'], function(){
     Route::get('/datecol', [EmpRosterController::class, 'dateCol']);
     Route::get('/roster', [EmpRosterController::class, 'roster']);
     Route::get('/rcode', [EmpRosterController::class, 'rcode']);
-
-
     Route::post('/rosdetail', [EmpRosterController::class, 'rosDetail']);
     Route::post('/emplist', [EmpRosterController::class, 'empList']);
     Route::post('/addros', [EmpRosterController::class, 'addRos']);
@@ -187,7 +186,6 @@ Route::group(['prefix' => 'roster', 'middlewar' => 'auth:santum'], function(){
     Route::post('/positionfilter', [EmpRosterController::class, 'PositionFilter']);
     Route::get('/filterlist', [EmpRosterController::class, 'FilterList']);
     Route::post('/filterresult', [EmpRosterController::class, 'FilterResult']);
-
     Route::post('/addrosterrange', [EmpRosterController::class, 'AddRosterRange']);
     Route::post('/updrosterrange', [EmpRosterController::class, 'UpdRosterRange']);
     Route::post('/delrosterrange', [EmpRosterController::class, 'DelRosterRange']);
@@ -198,7 +196,7 @@ Route::group(['prefix' => 'fingerscan', 'middlewar' => 'auth:santum'], function(
     Route::get('/datecol', [FingerscanController::class, 'dateCol']);
     Route::get('/summary', [FingerscanController::class, 'summary']);
     Route::post('/detail', [FingerscanController::class, 'detail']);
-    Route::post('/aclog', [FingerscanController::class, 'acLog']);
+    Route::post('/aclog', [FingerscanController::class, 'AcLog']);
     Route::get('/summary2', [FingerscanController::class, 'summary2']);
     Route::get('/header', [FingerscanController::class, 'header']);
 
@@ -254,9 +252,15 @@ Route::group(['prefix' => 'overtime', 'middlewar' => 'auth:santum'], function(){
     Route::post('/addovertime', [OvertimeController::class, 'addOvertime']);
     Route::post('/delovertime', [OvertimeController::class, 'delOvertime']);
     Route::get('/otsearch', [OvertimeController::class, 'otSearch']);
+    Route::get('/editot', [OvertimeController::class, 'EditOT']);
+    Route::post('/addotrange', [OvertimeController::class, 'AddOTRange']);
+    Route::post('/updotrange', [OvertimeController::class, 'UpdOTRange']);
+    Route::post('/delotrange', [OvertimeController::class, 'DelOTRange']);
+    Route::post('/otdetail', [OvertimeController::class, 'OTDetail']);
+    Route::post('/runscan', [OvertimeController::class, 'RunOTScan']);
 
 
-    Route::get('/test', [OvertimeController::class, 'test']);
+
 
 });
 

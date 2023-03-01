@@ -22,8 +22,9 @@ import Overtime from "../pages/Overtime.vue";
 import ProdEntry from "../pages/ProdEntry.vue";
 import PR from "../pages/PR.vue";
 import SafetyDocument from "../pages/SafetyDocument.vue";
-import MedicalRecord from "../pages/MedicalRecord.vue";
+import TreatmentRecord from "../pages/ClinicTreatmentRecord.vue";
 import Macro from "../pages/Macro.vue";
+
 
 
 
@@ -140,9 +141,9 @@ const routes =[
         component: SafetyDocument
     },
     {
-        name: "medicalrecord",
-        path: "/medicalrecord",
-        component: MedicalRecord
+        name: "Treatment",
+        path: "/treatment",
+        component: TreatmentRecord
     },
 
 

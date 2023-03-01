@@ -45,7 +45,7 @@
                         <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                     </div>
                     <div class="d-md-flex justify-content-end mt-xl-0 mt-lg-1 mt-md-1 mt-1">
-                        <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1" v-if="permiss.ros_all == 1" style="z-index: 999">
+                        <div class="wd-lg-200 wd-md-200 wd-100p me-1 my-md-0 my-1" v-if="permiss.ros_all == 1">
                             <Multiselect v-model="dept" :searchable="false" :searchStart="true" :options="lkDept" @select="refreshRoster()"/>
                         </div>
                         <div class="d-flex justify-content-end">
@@ -64,9 +64,9 @@
                     </div>
                 </div>
 
-                <div class="table-responsive border" style="max-height: 72vh">
+                <div class="table-responsive border" style="max-height: 77vh">
                     <table class="table main-table-reference text-nowrap mg-b-0">
-                        <thead class="position-sticky" style="top: 0px; z-index: 99">
+                        <thead class="position-sticky" style="top: 0px; z-index: 1">
                             <tr>
                                 <th v-if="showCol.no" class="border-start-0 px-1">No</th>
                                 <th class="px-1 position-sticky border-start-0" style="left: -1px">
@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(row, rowInx) in rosData" :key="rowInx" @click="selectRow(row.userid, rowInx, row.fullname, row.rtype)" :style="rowInx === rowSel && row.rtype == 'P' ? 'color: red; font-weight: 500' : rowInx === rowSel && row.rtype == 'A' ? 'color: blue; font-weight: 500' : ''" >
+                            <tr v-for="(row, rowInx) in rosData" :key="rowInx" @click="selectRow(row.userid, rowInx, row.fullname, row.rtype)" :style="rowInx === rowSel && row.rtype == 'P' ? 'color: red; font-weight: 500' : rowInx === rowSel && row.rtype == 'A' ? 'color: blue; font-weight: 500' : ''">
                                 <td v-if="showCol.no" class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
                                 <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px;" title="Double click to see Roster details" @dblclick="rosDetail(row.userid)">
                                     <div v-if="!row.al">{{row.fullname}}</div>
@@ -128,34 +128,9 @@
                                         <div v-else>
                                             {{code(row[col.colid])}}
                                         </div>
-                                        <!-- <div class="dropdown">
-                                            <div data-bs-toggle="dropdown" type="button">
-                                                <div v-if="comm(row[col.colid])" class="text-decoration-underline">
-                                                    {{code(row[col.colid])}}
-                                                </div>
-                                                <div v-else>
-                                                    {{code(row[col.colid])}}
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-menu tx-13" style="z-index: 99">
-                                                <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx)">
-                                                    <i class="fe fe-edit me-2"></i><span>Edit</span>
-                                                </div>
-                                                <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="DelRoster_Range(col.colid, colInx)">
-                                                    <i class="fe fe-trash-2 me-2"></i><span>Delete</span>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
-                                    <div v-else class="p-0 cur-pointer" @dblclick="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx), optMode='Add'">
-                                        <button class="btn btn-sm p-0" style="width: 15px; height: 15px" title="Add"></button>
-
-                                        <!-- <button class="btn btn-sm p-0" style="width: 15px; height: 15px" data-bs-toggle="dropdown" title="Add"></button>
-                                        <div class="dropdown-menu tx-13">
-                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1" @click="AddRoster_Range(col.colid, colInx)">
-                                                <i class="fe fe-plus me-1"></i><span>Add</span>
-                                            </div>
-                                        </div> -->
+                                    <div v-else class="p-0 cur-pointer">
+                                        <button class="btn btn-sm p-0" style="width: 18px; height: 18px" title="Add"  @dblclick="UpdRoster_Range(col.colid, code(row[col.colid]), comments(row[col.colid]), colInx), optMode='Add'"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -176,7 +151,10 @@
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
-                        <h6 class="main-content-label text-capitalize">{{shortname(fullname)}}. <span class="text-danger">{{type(rosForm.rtype)}}</span></h6>
+                        <h6 class="main-content-label text-capitalize">{{shortname(fullname)}}:
+                            <span v-if="rosForm.rtype=='P'" class="tx-danger">{{type(rosForm.rtype)}}</span>
+                            <span v-else class="tx-primary">{{type(rosForm.rtype)}}</span>
+                        </h6>
                     </div>
                     <div class="modal-body pt-1">  
                         <div class="row">
@@ -200,7 +178,7 @@
                             <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" placeholder="Code" :options="lkCode"/>
                         </div>
                         <div v-if="optMode=='Update'" class="form-group">
-                            <textarea class="form-control laofont" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
+                            <textarea class="form-control" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
                         </div>  
                         <div class="d-flex justify-content-between">
                             <div v-if="optMode !='Add'">
@@ -274,8 +252,8 @@
                                         <td class="py-0 text-center border-bottom-0"> {{ lst.working_time }} </td>
                                         <td class="py-0 text-muted border-bottom-0"> {{ date2(lst.updated_at) }} </td>
                                         <td class="py-0 text-muted border-bottom-0 text-capitalize"> {{ lst.updated_by }} </td>
-                                        <td class="py-0 laofont border-bottom-0"> {{ lst.anote }} </td>
-                                        <td class="py-0 laofont border-bottom-0"> {{ lst.pnote }} </td>
+                                        <td class="py-0 border-bottom-0"> {{ lst.anote }} </td>
+                                        <td class="py-0 border-bottom-0"> {{ lst.pnote }} </td>
                                     </tr>                                                                                 
                                 </tbody>
                             </table>
@@ -330,7 +308,7 @@
                                                     lst.timesheet == 'MR' ? 'background-color: #FF66FF':
                                                     lst.timesheet == 'T' || lst.timesheet == 'T-' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0"> {{ lst.timesheet }} 
                                         </td>
-                                        <td class="py-0 laofont border-end-0 border-bottom-0"> {{ lst.remarks }} </td>
+                                        <td class="py-0 border-end-0 border-bottom-0"> {{ lst.remarks }} </td>
                                     </tr>                                                                                 
                                 </tbody>
                             </table>
@@ -482,7 +460,7 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0">Description Lao <span class=" text-danger">*</span></label>
-                            <input type="text" class="form-control laofont" v-model="rosCodeForm.descr_lao">
+                            <input type="text" class="form-control" v-model="rosCodeForm.descr_lao">
                         </div>    
                         <div class="form-group">
                             <label class="mb-0">Description Eng  <span class=" text-danger">*</span></label>
@@ -675,7 +653,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="mb-0">Comments</label>
-                                    <textarea class="form-control laofont" style="height: 146px" v-model="rosForm.comment"></textarea>
+                                    <textarea class="form-control" style="height: 146px" v-model="rosForm.comment"></textarea>
                                 </div> 
                                 <button type="button" class="btn btn-primary wd-100p" :class="shiftWorkDis" @click="updShiftWork()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
                             </div>    
@@ -795,7 +773,7 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
-                        <h6 class="main-content-label text-capitalize laofont">ລາຍຊື່ພະນັກງານທີ່ໃກ້ຈະອອກເມື່ອພັກອີກພາຍໃນ 5 ວັນຂ້າງໜ້າ</h6>
+                        <h6 class="main-content-label text-capitalize">ລາຍຊື່ພະນັກງານທີ່ໃກ້ຈະອອກເມື່ອພັກອີກພາຍໃນ 5 ວັນຂ້າງໜ້າ</h6>
                         <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body pt-0">                                   
@@ -1071,8 +1049,8 @@ export default {
                 this.rosForm.rdateto = d;
                 this.rosForm.rcode = code;
                 this.rosForm.comment = comm;
+                this.rosForm.days = 1;
                 this.colinx = ix;
-                this.CountD();
                 $('#modalUpdRoster').modal('show');
             }
         },
@@ -1100,7 +1078,6 @@ export default {
             }).then(res => {
                 console.log('Update completed');
             })
-
         },
 
         DelRoster_RangeCF(){

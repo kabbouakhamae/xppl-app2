@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="table-responsive border" style="max-height: 74vh">
+                <div class="table-responsive border" style="max-height: 78vh">
                     <table class="table main-table-reference text-nowrap mg-b-0" id="al" data-excel-name="Day Leave">
                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                             <tr>

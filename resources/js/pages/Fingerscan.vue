@@ -59,7 +59,7 @@
                     </div> -->
 
                 </div>
-                <div class="table-responsive border" style="max-height: 73vh">
+                <div class="table-responsive border" style="max-height: 78vh">
                     <table class="table main-table-reference text-nowrap mg-b-0">
                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                             <tr>
@@ -98,7 +98,7 @@
                 </div>       
 
                 <!-- Modal Detail -->
-                <div class="modal fade effect-scale" id="detail" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
+                <div class="modal" id="detail" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header pb-1 bd-b-0">
@@ -123,7 +123,7 @@
                                             </tr>
                                         </thead>
                                         <tbody> 
-                                            <tr class="tr-hover" v-for="lst in detailData" :key="lst.date">
+                                            <tr class="tr-hover" v-for="(lst, inx) in detailData" :key="inx">
                                                 <td class="border-start-0 py-0 text-center border-bottom-0 cur-pointer" @click="prvAcLog(lst.id, lst.date)" title="Click to see Ac Log"> {{ dateTime(lst.date) }} </td>
                                                 <td :style="lst.plan == 'W' || lst.plan == 'WN' ? 'background-color: #F2F4F8':
                                                             lst.plan == 'W/2' ? 'background-color: #FFC000':
@@ -143,7 +143,7 @@
                                                             lst.actual == 'N5' || lst.actual == 'N6' || lst.actual == 'D4' ? 'background-color: #E0E0E0':
                                                             lst.actual == 'T' || lst.actual == 'T-' || lst.actual == 'IT' || lst.actual == 'OT' || lst.actual == 'TT' ? 'background-color: #FF0000':''" class="py-0 text-center border-bottom-0 cur-pointer"
                                                     
-                                                    @click="editRos(lst.id, lst.date, lst.actual, lst.remarks)" title="Click to update Roster"
+                                                    @click="editRos(lst.id, lst.date, lst.actual, lst.remarks, inx)" title="Click to update Roster"
                                                 > 
                                                     {{ lst.actual }} 
                                                 </td>
@@ -172,12 +172,11 @@
                 </div>  
 
                 <!-- Modal AC Log -->
-                <div class="modal fade effect-scale pd-t-100 bd-0 bg-black-5" id="aclog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="aclogLabel" aria-hidden="true">
+                <div class="modal pd-t-100 bd-0 bg-black-5" id="aclog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="aclogLabel" aria-hidden="true">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
                             <div class="modal-header pb-1 bd-b-0">
                                 <h6 class="text-muted">AC Log On <span class="text-danger">{{dateTime(scanDate)}}</span></h6>
-                                <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body pt-0">                                   
                                 <div class="table-responsive element border">
@@ -192,12 +191,12 @@
                                             </tr>
                                         </thead>
                                         <tbody> 
-                                            <tr class="tr-hover cur-pointer" v-for="(lst, key) in acLogData" :key="lst.datetime">
-                                                <td class="py-0 text-center border-bottom-0 border-start-0"> {{ key + 1 }} </td>
-                                                <td class="py-0 text-center border-bottom-0"> {{ dateTime2(lst.datetimes) }} </td>
-                                                <td class="py-0 text-center border-bottom-0"> {{ dateTime(lst.dates) }} </td>
-                                                <td class="py-0 text-center border-bottom-0"> {{ lst.times }} </td>
-                                                <td class="py-0 border-end-0 border-bottom-0"> {{ lst.sensor }} </td>
+                                            <tr class="tr-hover" v-for="(lst, inx) in acLogFilter" :key="inx">
+                                                <td class="py-0 text-center border-bottom-0 border-start-0">{{ inx + 1 }}</td>
+                                                <td class="py-0 text-center border-bottom-0"> {{dateTime2(lst.check_time)}}</td>
+                                                <td class="py-0 text-center border-bottom-0"> {{dateTime(lst.scan_date)}}</td>
+                                                <td class="py-0 text-center border-bottom-0"> {{tFormat(lst.scan_time)}}</td>
+                                                <td class="py-0 border-end-0 border-bottom-0"> {{lst.sensor_id}}</td>
                                             </tr>                                                                                 
                                         </tbody>
                                     </table>
@@ -207,46 +206,54 @@
                     </div>                                              
                 </div>
 
-                <!-- ROSTER UPDATE -->
-                <div class="modal fade effect-scale pd-t-100 bd-0 bg-black-5" id="roster" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="workOrderLabel" aria-hidden="true">
+                <!-- MODAL UPDATE, DELETE, ADD ROSTER -->
+                <div class="modal pd-t-100 bd-0 bg-black-5" id="modalUpdRoster" back data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="modal-header pb-1 bd-b-0">
-                                <h6 class="main-content-label text-capitalize text-danger">{{type(rosForm.rtype)}}</h6>
-                                <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
+                                <h6 class="main-content-label text-capitalize">Update
+                                    <!-- <span v-if="rosForm.rtype=='P'" class="tx-danger">{{type(rosForm.rtype)}}</span>
+                                    <span v-else class="tx-primary">{{type(rosForm.rtype)}}</span> -->
+                                </h6>
                             </div>
-                            <div class="modal-body pt-2">  
-                                <!-- <div class=" d-flex justify-content-start mb-2">
-                                    <label class="rdiobox cur-pointer"><input name="upd" type="radio" value="update" v-model="updMethod"><span>Update</span></label>
-                                    <label class="rdiobox cur-pointer ms-5"><input name="upd" type="radio" value="add" v-model="updMethod"><span>Add</span></label>  
-                                </div> -->
-                                    <div class="row">
-                                        <div class="col-6 pe-1">
-                                            <div class="form-group">
-                                                <!-- <label class="mb-0">Date From <span class="text-danger">*</span></label> -->
-                                                <input type="date" class="form-control px-2" v-model="rosForm.rdatefr">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 ps-1">
-                                            <div class="form-group">
-                                                <!-- <label class="mb-0">Date To <span class="text-danger">*</span></label> -->
-                                                <input type="date" class="form-control px-2" v-model="rosForm.rdateto">
-                                            </div>
+                            <div class="modal-body pt-1">  
+                                <div class="row">
+                                    <div class="col-5 pe-1">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control ps-2 pe-0" disabled v-model="rosForm.rdatefr">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <!-- <label class="mb-0">Roster Code <span class="text-danger">*</span></label>  -->
-                                        <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" placeholder="Roster code" :options="lkCode"/>
+                                    <div class="col-5 ps-1 pe-1">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control ps-2 pe-1" v-model="rosForm.rdateto" @change="CountD()">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <!-- <label class="mb-0">Comment</label> -->
-                                        <textarea class="form-control laofont" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
-                                    </div>   
-
+                                    <div class="col-2 ps-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control tx-center px-0" v-model="rosForm.days">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="optMode!='Delete'" class="form-group">
+                                    <Multiselect v-model="rosForm.rcode" searchable="true" searchStart="true" placeholder="Code" :options="lkCode"/>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control laofont" style="height: 80px" v-model="rosForm.comment" placeholder="Comment"></textarea>
+                                </div>  
+                                <!-- <div class="d-flex justify-content-between"> -->
+                                    <!-- <div> -->
+                                        <!-- <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Update" checked><span class="ps-2">Update</span></label> -->
+                                        <!-- <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Delete"><span class="ps-2">Delete</span></label>   -->
+                                    <!-- </div> -->
+                                    <!-- <div v-else class="d-flex justify-content-center align-items-center">
+                                        <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Add" checked><span class="ps-2">Add</span></label>  
+                                    </div> -->
                                     <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary" :class="rosRangeDis" @click="updRosRange()"><i class="fe fe-save"></i><span class="mx-1">Save</span></button> 
-                                        <button type="button" class="btn btn-purple ms-1" :class="rosRangeDis" @click="updRosRangeRefresh()"><i class="fe fe-refresh-cw"></i><span class="mx-1">Save and Refresh</span></button> 
+                                        <button type="button" class="btn btn-primary" :class="AddRosRangeDis" @click="UpdRoster_RangeCF()"><i class="fe fe-check-circle"></i><span class="mx-1">Update</span></button> 
+                                        <!-- <button v-else-if="optMode=='Delete'" type="button" class="btn btn-danger" :class="DelRosRangeDis" @click="DelRoster_RangeCF()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button>  -->
+                                        <!-- <button v-else type="button" class="btn btn-primary" :class="AddRosRangeDis" @click="AddRoster_RangeCF()"><i class="fe fe-plus-circle"></i><span class="mx-1">Add</span></button>  -->
                                     </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>                                              
@@ -314,9 +321,11 @@ export default {
             scanDate: '',
             loading: false,
             cdate: '',
-            rosForm: {userid: '', rtype: 'A', rdatefr: '', rdateto: '', rcode: null, comment: ''},
+            rosForm: {userid: '', rtype: 'A', rdatefr: '', rdateto: '', rcode: null, comment: '', days: '1'},
             updMethod: 'update',
-            rosCodeData: []
+            rosCodeData: [],
+            rowIndex: '',
+            acLogFilter:[],
 
         };
     },
@@ -326,8 +335,8 @@ export default {
     },
 
     computed: {
-        rosRangeDis(){
-            if (this.rosForm.rdatefr == '' || this.rosForm.rdateto == '' || this.rosForm.rcode == null){
+        AddRosRangeDis(){
+            if (this.rosForm.rdateto =='' || this.rosForm.days =='' || this.rosForm.rcode ==null || this.rosForm.rdatefr > this.rosForm.rdateto){
                 return 'disabled';
             } else {
                 return '';
@@ -367,11 +376,17 @@ export default {
 
             this.loading = false;
 
+
+
             const depts = await axios.get('/api/lookup/depts')
             this.lkDept = depts.data;
 
             const rcode = await axios.get('/api/roster/rcode')
             this.lkCode = rcode.data;
+
+            const aclog = await axios.post(`/api/fingerscan/aclog?dept=${this.dept}&datefr=${this.datefr}&dateto=${this.dateto}`)
+            this.acLogData = aclog.data;
+
         },
 
         async getScan(){
@@ -412,7 +427,6 @@ export default {
 
         prvDetail(id, name){
             this.fullname = name;
-            $('#detail').modal('show');
 
             this.$axios.post('/api/fingerscan/detail', {
                 dept: this.dept,
@@ -421,22 +435,29 @@ export default {
                 userid: id
             }).then(res => {
                 this.detailData = res.data;
+                $('#detail').modal('show');
             })
         },
 
         prvAcLog(id, date){
             this.scanDate = date;
-            $('#aclog').modal('show');
 
-             this.$axios.post('/api/fingerscan/aclog', {
-                userid: id,
-                date: date
-            }).then(res => {
-                this.acLogData = res.data;
-            })
+            let item  = this.acLogData.filter((i)=>i.userid == id && moment(i.scan_date).format('YYYYMMDD') == moment(date).format('YYYYMMDD'));
+            
+            this.acLogFilter = item;
+
+            //  this.$axios.post('/api/fingerscan/aclog', {
+            //      userid: id,
+            //     date: date
+            // }).then(res => {
+            //     this.acLogData = res.data;
+            // })
+                $('#aclog').modal('show');
+            console.log(item);
+
         },
 
-        editRos(id, date, code, comm){
+        editRos(id, date, code, comm, inx){
             if(this.permiss.ros_edit == 0){
                 this.$swal.fire({
                     text: "You don't have permission update!",
@@ -448,24 +469,68 @@ export default {
                     timer: 1500
                 })
             } else {
-                this.updMethod = 'update';
+                this.rowIndex = inx;
                 this.rosForm.userid = id;
                 this.rosForm.rdatefr = date;
                 this.rosForm.rdateto = date;
                 this.rosForm.rcode = code;
                 this.rosForm.comment = comm;
-                $('#roster').modal('show');
+                this.rosForm.days = '1';
+                $('#modalUpdRoster').modal('show');
             }
         },
 
-        updRosRange(){
-            this.$axios.post('/api/roster/updrosrange', this.rosForm)
-            .then(res => {
-                $('#roster').modal('hide');
-                this.prvDetail(this.rosForm.userid, this.fullname);
-            }).catch((error)=>{
-                console.log(error);
-            })
+        UpdRoster_RangeCF(){
+            // $('#modalUpdRoster').modal('hide');
+            // let dateList = [];
+            // let n = this.rowIndex; //column index
+            // for (let i = 0; i < this.rosForm.days; i++){
+
+            //         let row = this.detailData[n].date;
+            //         // this.detailData.find((i)=>i.userid == this.rosForm.userid && i.rtype == this.rosForm.rtype)[col] = this.rosForm.rcode;
+            //         // this.rosData.find((i)=>i.userid == this.rosForm.userid && i.rtype == this.rosForm.rtype)[col] = this.rosForm.rcode;
+
+            //         let date = moment(row).format('YYYY/MM/DD');
+            //         dateList.push(date);
+            //         n = n + 1
+
+            //     }
+
+            // this.$axios.post('/api/roster/updrosterrange', {
+            //     list: dateList,
+            //     userid: this.rosForm.userid,
+            //     type: this.rosForm.rtype,
+            //     code: this.rosForm.rcode,
+            //     comm: this.rosForm.comment
+            // }).then(res => {
+            //     console.log('Update completed');
+            //     this.prvDetail(this.rosForm.userid, this.fullname);
+            // })
+
+            const test = [
+                {id: 1, name: 'a'},
+                {id: 2, name: 'b'},
+                {id: 3, name: 'c'},
+                {id: 4, name: 'd1'},
+                {id: 4, name: 'd2'}
+            ];
+
+            const result = test.filter(obj => obj.id === 4);
+
+            console.log("DATA: ", result);
+
+
+        },
+
+        CountD(){
+            let d1 = moment(this.rosForm.rdatefr).format("MM-DD-YYYY");
+            let d2 = moment(this.rosForm.rdateto).format("MM-DD-YYYY");
+
+            let dat1 = new Date(d1);
+            let dat2 = new Date(d2);
+
+            let ddiff = dat2.getTime() - dat1.getTime();
+            this.rosForm.days = Math.ceil(ddiff / (1000 * 3600 * 24)) + 1;
         },
 
         updRosRangeRefresh(){
@@ -509,6 +574,12 @@ export default {
         shortname(text){
             if (text) {
                 return text.split(" ")[0];
+            }
+        },
+
+        tFormat(text){
+            if (text) {
+                return text.split(":00.")[0];
             }
         },
 

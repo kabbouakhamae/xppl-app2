@@ -1,0 +1,94 @@
+{
+    "home":"Home",
+    "admin":"Admin Task",
+    "employee":"Employee",
+    "roster":"Roster",
+    "scan":"Finger Scan",
+    "OT":"Overtime",
+    "al":"Annual Leave",
+    "leave":"Day Leave Info",
+    "trans":"Daily Transport",
+    
+    "fuel":"Fuels",
+    "reserve":"Reservation",
+    "report":"Report",
+    "refueldate":"Refuel Date",
+    "deptcode":"Department Code",
+    "costtype":"Code Type",
+    "costcode":"Cost Code",
+    "location":"Location",
+    "approveBy":"Approved By",
+    "createAt":"Created At",
+    "createBy":"Created By",
+    "updateAt":"Updated At",
+    "updateBy":"Updated By",
+    "equipNo":"Equip No",
+    "equipDescr":"Equip Description",
+    "liter":"Liter",
+    "SMU":"SMU",
+    "driver":"driver",
+    "shift":"Shift",
+    "material":"Material",
+    "workOrder":"Work Order",
+    "reserveNo":"Reserve No",
+    "plant":"Plant",
+    "deptComp":"Department/Company",
+
+    "production":"Production",
+
+    "safety":"Safety",
+    "incident":"Incident Record",
+    "no.":"No.",
+    "incNo":"Inc No",
+    "date":"Date",
+    "company":"Company",
+    "dept":"Department",
+    "incTitle":"Incident Title",
+    "incGroup":"Incident Group",
+    "incType":"Incident Type",
+    "significant":"Significant",
+    "alert24":"Alert 24h",
+    "injType":"Injury Type",
+    "injGroup":"Injury Group",
+    "bodyPart":"Body Part",
+    "actual":"Actual Severity",
+    "potential":"Potential Severity",
+    "rating":"Risk Rating",
+    "invStatus":"Investigate Status",
+    "invBy":"Investigate Lead By",
+    "actStatus":"Action Status",
+    "actDate":"Action Due Date",
+    "incManager":"Incident Manager",
+    "followUp":"Follow Up By",
+    "incDescr":"Incident Description",
+    "correctAct":"Corrective Action",
+    "attached":"Attachments",
+
+
+
+
+
+
+    "clinic":"Clinic",
+    "treatment":"Treatment Record",
+    "drugstore":"Drugstore",
+
+    "setting":"Setting",
+    "permiss":"Permission",
+
+    "macro":"Excel Macro",
+
+    "search":"Search",
+    "tools":"Tools",
+    "lookup":"Lookup Code",
+    "newDate":"Add New Date",
+    "newItem":"New",
+    "add":"Add",
+    "close":"Close",
+    "update":"Update",
+    "save":"Save",
+    "cancel":"Cancel"
+
+
+
+}

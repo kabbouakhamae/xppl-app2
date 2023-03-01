@@ -98,7 +98,7 @@
                             <i v-else-if="lst.country == 'Australia'" class="flag-icon flag-icon-au flag-icon-squared"></i>
                             <i v-else-if="lst.country == 'China'" class="flag-icon flag-icon-cn flag-icon-squared"></i>
                             <i v-else-if="lst.country == 'Undefine'" class="flag-icon flag-icon-squared"></i>
-                            <p>{{ lst.country }}</p><span>{{ lst.cnt }}</span>
+                            <p>{{ lst.country }}</p><span>{{ lst.cnt }}</span> 
                         </div>
                     </div>
                     <!-- <div class="mt-1 text-end">

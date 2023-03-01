@@ -14,8 +14,8 @@
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="addDelete()">
                                 <i class="mdi mdi-contrast-box me-2 tx-16"></i><span>Add/Delete</span>
                             </div>
-                            <div class="dropdown-item cur-pointer dropdown-hover">
-                                <i class="mdi mdi-file-excel me-2 tx-16"></i><span>Update Fingerscan</span>
+                            <div class="dropdown-item cur-pointer dropdown-hover" @click="RunUpdate_Scan()">
+                                <i class="far fa-hand-pointer me-2 tx-16"></i><span>Run OT Fingerscan</span>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="table-responsive border" style="max-height: 72vh">
+                <div class="table-responsive border" style="max-height: 77vh">
                     <table class="table main-table-reference text-nowrap mg-b-0">
                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                             <tr>
@@ -57,62 +57,120 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(row, rowInx) in otData" :key="rowInx">
+                            <tr v-for="(row, rowInx) in otData" :key="rowInx" @click="selectRow(row.userid, rowInx, row.fullname)" :style="rowInx === rowSel ? 'color: blue; font-weight: 500' : ''">
                                 <td class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
-                                <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px" title="Double click to see Roster details" @dblclick="rosDetail(row.userid)">{{row.fullname}}</td>
-                                
-                                
+                                <td class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px" title="Click to see OT details" @click="OTDetail(row.userid)">{{row.fullname}}</td>
                                 
                                 <td class="px-1" :title="row.position">{{cutWord(row.position)}}</td>
                                 
                                 <!-- <td class="px-1 border-start-0 cur-pointer">{{row.crew}}</td> -->
 
 
-                                <td v-for="(col, colInx) in otHead" :key="colInx" class="px-1 text-center" :title="code(row[col.colid])>0 ? mentDate(col.colid) +'  ('+ comm(row[col.colid]) +')':''"
-                                    :style="code(row[col.colid])>0 ? 'background-color: #FFFFCC':'background-color: #F2F4F8'"
-
+                                <td v-for="(col, colInx) in otHead" :key="colInx" class="px-1 text-center" :title="code(row[col.colid]) ? mentDate(col.colid) +'  ('+ comm(row[col.colid]) +') '+ scan(row[col.colid]):''"
+                                    :style="paid(row[col.colid])=='Y' ? 'background-color: #C8E6C9': 
+                                            scan(row[col.colid])=='Waiting scan' ? 'background-color: #FFFF99': 
+                                            scan(row[col.colid])=='OT' ? 'background-color: #FFC000': 
+                                            scan(row[col.colid])=='Missed check out' || scan(row[col.colid])=='Early check out' ? 'background-color: #FF5722':''"
+                                    @click="countDays(rowInx, headDate1(col.colid), colInx)"
                                 >   
-                                    <div v-if="code(row[col.colid])>0">
-                                        <div data-bs-toggle="dropdown" type="button">{{code(row[col.colid])}}</div>
-                                        <div class="dropdown-menu tx-13">
-                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
-                                                <i class="mdi mdi-file-excel me-2"></i><span>Update</span>
-                                            </div>
-                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
-                                                <i class="mdi mdi-file-excel me-2"></i><span>Delete</span>
-                                            </div>
-                                        </div>
+                                    <div v-if="row[col.colid]" class="cur-pointer" @dblclick="UpdOT_Range(col.colid, colInx), optMode='Update'">
+                                        {{code(row[col.colid])}}
                                     </div>
                                     <div v-else class="p-0">
-                                        <button class="btn btn-sm p-0" style="width: 15px; height: 15px" data-bs-toggle="dropdown" title="Add" @click="test(col.colid)"></button>
-                                        <div class="dropdown-menu tx-13">
-                                            <h6 class="dropdown-header tx-11 tx-bold tx-inverse tx-spacing-1">{{testVal}}</h6>
-                                            <div class="dropdown-item cur-pointer dropdown-hover ps-2 pe-0 py-1">
-                                                <i class="mdi mdi-file-excel me-2"></i><span>Add</span>
-                                            </div>
-                                        </div>
+                                        <button class="btn btn-sm p-0" style="width: 15px; height: 15px" title="Add" @dblclick="AddOT_Range(col.colid, colInx), optMode='Add'"></button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="d-flex justify-content-between tx-13 pt-1 pd-b-6">
-                    <div class="text-muted">{{fullname}}</div>
-                    <div v-if="text" class="text-end me-1">
-                        {{text}}<span class="fw-bold text-primary">{{count}}</span> days
+                    <div class="d-flex justify-content-start">
+                        <span class="tx-11 px-1 pd-t-1 border" style="background-color: #C8E6C9">Paid</span>
+                        <span class="tx-11 px-1 pd-t-1 border ms-1" style="background-color: #FFC000">Waiting to pay</span>
+                        <span class="tx-11 px-1 pd-t-1 border ms-1" style="background-color: #FFFF99">Waiting scan</span>
+                        <span class="tx-11 px-1 pd-t-1 border ms-1" style="background-color: #FF5722">Missed scan</span>
+                    </div>
+
+                    <!-- <div class="text-muted">{{fullname}}</div> -->
+                    <div v-if="countTxt" class="text-end me-1">
+                        {{countTxt}}<span class="fw-bold text-primary">{{countNum}}</span>
                     </div>
                 </div>
+
             </div>
+
+        <!-- MODAL OVERTIME -->
+        <div class="modal" id="modalOT" back data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label text-capitalize">{{shortname(fullname)}}</h6>
+                    </div>
+                    <div class="modal-body pt-1">  
+                        <div class="row">
+                            <div class="col-5 pe-1">
+                                <div class="form-group">
+                                    <input type="date" class="form-control ps-2 pe-0" disabled v-model="otForm.datefr">
+                                </div>
+                            </div>
+                            <div class="col-5 ps-1 pe-1">
+                                <div class="form-group">
+                                    <input type="date" class="form-control ps-2 pe-1" v-model="otForm.dateto" @change="CountD()">
+                                </div>
+                            </div>
+                            <div class="col-2 ps-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control tx-center px-0" v-model="otForm.days">
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="optMode!='Delete'">
+                            <div class="row">
+                                <div class="col-6 pe-1">
+                                    <div class="form-group">
+                                        <input type="time" class="form-control" v-model="otForm.time_start" @change="TDiff()">
+                                    </div>
+                                </div>
+                                <div class="col-6 ps-1">
+                                    <div class="form-group">
+                                        <input type="time" class="form-control" v-model="otForm.time_end" @change="TDiff()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <Multiselect v-model="otForm.ot_type" searchable="true" searchStart="true" placeholder="Code" :options="lkType"/>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" style="height: 80px" v-model="otForm.remarks" placeholder="Comment"></textarea>
+                            </div>  
+                        </div>        
+                        <div class="d-flex justify-content-between">
+                            <div v-if="optMode !='Add'">
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Update" checked><span class="ps-2">Update</span></label>
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Delete"><span class="ps-2">Delete</span></label>  
+                            </div>
+                            <div v-else class="d-flex justify-content-center align-items-center">
+                                <label class="rdiobox cur-pointer my-0"><input name="opt1" type="radio" v-model="optMode" value="Add" checked><span class="ps-2">Add</span></label>  
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button v-if="optMode=='Update'" type="button" class="btn btn-primary" :class="AddOTDis2" @click="UpdOT_RangeCF()"><i class="fe fe-check-circle"></i><span class="mx-1">Update</span></button> 
+                                <button v-else-if="optMode=='Delete'" type="button" class="btn btn-danger" :class="DelOTDis2" @click="DelOT_RangeCF()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button> 
+                                <button v-else type="button" class="btn btn-primary" :class="AddOTDis2" @click="AddOT_RangeCF()"><i class="fe fe-plus-circle"></i><span class="mx-1">Add</span></button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                                              
         </div>
 
         <!-- Modal Add Overtime -->
-        <div class="modal fade effect-scale" id="addDelete" data-bs-backdrop="static" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+        <div class="modal" id="addDelete" back data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header pb-1 bd-b-0">
                         <h6 class="main-content-label text-capitalize">{{opt}} Overtime</h6>
-                        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body pt-2">  
                         
@@ -124,7 +182,7 @@
                                     <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear2" @click="searchClear2()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                                 </div>
 
-                                <div class="table-responsive element border" style="height: 405px">
+                                <div class="table-responsive element border" style="height: 410px">
                                     <table class="table main-table-reference text-nowrap mg-b-0">
                                         <thead class="position-sticky" style="top: 0px; z-index: 1">
                                             <tr>
@@ -159,8 +217,8 @@
 
                             <div class="col-lg-5">
                                 <div class=" d-flex justify-content-start mt-md-2 mt-4">
-                                    <label class="rdiobox cur-pointer"><input name="add" type="radio" value="add" checked v-model="opt"><span>Add</span></label>
-                                    <label class="rdiobox cur-pointer ms-5"><input name="add" type="radio" value="delete" v-model="opt"><span>Delete</span></label>  
+                                    <label class="rdiobox cur-pointer"><input name="add" type="radio" value="add" checked v-model="opt"><span class="ps-2">Add</span></label>
+                                    <label class="rdiobox cur-pointer ms-5"><input name="add" type="radio" value="delete" v-model="opt"><span class="ps-2">Delete</span></label>  
                                 </div>
                                 <div class="form-group mt-3">
                                     <label class="mb-0">Date From <span class="text-danger">*</span></label>
@@ -189,12 +247,14 @@
                                 <div class="form-group">
                                     <label class="mb-0">Type <span class="text-danger">*</span></label>
                                     <Multiselect v-if="opt=='add'" v-model="otForm.ot_type" :searchable="false" :searchStart="true" :options="lkType"/>
-                                    <Multiselect v-else v-model="otForm.ot_type" disabled/>
+                                    <Multiselect v-else disabled/>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="mb-0">Location <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" v-model="otForm.dateto">
-                                </div>
+                                    <textarea v-if="opt=='add'" class="form-control" style="height: 60px" v-model="otForm.remarks" placeholder="Comment"></textarea>
+                                    <textarea v-else class="form-control" style="height: 60px" placeholder="Comment" disabled></textarea>
+                                </div> 
+
                                 <button v-if="opt=='add'" type="button" class="btn btn-primary wd-100p" :class="addOTDis" @click="addOvertime()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
                                 <button v-else type="button" class="btn btn-danger wd-100p" :class="delOTDis" @click="delOvertime()"><i class="fe fe-trash-2"></i><span class="mx-1">Delete</span></button> 
                             </div>    
@@ -204,6 +264,51 @@
                 </div>
             </div>                                              
         </div>
+
+        <!-- MODAL OT DETAIL -->
+        <div class="modal" id="modalOTDetail" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label text-capitalize">{{fullname}}</h6>
+                    </div>
+                       
+                    <div class="modal-body pt-0">     
+                        <div class="table-responsive border" style="max-height: 700px">
+                            <table class="table main-table-reference text-nowrap mg-b-0">
+                                <thead class="position-sticky" style="top: 0px">
+                                    <tr>
+                                        <th class="border-start-0">Date</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Hour</th>
+                                        <th>Pament</th>
+                                        <th>Type</th>
+                                        <th>Scan</th>
+                                        <th>Note</th>
+                                        <th class="border-end-0 wd-60p">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr class="tr-hover" v-for="lst in otDetail" :key="lst.id">
+                                        <td class="border-start-0 py-0 text-center border-bottom-0">{{date1(lst.ot_date)}}</td>
+                                        <td class="py-0 tx-center border-bottom-0">{{Tformat(lst.time_start)}}</td>
+                                        <td class="py-0 tx-center border-bottom-0">{{Tformat(lst.time_end)}}</td>
+                                        <td class="py-0 tx-center border-bottom-0">{{lst.hrs}} </td>
+                                        <td class="py-0 tx-center border-bottom-0">{{lst.payment}}</td>
+                                        <td class="py-0 tx-center border-bottom-0">{{lst.ot_type}}</td>
+                                        <td class="py-0 tx-center border-bottom-0">{{Tformat(lst.scan_time)}}</td>
+                                        <td class="py-0 border-bottom-0">{{lst.scan_note}}</td>
+                                        <td class="border-end-0 py-0 border-bottom-0">{{lst.remarks}}</td>
+                                    </tr>                                                                                 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>                                              
+        </div>
+    </div>
 
 
         
@@ -219,36 +324,40 @@ export default {
             lkDept: [],
             
             lkType:[
-                {value: 's', label: 'Start of Shift'},
-                {value: 'e', label: 'End of Shift'},
-                {value: 'n', label: 'At Noon'}
+                {value: 'S', label: 'Start of shift'},
+                {value: 'E', label: 'End of shift'},
+                {value: 'D', label: 'Noon'},
+                {value: 'N', label: 'Midnight'}
             ],
 
+            empList:[],
             otHead:[],
             otData:[],
-
-            empList:[],
+            otDetail:[],
 
             selected:[],
 		    selectAll:false,
 
+            rowSel:'',
+            fullname:'',
 
-            dept: '',
-            datefr: '',
-            dateto: '',
-            search: '',
-            search2: '',
-            btnClear: '',
-            btnClear2: '',
+            dept:'',
+            datefr:'',
+            dateto:'',
+            search:'',
+            search2:'',
+            btnClear:'',
+            btnClear2:'',
 
-            otForm: {id: '', userid: '', datefr: '', dateto: '', time_start: '18:00', time_end: '21:00', note: '', remarks: '', ot_type:'e'},
+            otForm: {id: '', userid: '', datefr: '', dateto: '', days:'', hrs:'', time_start: '', time_end: '', note: '', remarks: '', ot_type:null},
             opt: 'add',
+
+            optMode:'',
+            selDate:[],
+            countTxt:'',
+            countNum:'',
             
             inx: '',
-            testData: [],
-
-            testVal: ''
-
         };
     },
 
@@ -271,7 +380,21 @@ export default {
             } else {
                 return '';
             } 
-        }
+        },
+
+        AddOTDis2(){
+            let f = this.otForm;
+            if (f.dateto=='' || f.time_start=='' || f.time_end=='' || f.ot_type==null || f.datefr>f.dateto || f.time_start>=f.time_end){
+                return 'disabled';
+            } else { return ''}
+        },
+
+        DelOTDis2(){
+            let f = this.otForm;
+            if (f.dateto=='' || f.datefr>f.dateto){
+                return 'disabled';
+            } else { return ''}
+        },
     },
 
     methods: {
@@ -298,20 +421,223 @@ export default {
             // this.loading = false;
 
 
-
-
             const dept = await axios.get('/api/lookup/depts')
             this.lkDept = dept.data;
 
-            const test = await axios.get('/api/overtime/test')
-            this.testData = test.data;
-
 
         },
 
-        test(text){
-            this.testVal = text;
+        selectRow(id, inx, name){
+            this.rowSel = inx;
+            this.fullname = name;
+            this.otForm.userid = id;
         },
+
+        CountD(){
+            let d1 = moment(this.otForm.datefr).format("MM-DD-YYYY");
+            let d2 = moment(this.otForm.dateto).format("MM-DD-YYYY");
+
+            let dat1 = new Date(d1);
+            let dat2 = new Date(d2);
+
+            let diff = dat2.getTime() - dat1.getTime();
+            this.otForm.days = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
+        },
+
+        TDiff(){
+            let start = moment(this.otForm.time_start, 'HH:mm');
+            let end = moment(this.otForm.time_end, 'HH:mm');
+            
+            if (start < end) {
+                this.otForm.hrs = end.diff(start, 'hours', true);
+            };
+        },
+
+        async UpdOT_Range(dt, inx){
+            // if(this.permiss.ros_edit == 0){
+            //     this.$swal.fire({
+            //         text: "You don't have permission update!",
+            //         icon: 'error',
+            //         showCancelButton: false,
+            //         showConfirmButton: false,
+            //         allowOutsideClick: false,
+            //         timerProgressBar: true,
+            //         timer: 1500
+            //     })
+            // } else {
+                this.clearForm();
+                let date = moment(dt.split('c')[1]).format('YYYY-MM-DD');
+                const otEdit = await axios.get(`/api/overtime/editot?userid=${this.otForm.userid}&date=${date}`)
+
+                let list = otEdit.data;
+                let t1 = list.time_start.split('.')[0];
+                let t2 = list.time_end.split('.')[0];
+                
+                this.otForm.datefr = date;
+                this.otForm.dateto = date;
+                this.otForm.days = 1;
+                this.otForm.time_start = t1;
+                this.otForm.time_end = t2;
+                this.otForm.ot_type = list.ot_type;
+                this.otForm.remarks = list.remarks;
+
+                this.colinx = inx;
+                $('#modalOT').modal('show');
+
+
+                    // let d1 = moment(this.otForm.datefr).format("MM-DD-YYYY");
+                    // let d2 = moment(this.otForm.dateto).format("MM-DD-YYYY");
+
+                    // let dat1 = new Date(d1);
+                    // let dat2 = new Date(d2);
+
+                    // let diff = dat2.getTime() - dat1.getTime();
+                    // this.otForm.days = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
+
+
+
+
+                    // const start = moment(this.otForm.time_start, 'HH:mm');
+                    // const end = moment(this.otForm.time_end, 'HH:mm');
+                    // const difference = end.diff(start, 'hours', true);
+
+                    // console.log(difference)
+
+
+                // let t1 = new Date("1970-01-01T" +  txt.split('-')[0].substr(-5,5)).getTime();
+                // this.otForm.time_start = moment(t1).format('HH:ss');
+                
+                // let t2 = new Date("1970-01-01T" +  txt.split('-')[1]).getTime();
+                // this.otForm.time_end = moment(t2).format('HH:ss');
+
+                // let item = this.otData.find((i)=>i.userid == 506).c20230120;
+                // ແອັດຂໍ້ມູນເຂົ້າຟອມ
+                // this.FormProduct.name = item.name;
+                // this.FormProduct.amount = item.amount;
+                // this.FormProduct.price_buy = item.price_buy;
+                // this.FormProduct.price_sell = item.price_sell;                
+            // }
+        },
+
+        async AddOT_Range(dt, inx){
+            // if(this.permiss.ros_edit == 0){
+            //     this.$swal.fire({
+            //         text: "You don't have permission update!",
+            //         icon: 'error',
+            //         showCancelButton: false,
+            //         showConfirmButton: false,
+            //         allowOutsideClick: false,
+            //         timerProgressBar: true,
+            //         timer: 1500
+            //     })
+            // } else {
+                this.clearForm();
+                let date = moment(dt.split('c')[1]).format('YYYY-MM-DD');
+
+                this.otForm.datefr = date;
+                this.otForm.dateto = date;
+                this.otForm.days = 1;
+                this.colinx = inx;
+                $('#modalOT').modal('show');
+            // }
+        },
+
+        AddOT_RangeCF(){
+            $('#modalOT').modal('hide');
+            this.TDiff();
+            let dateList = [];
+            let n = this.colinx; //column index
+            let txt = this.otForm.hrs +'_'+ this.otForm.time_start +'-'+ this.otForm.time_end +'_N_Waiting scan';
+
+            for (let i = 0; i < this.otForm.days; i++){
+                    let col = this.otHead[n].colid;
+                    this.otData.find((i)=>i.userid == this.otForm.userid)[col] = txt;
+
+                    let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                    dateList.push(date);
+                    n = n + 1;
+                }
+            // add to DB
+            this.$axios.post('/api/overtime/addotrange', {
+                list: dateList,
+                userid: this.otForm.userid,
+                start: this.otForm.time_start,
+                end: this.otForm.time_end,
+                hrs: this.otForm.hrs,
+                type: this.otForm.ot_type,
+                comm: this.otForm.remarks
+            }).then(res => {
+                console.log('Update completed');
+            });
+        },
+
+        UpdOT_RangeCF(){
+            $('#modalOT').modal('hide');
+            this.TDiff();
+            let dateList = [];
+            let n = this.colinx; //column index
+            let txt = this.otForm.hrs +'_'+ this.otForm.time_start +'-'+ this.otForm.time_end +'_N_Waiting scan';
+
+            for (let i = 0; i < this.otForm.days; i++){
+                    let col = this.otHead[n].colid;
+                    this.otData.find((i)=>i.userid == this.otForm.userid)[col] = txt;
+
+                    let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                    dateList.push(date);
+                    n = n + 1;
+                };
+
+            this.$axios.post('/api/overtime/updotrange', {
+                list: dateList,
+                userid: this.otForm.userid,
+                start: this.otForm.time_start,
+                end: this.otForm.time_end,
+                hrs: this.otForm.hrs,
+                type: this.otForm.ot_type,
+                comm: this.otForm.remarks
+            }).then(res => {
+                console.log('Update completed');
+            });
+        },
+
+        DelOT_RangeCF(){
+            $('#modalOT').modal('hide');
+            this.$swal.fire({
+                text: "Are you sure?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fe fe-trash-2"></i> <span class="font-weight-light">Delete</span>',
+                cancelButtonText: '<i class="fe fe-x"></i> <span class="font-weight-light">Cancel</span>',
+                confirmButtonColor: '#d33',
+                allowEnterKey: false,
+                allowOutsideClick: false,
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    
+                    let dateList = [];
+                    let n = this.colinx; //column index
+                    for (let i = 0; i < this.otForm.days; i++) {
+                            let col = this.otHead[n].colid;
+                            this.otData.find((i)=>i.userid == this.otForm.userid)[col] = null;
+
+                            let date = moment(col.split('c')[1]).format('YYYY-MM-DD');
+                            dateList.push(date);
+                            n = n + 1
+                        }
+
+                    //delete in database
+                    this.$axios.post('/api/overtime/delotrange', {
+                        list: dateList,
+                        userid: this.otForm.userid
+                    }).then(res => {
+                        $('#modalOT').modal('hide');
+                    })
+                } else {
+                    $('#modalOT').modal('show');
+                }
+            });
+        },
+
 
         async getOvertime(){
             // this.loading = true;
@@ -324,6 +650,22 @@ export default {
                 this.otData = ot.data;
             }
             // this.loading = false;
+        },
+
+        OTDetail(id){
+            this.$axios.post('/api/overtime/otdetail', {
+                userid: id,
+                datefr: this.datefr,
+                dateto: this.dateto
+            }).then(res => this.otDetail = res.data);
+            $('#modalOTDetail').modal('show');
+        },
+
+        RunUpdate_Scan(){
+            this.$axios.post('/api/overtime/runscan')
+            .then(res => {
+                this.getOvertime();
+            });
         },
 
         async searchChange(){
@@ -389,7 +731,8 @@ export default {
                 dateto: this.otForm.dateto,
                 start: this.otForm.time_start,
                 end: this.otForm.time_end,
-                type: this.otForm.ot_type
+                type: this.otForm.ot_type,
+                comm: this.otForm.remarks
             }).then(res => {
                 $('#addDelete').modal('hide');
                 this.getOvertime();
@@ -428,14 +771,77 @@ export default {
             f.datefr='';
             f.dateto='';
             f.time_start='18:00';
-            f.time_end='21:00';
-            f.ot_type='e';
+            f.time_end='22:00';
+            f.ot_type='E';
+            f.remarks='';
             this.search2='';
         },
 
+        countDays(inx, date, ix){
+            this.countTxt = '';
+
+            this.selDate.push({
+                inx: inx,
+                d: date
+            });
+
+            let d1 = this.selDate[0].d;
+            let d2 = this.selDate[1].d;
+
+            let inx1 = this.selDate[0].inx;
+            let inx2 = this.selDate[1].inx;
+
+            if (inx1 == inx2 && d1 !='' && d2 != '' && moment(d2).format("YYYYMMDD") > moment(d1).format("YYYYMMDD")){
+                let date1 = new Date(d1);
+                let date2 = new Date(d2);
+
+                let diff = date2.getTime() - date1.getTime();
+                let TotalDays = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
+
+                let sum = 0;
+                for (let i = 0; i < TotalDays; i++){
+
+                    let col = this.otHead[ix].colid;
+
+                    let txt = this.otData.find((i)=>i.userid == this.otForm.userid)[col];
+                    let val = parseFloat(txt.split("_")[0]);
+                    sum += val
+                    // dataList.push({
+                    //     column: col,
+                    //     val: parseFloat(txt.split("_")[0])
+                    // });
+                    ix = ix - 1;
+                };
+
+                this.countTxt = 'From: ' + moment(date1).format("DD/MM/YYYY") +' To '+ moment(date2).format("DD/MM/YYYY") +': ';
+                this.countNum = TotalDays +' d, '+ sum + ' hrs'
+
+                // let sum = dataList.reduce((a, b) => a + b.val, 0); //working
+
+                this.selDate = [];
+            } else {
+                this.selDate = [];
+            }
+        },
+
+
+
+
         code(text){
             if (text) {
-                return text.split("_")[0];
+                return parseFloat(text.split("_")[0]);
+            }
+        },
+
+        paid(text){
+            if (text) {
+                return text.split("_")[2];
+            }
+        },
+
+        scan(text){
+            if (text) {
+                return text.split("_")[3];
             }
         },
 
@@ -443,6 +849,12 @@ export default {
             if (text) {
                 return moment(text.split("c")[1]).format("DD/MM/YYYY");
             }
+        },
+
+        Tformat(text){
+            if (text){
+                return text.split(":00.")[0];
+            };
         },
 
         comm(text){
@@ -478,6 +890,12 @@ export default {
         date2(value){
             if (value) {
                 return moment(value).format("DD-MM-YYYY HH:ss");
+            }
+        },
+
+        shortname(text){
+            if (text) {
+                return text.split(" ")[1];
             }
         },
 

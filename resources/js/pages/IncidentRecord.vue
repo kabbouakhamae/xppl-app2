@@ -8,7 +8,8 @@
                 <div class="card-header pd-r-15 pd-t-10 pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center">
-                            <h4 class="card-title mg-b-0 text-muted text-capitalize">Incident Records In {{year}}</h4>
+                            <h4 v-if="$i18n.locale=='en'" class="card-title mg-b-0 text-muted text-capitalize">Incident Records In {{year}}</h4>
+                            <h4 v-else class="card-title mg-b-0 text-muted text-capitalize">ບັນທຶກເຫດການໃນປິ {{year}}</h4>
                         </div>
                         <div class="d-flex justify-content-start">
                             <button class="btn btn-icon btn-sm btn-i p-0" data-bs-toggle="dropdown" title="Tools">
@@ -25,7 +26,7 @@
                 <div class="card-body pd-t-0">
                     <div class="d-lg-flex justify-content-between mt-1 mb-1">
                         <div class="pos-relative wd-lg-300 wd-100p">
-                            <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search..." v-model="search" @input="searchChanged()" title="Search by Incident Number or Title">
+                            <input class="form-control" style="padding-left: 25px" type="text" :placeholder="$t('search')" v-model="search" @input="searchChanged()" :title="$t('search')">
                                 <i class="fe fe-search search-i text-muted"></i>
                             <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                         </div>
@@ -41,92 +42,92 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive border-start border-end border-bottom" style="max-height: 73vh">
+                    <div class="table-responsive border-start border-end border-bottom" style="max-height: 78vh">
                         <table class="table main-table-reference text-nowrap mg-b-0">
                             <thead class="position-sticky" style="top: 0px; z-index: 1">
                                 <tr>
                                     <!-- <th class="position-sticky border-start-0" style="left: -0.1px">ID</th> -->
-                                    <th class="border-start-0">No.</th>
+                                    <th class="border-start-0  px-1">{{ $t('no.') }}</th>
                                     <!-- <th>Inc No.</th> -->
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Inc No
+                                        <div class="d-flex justify-content-between">{{ $t('incNo') }}
                                             <i v-if="filterMode =='inc_no'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_no'), filterName ='Incident Number'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_no'), filterName ='Incident Number'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Date
+                                        <div class="d-flex justify-content-between">{{ $t('date') }}
                                             <i v-if="filterMode =='inc_date'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_date'), filterName ='Incident Date'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_date'), filterName ='Incident Date'"></i>
                                         </div>
                                     </th>
-                                    <th>Incident Title</th>
+                                    <th>{{ $t('incTitle') }}</th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Company
+                                        <div class="d-flex justify-content-between">{{ $t('company') }}
                                             <i v-if="filterMode =='company'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('company'), filterName ='Company'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('company'), filterName ='Company'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Department
+                                        <div class="d-flex justify-content-between">{{ $t('dept') }}
                                             <i v-if="filterMode =='dept'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('dept'), filterName ='Department'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('dept'), filterName ='Department'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Incident Group
+                                        <div class="d-flex justify-content-between">{{ $t('incGroup') }}
                                             <i v-if="filterMode =='inc_group'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_group'), filterName ='Incident Group'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_group'), filterName ='Incident Group'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Incident Type
+                                        <div class="d-flex justify-content-between">{{ $t('incType') }}
                                             <i v-if="filterMode =='inc_type'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_type'), filterName ='Incident Type'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('inc_type'), filterName ='Incident Type'"></i>
                                         </div>
                                     </th>
-                                    <th>Significant</th>
-                                    <th>Alert 24h</th>
+                                    <th>{{ $t('significant') }}</th>
+                                    <th>{{ $t('alert24') }}</th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Injury Type
+                                        <div class="d-flex justify-content-between">{{ $t('injType') }}
                                             <i v-if="filterMode =='injury_type'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_type'), filterName ='Injury Type'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_type'), filterName ='Injury Type'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Injury Group
+                                        <div class="d-flex justify-content-between">{{ $t('injGroup') }}
                                             <i v-if="filterMode =='injury_group'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_group'), filterName ='Injury Group'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('injury_group'), filterName ='Injury Group'"></i>
                                         </div>
                                     </th>
-                                    <th>Injury Part</th>
-                                    <th>Actual</th>
-                                    <th>Potential</th>
+                                    <th>{{ $t('bodyPart') }}</th>
+                                    <th>{{ $t('actual') }}</th>
+                                    <th>{{ $t('potential') }}</th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Rating
+                                        <div class="d-flex justify-content-between">{{ $t('rating') }}
                                             <i v-if="filterMode =='risk_rating'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('risk_rating'), filterName ='Risk Rating'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('risk_rating'), filterName ='Risk Rating'"></i>
                                         </div>
                                     </th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">invested Status
+                                        <div class="d-flex justify-content-between">{{ $t('invStatus') }}
                                             <i v-if="filterMode =='invest_status'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('invest_status'), filterName ='Investigate Status'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('invest_status'), filterName ='Investigate Status'"></i>
                                         </div>
                                     </th>
-                                    <th>invested Lead By</th>
+                                    <th>{{ $t('invBy') }}</th>
                                     <th class="border-start-0">
-                                        <div class="d-flex justify-content-between">Action Status
+                                        <div class="d-flex justify-content-between">{{ $t('actStatus') }}
                                             <i v-if="filterMode =='action_status'" class="mdi mdi-filter-remove tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('action_status'), filterName ='Action Status'"></i>
                                             <i v-else class="mdi mdi-filter tx-10 ms-1 cur-pointer" title="Filter" @click="FilterList('action_status'), filterName ='Action Status'"></i>
                                         </div>
                                     </th>
-                                    <th>Action Due Date</th>
-                                    <th>Incident Manager</th>
-                                    <th>Follow up By</th>
-                                    <th>Comments</th>
-                                    <th>Description</th>
-                                    <th class="border-end-0 position-sticky wd-60p" style="right: -0.1px">Tools</th>
+                                    <th>{{ $t('actDate') }}</th>
+                                    <th>{{ $t('incManager') }}</th>
+                                    <th>{{ $t('followUp') }}</th>
+                                    <th>{{ $t('correctAct') }}</th>
+                                    <th>{{ $t('incDescr') }}</th>
+                                    <th class="border-end-0 position-sticky wd-60p" style="right: -0.1px">{{ $t('tools') }}</th>
                                 </tr>
                             </thead>
                             <tbody> 
@@ -135,30 +136,47 @@
                                     <td class="border-start-0 tx-center" >{{inx +1}}</td>
                                     <th class="tx-center">{{row.inc_no}}</th>
                                     <td>{{dformat(row.inc_date)}}</td>
-                                    <td class="laofont bg-danger cur-pointer" v-if="row.risk_rating >=20" @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
-                                    <td class="laofont cur-pointer" v-else @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
-                                    <!-- <td class="laofont">{{cutWord(row.inc_title)}}</td> -->
+                                    <td class="bg-danger cur-pointer" v-if="row.risk_rating >=20" @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
+                                    <td class="cur-pointer" v-else @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
+                                    <!-- <td>{{cutWord(row.inc_title)}}</td> -->
                                     <td>{{row.company}}</td>
                                     <td>{{row.dept}}</td>
                                     <td>{{row.inc_group}}</td>
                                     <td>{{row.inc_type}}</td>
-                                    <td>{{row.significant}}</td>
-                                    <td>{{row.flash_alert}}</td>
+                                    <td class="tx-center">{{row.significant}}</td>
+                                    <td class="tx-center">{{row.flash_alert}}</td>
                                     <td>{{row.injury_type}}</td>
                                     <td>{{row.injury_group}}</td>
-                                    <td class="laofont">{{ cutWord(row.injury_part) }}</td>
-                                    <td>{{row.actual_severity}}</td>
-                                    <td>{{row.potential_severity}}</td>
-                                    <td class="text-end bg-danger" v-if="row.risk_rating >= 20">{{row.risk_rating}}</td>
-                                    <td class="text-end" v-else> {{row.risk_rating}} </td>
+                                    <td>{{ cutWord(row.injury_part) }}</td>
+                                    <td>
+                                        <div class="progress mg-t-2" style="width: 50px">
+											<div v-if="row.actual_severity==5" class="progress-bar progress-bar-lg bg-danger-gradient text-start ps-2" :style="`width:${row.actual_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.actual_severity}}</div>
+											<div v-if="row.actual_severity==4" class="progress-bar progress-bar-lg bg-warning-gradient text-start ps-2" :style="`width:${row.actual_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.actual_severity}}</div>
+											<div v-if="row.actual_severity<4" class="progress-bar progress-bar-lg bg-secondary-gradient text-start ps-2" :style="`width:${row.actual_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.actual_severity}}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="progress mg-t-2" style="width: 50px">
+											<div v-if="row.potential_severity==5" class="progress-bar progress-bar-lg bg-danger-gradient text-start ps-2" :style="`width:${row.potential_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.potential_severity}}</div>
+											<div v-if="row.potential_severity==4" class="progress-bar progress-bar-lg bg-warning-gradient text-start ps-2" :style="`width:${row.potential_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.potential_severity}}</div>
+											<div v-if="row.potential_severity<4" class="progress-bar progress-bar-lg bg-secondary-gradient text-start ps-2" :style="`width:${row.potential_severity/5*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.potential_severity}}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="progress mg-t-2" style="width: 80px">
+											<div v-if="row.risk_rating >=20" class="progress-bar progress-bar-lg bg-danger-gradient text-start ps-1" :style="`width:${row.risk_rating/25*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.risk_rating}}</div>
+											<div v-else class="progress-bar progress-bar-lg bg-secondary-gradient text-start ps-1" :style="`width:${row.risk_rating/25*100}`+'%'"  role="progressbar" aria-valuemin="0" aria-valuemax="100">{{row.risk_rating}}</div>
+                                        </div>
+                                    </td>
+
                                     <td>{{row.invest_status}}</td>
                                     <td>{{row.invest_lead}}</td>
                                     <td>{{row.action_status}}</td>
                                     <td>{{dformat(row.action_duedate)}}</td>
                                     <td>{{row.inc_manager}}</td>
                                     <td>{{row.followup_by}}</td>
-                                    <td class="laofont">{{ cutWord(row.comments) }}</td>
-                                    <td class="laofont"> {{ cutWord(row.inc_descr) }} </td>
+                                    <td>{{ cutWord(row.comments) }}</td>
+                                    <td> {{ cutWord(row.inc_descr) }} </td>
                                     <td class="border-end-0 position-sticky p-0 align-middle" style="right: -0.1px; background-color: #FFFFFF">
                                         <div class="d-flex justify-content-start ms-1">
                                             <button class="btn btn-sm btn-icon btn-i p-0" title="Preview" @click="preview(row.id, row.inc_id)">
@@ -201,8 +219,8 @@
                         <!-- <h4 class="invoice-title">Incident {{prevData[0].inc_id}}</h4> -->
                         <h4 class="invoice-title">Incident {{prevData[0].inc_no}}</h4>
                         <div class="billed-from">
-                            <h6>Incident Title</h6>
-                            <span class="laofont tx-15">{{prevData[0].inc_title}}</span>
+                            <h6>{{ $t('incTitle') }}</h6>
+                            <span class="tx-15">{{prevData[0].inc_title}}</span>
                         </div>
                     </div>
                 </div>
@@ -211,46 +229,46 @@
                         <div class="col-xl-3">
                             <h6>Incident Information</h6>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Incident Date</span>
+                                <span class="tx-name">{{ $t('date') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{dformat3(prevData[0].inc_date)}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Company</span>
+                                <span class="tx-name">{{ $t('company') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].company}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Department</span>
+                                <span class="tx-name">{{ $t('dept') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].dept}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Incident Group</span>
+                                <span class="tx-name">{{ $t('incGroup') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].inc_group}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Incident Type</span>
+                                <span class="tx-name">{{ $t('incType') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].inc_type}}</span></span> 
                             </div>
                         </div>
                         <div class="col-xl-3">
                             <h6>Significant and Risk Rating</h6>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Significant</span>
+                                <span class="tx-name">{{ $t('significant') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].significant}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Flash Alert 24h</span>
+                                <span class="tx-name">{{ $t('alert24') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].flash_alert}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Actual Severity</span>
+                                <span class="tx-name">{{ $t('actual') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].act_seq}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Potential Severity</span>
+                                <span class="tx-name">{{ $t('potential') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].pot_seq}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Risk Rating</span>
+                                <span class="tx-name">{{ $t('rating') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].risk_rating}}</span></span> 
                             </div>
                         </div>
@@ -258,69 +276,72 @@
                         <div class="col-xl-3">
                             <h6>Injury Details</h6>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Injury Type</span>
+                                <span class="tx-name">{{ $t('injType') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].injury_type}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Body Group</span>
+                                <span class="tx-name">{{ $t('injGroup') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].injury_group}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Body Part</span>
-                                <span class="tx-data">:<span class="ps-2 laofont">{{prevData[0].injury_part}}</span></span> 
+                                <span class="tx-name">{{ $t('bodyPart') }}</span>
+                                <span class="tx-data">:<span class="ps-2">{{prevData[0].injury_part}}</span></span> 
                             </div>
                             
                         </div>
                         <div class="col-xl-3">
                             <h6>Incident Status</h6>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Investigate Status</span>
+                                <span class="tx-name">{{ $t('invStatus') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].invest_status}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Investigate Lead By</span>
+                                <span class="tx-name">{{ $t('invby') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].invest_lead}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Action Status</span>
+                                <span class="tx-name">{{ $t('actStatus') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].action_status}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Action Due Date</span>
+                                <span class="tx-name">{{ $t('actDate') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{dformat3(prevData[0].action_duedate)}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Incident Manager</span>
+                                <span class="tx-name">{{ $t('incManager') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].inc_manager}}</span></span> 
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span class="tx-name">Follow up By</span>
+                                <span class="tx-name">{{ $t('followUp') }}</span>
                                 <span class="tx-data">:<span class="ps-2">{{prevData[0].followup_by}}</span></span> 
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-6 mg-t-20 bd-xl-r">
-                            <h6 class="">Incident Description</h6>
-                            <div class="laofont tx-14">
+                            <h6 class="tx-bold">{{ $t('incDescr') }}</h6>
+                            <div class="tx-14">
                                 {{prevData[0].inc_descr}}
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <h6 class="mg-t-20">Corrective Action</h6>
-                            <div class="laofont tx-14">
+                            <h6 class="tx-bold mg-t-20">{{ $t('correctAct') }}</h6>
+                            <div class="tx-14">
                                 {{prevData[0].comments}}
                             </div>
                         </div>
                     </div>
-                    <h6 class="mg-t-40">Attachments</h6>
+                    <h6 class="tx-bold mg-t-40">{{ $t('attached') }}</h6>
                     <div>
                         <div v-for="(lst, inx) in fileData" :key="inx">
                             <div class="d-flex justify-content-start align-items-center tx-13 f-color">
-                                <button class="btn btn-sm btn-icon btn-i p-0 me-1" title="Download file" @click="downloadFile(lst.file_name)">
+                                <button class="btn btn-sm btn-icon btn-i p-0" title="Preview Image and PDF file" @click="PreviewFile(lst.file_name)">
+                                    <i class="mdi mdi-file-find text-primary" style="font-size: 16px"></i>
+                                </button> 
+                                <button class="btn btn-sm btn-icon btn-i p-0 me-2" title="Download file" @click="downloadFile(lst.file_name)">
                                     <i class="bx bxs-download text-primary" style="font-size: 16px"></i>
                                 </button> 
-                                {{lst.file_name}} 
+                                {{inx + 1}}. {{fileCut(lst.file_name)}}
                             </div>
                         </div>
                     </div>
@@ -335,136 +356,136 @@
                     <div class="row mt-2">
                             <div class="col-xl-1 col-lg-2">
                                 <div class="form-group">
-                                    <label class="mb-0">No. <span class="text-danger">*</span></label>
+                                    <label class="mb-0">{{ $t('incNo') }} <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" v-model="incForm.inc_no">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-3">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Date  <span class="text-danger">*</span></label>
+                                    <label class="mb-0">{{ $t('date') }}  <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" v-model="incForm.inc_date">
                                 </div>
                             </div>
                             <div class="col-xl-5 col-lg-7">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Title  <span class=" text-danger">*</span></label>
-                                    <input type="text" class="form-control laofont" v-model="incForm.inc_title">
+                                    <label class="mb-0">{{ $t('incTitle') }}  <span class=" text-danger">*</span></label>
+                                    <input type="text" class="form-control" v-model="incForm.inc_title">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Significant  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('significant') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.significant" :options="lkYesNo"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Flash Alert 24h  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('alert24') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.flash_alert" :options="lkYesNo"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-3">
                                 <div class="form-group">
-                                    <label class="mb-0">Company <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('company') }} <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.company" :options="lkComp"/>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-5">
                                 <div class="form-group">
-                                    <label class="mb-0">Department</label> 
+                                    <label class="mb-0">{{ $t('dept') }}</label> 
                                     <Multiselect v-if="incForm.company == 'XPPL'" v-model="incForm.dept" :searchable="true" :searchStart="true" :options="lkDept"/>
                                     <input v-else type="text" class="form-control" v-model="incForm.dept">
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Group  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('incGroup') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inc_group" :searchable="true" :searchStart="true" :options="lkIncGroup"/>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-12">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Type  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('incType') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inc_type" :searchable="true" :searchStart="true" :options="lkIncType"/>
                                 </div>
                             </div>
                             
                             <div class="col-xl-2 col-lg-4">
                                 <div class="form-group">
-                                    <label class="mb-0">Injury Type  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('injType') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inj_type" :searchable="true" :searchStart="true" :options="lkInjType"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4">
                                 <div class="form-group">
-                                    <label class="mb-0">Injury Body Group  <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('injGroup') }}  <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.inj_group" :searchable="true" :searchStart="true" :options="lkInjGroup"/>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4">
                                 <div class="form-group">
-                                    <label class="mb-0">Injury Body Part</label>
-                                    <input type="text" class="form-control laofont" v-model="incForm.inj_part">
+                                    <label class="mb-0">{{ $t('bodyPart') }}</label>
+                                    <input type="text" class="form-control" v-model="incForm.inj_part">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Actual Severity <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('actual') }} <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.act_seq" :options="lkActSeq"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Potential Severity <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('potential') }} <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.pot_seq" :options="lkPotSeq"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Investigate Status <span class=" text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('invStatus') }} <span class=" text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.invest_status" :options="lkInvest"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Investigate Lead By</label>
+                                    <label class="mb-0">{{ $t('invBy') }}</label>
                                     <input type="text" class="form-control" v-model="incForm.invest_lead">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Action Status <span class="text-danger">*</span></label> 
+                                    <label class="mb-0">{{ $t('actStatus') }} <span class="text-danger">*</span></label> 
                                     <Multiselect v-model="incForm.action_status" :options="lkAction"/>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Action Due Date</label>
+                                    <label class="mb-0">{{ $t('actDate') }}</label>
                                     <input type="date" class="form-control" v-model="incForm.action_duedate">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Manager</label>
+                                    <label class="mb-0">{{ $t('incManager') }}</label>
                                     <input type="text" class="form-control" v-model="incForm.inc_manager">
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-6">
                                 <div class="form-group">
-                                    <label class="mb-0">Follow Up By</label>
+                                    <label class="mb-0">{{ $t('followUp') }}</label>
                                     <input type="text" class="form-control" v-model="incForm.followup_by">
                                 </div>
                             </div>   
                             <div class="col-xl-6 col-12">
                                 <div class="form-group">
-                                    <label class="mb-0">Incident Description <span class=" text-danger">*</span></label>
-                                    <textarea class="form-control laofont" style="height: 165px" v-model="incForm.inc_descr"></textarea>
+                                    <label class="mb-0">{{ $t('incDescr') }} <span class=" text-danger">*</span></label>
+                                    <textarea class="form-control" style="height: 165px" v-model="incForm.inc_descr"></textarea>
                                 </div>
                             </div> 
                             <div class="col-xl-6 col-12">
                                 <div class="form-group">
-                                    <label class="mb-0">Corrective Action</label>
-                                    <textarea class="form-control laofont" style="height: 165px" v-model="incForm.comments"></textarea>
+                                    <label class="mb-0">{{ $t('correctAct') }}</label>
+                                    <textarea class="form-control" style="height: 165px" v-model="incForm.comments"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -473,7 +494,7 @@
                         <div v-if="attachMode">
                             <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles1()" title="Add new files">
                                 <div><i class="mdi mdi-paperclip me-1 text-primary tx-16"></i></div>
-                                    <span class="text-primary tx-14">Attachments</span>
+                                    <span class="text-primary tx-bold tx-14">{{ $t('attached') }}</span>
                                 <input class="d-none" ref="fileInput1" type="file" multiple @change="addTmp()">
                             </div>
                             <div>
@@ -492,93 +513,96 @@
                         <div v-else>
                             <div class="d-flex justify-content-start align-items-center cur-pointer add-hover wd-100" @click="newFiles2()" title="Add new files">
                                 <div><i class="mdi mdi-paperclip me-1 text-primary tx-16"></i></div>
-                                    <span class="text-primary tx-14">Attachments</span>
+                                    <span class="text-primary tx-bold tx-14">{{ $t('attached') }}</span>
                                 <input class="d-none" ref="fileInput2" type="file" multiple @change="addFiles()">
                             </div>
                             <div v-for="(lst, inx) in fileData" :key="inx">
                                 <div class="d-flex justify-content-start align-items-center tx-13 f-color">
                                     <div class="d-flex justify-content-start ms-1">
+                                        <button class="btn btn-sm btn-icon btn-i p-0" title="Preview Image and PDF file" @click="PreviewFile(lst.file_name)">
+                                            <i class="mdi mdi-file-find text-primary" style="font-size: 16px"></i>
+                                        </button> 
                                         <button class="btn btn-sm btn-icon btn-i p-0" title="Download file" @click="downloadFile(lst.file_name)">
                                             <i class="bx bxs-download text-primary" style="font-size: 16px"></i>
                                         </button> 
-                                        <button class="btn btn-sm btn-icon btn-i p-0" title="Delete file" @click="delFile(lst.file_name)">
+                                        <button class="btn btn-sm btn-icon btn-i p-0 me-2" title="Delete file" @click="delFile(lst.file_name)">
                                             <i class="bx bx-trash text-danger" style="font-size: 16px"></i>
                                         </button> 
                                     </div>
-                                    {{lst.file_name}} 
+                                    {{inx + 1}}. {{fileCut(lst.file_name)}} 
                                 </div>
                             </div>
                         </div>
 
                     <div class="d-flex justify-content-end mt-2 pb-2">
                         <button v-if="btn" type="button" class="btn btn-primary" :class="incAddDis" @click="addIncident()">
-                            <i class="fe fe-plus"></i><span class="mx-1">Add</span>
+                            <i class="fe fe-plus"></i><span class="mx-1">{{ $t('add') }}</span>
                         </button>
                         <button v-else type="button" class="btn btn-primary" :class="incAddDis" @click="updIncident()">
-                            <i class="fe fe-save"></i><span class="mx-1">Save</span>
+                            <i class="fe fe-save"></i><span class="mx-1">{{ $t('save') }}</span>
                         </button>
                         <button type="button" class="btn btn-secondary ms-1" @click="view ='data'"><i class="fe fe-x"></i> 
-                            <span class="mx-1">Close</span>
+                            <span class="mx-1">{{ $t('close') }}</span>
                         </button>
                     </div>
 
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- MODAL FILTER -->
-    <div class="modal fade effect-scale" id="Filter" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="positionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header pb-1 bd-b-0">
-                    <h6 class="main-content-label text-capitalize">Filter by {{filterName}}</h6>
-                    <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body pt-2">  
-                    <div class="table-responsive element border" style="max-height: 410px; min-height: 200px">
-                        <table class="table main-table-reference text-nowrap mg-b-0">
-                            <thead class="position-sticky" style="top: 0px; z-index: 1">
-                                <tr>
-                                    <th class="border-0" style="padding: 5px 10px">
-                                        <label class="form-checkbox m-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <input type="checkbox" v-model="filterAll" @click="SelectAllItem()">
-                                                <i class="form-icon"></i>
-                                                <!-- <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">{{filterName}} List</span> -->
-                                                <span v-if="filterAll" class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Unselect All</span>
-                                                <span v-else class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Select All</span>
-                                            
-                                            </div>
-                                        </label>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="tr-hover" v-for="(item, inx) in filterList" :key="inx">
-                                    <td class="border-0">
-                                        <label class="form-checkbox m-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <input type="checkbox" :value="item.colname" v-model="filterSelected">
-                                                <i class="form-icon"></i>
-                                                
-                                                <span v-if="filterBy == 'inc_date'" class="ms-2 cur-pointer">{{dformat(item.colname)}}</span>
-                                                <span v-else class="ms-2 cur-pointer">{{item.colname}}</span>
-
-                                            </div>
-                                        </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <!-- MODAL FILTER -->
+        <div class="modal fade effect-scale" id="Filter" back data-bs-keyboard="false" tabindex="-1" aria-labelledby="positionLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label text-capitalize">Filter by {{filterName}}</h6>
+                        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                     </div>
-                    <div class="d-flex justify-content-end mt-2">
-                        <button v-if="filterMode == filterBy" type="button" class="btn btn-secondary me-1" @click="getIncident()"><span class="px-3">Clear Filter</span></button> 
-                        <button type="button" class="btn btn-primary" :class="FilterDis" @click="FilterResult()"><span class="px-3">Filter</span></button> 
-                    </div>              
+                    <div class="modal-body pt-2">  
+                        <div class="table-responsive element border" style="max-height: 410px; min-height: 200px">
+                            <table class="table main-table-reference text-nowrap mg-b-0">
+                                <thead class="position-sticky" style="top: 0px; z-index: 1">
+                                    <tr>
+                                        <th class="border-0" style="padding: 5px 10px">
+                                            <label class="form-checkbox m-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <input type="checkbox" v-model="filterAll" @click="SelectAllItem()">
+                                                    <i class="form-icon"></i>
+                                                    <!-- <span class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">{{filterName}} List</span> -->
+                                                    <span v-if="filterAll" class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Unselect All</span>
+                                                    <span v-else class="ms-2 cur-pointer mg-t-2" title="Select/Unselect all">Select All</span>
+                                                
+                                                </div>
+                                            </label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="tr-hover" v-for="(item, inx) in filterList" :key="inx">
+                                        <td class="border-0">
+                                            <label class="form-checkbox m-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <input type="checkbox" :value="item.colname" v-model="filterSelected">
+                                                    <i class="form-icon"></i>
+                                                    
+                                                    <span v-if="filterBy == 'inc_date'" class="ms-2 cur-pointer">{{dformat(item.colname)}}</span>
+                                                    <span v-else class="ms-2 cur-pointer">{{item.colname}}</span>
+
+                                                </div>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button v-if="filterMode == filterBy" type="button" class="btn btn-secondary me-1" @click="getIncident()"><span class="px-3">Clear Filter</span></button> 
+                            <button type="button" class="btn btn-primary" :class="FilterDis" @click="FilterResult()"><span class="px-3">Filter</span></button> 
+                        </div>              
+                    </div>
                 </div>
-            </div>
-        </div>                                              
+            </div>                                              
+        </div>
     </div>
 
         
@@ -977,6 +1001,17 @@ export default {
         downloadFile(file){
             const url = `/api/safety/downloadfile/${file}`;
             window.location.href = url;
+        },
+
+        PreviewFile(filename){
+            window.open(window.location.origin+'/assets/safety/'+ filename, "_blank")
+        },
+
+        fileCut(text){
+            if (text){
+                let txt1 = text.split('-')[0]
+                return text.split(txt1 +'-')[1];
+            };
         },
 
         delFile(file){

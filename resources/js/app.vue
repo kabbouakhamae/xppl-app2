@@ -19,24 +19,24 @@
 
 						<li class="slide" @click="ResetExp(), ResetAct(), homeM='active'">
 							<router-link class="side-menu__item" :class="homeM" to="/">
-								<span class="side-menu__label"><i class="mdi mdi-home tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4">Home</span></span>
+								<span class="side-menu__label"><i class="mdi mdi-home tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4"> {{ $t('home')}} </span></span>
 							</router-link>
 						</li>
 
 						<!-- Admin Task -->
                         <li class="slide" :class="admExp" @click="ResetExp(), admExp?admExp='':admExp='is-expanded'">
 							<a class="side-menu__item" :class="admM" href="#">
-								<span class="side-menu__label"><i class="mdi mdi-deskphone tx-21 tx-center wd-25"></i><span class="mg-l-10 mg-t-3">Admin Task</span></span>
+								<span class="side-menu__label"><i class="mdi mdi-deskphone tx-21 tx-center wd-25"></i><span class="mg-l-10 mg-t-3">{{ $t('admin')}}</span></span>
 								<i class="angle fe fe-chevron-down mg-t-4"></i>
 							</a>
-							<ul class="slide-menu">
-								<li><router-link class="slide-item" :class="admS1" @click="ResetAct(), admS1='active', admM='active'" to="/employee">Employee</router-link></li>
-								<li><router-link class="slide-item" :class="admS2" @click="ResetAct(), admS2='active', admM='active'" to="/roster">Roster</router-link></li>
-								<li><router-link class="slide-item" :class="admS3" @click="ResetAct(), admS3='active', admM='active'" to="/fingerscan">Finger Scan</router-link></li>			
-								<li><router-link class="slide-item" :class="admS4" @click="ResetAct(), admS4='active', admM='active'" to="/overtime">Overtime</router-link></li>			
-								<li><router-link class="slide-item" :class="admS5" @click="ResetAct(), admS5='active', admM='active'" to="/annual">Annual Leave</router-link></li>			
-								<li><router-link class="slide-item" :class="admS6" @click="ResetAct(), admS6='active', admM='active'" to="/leaveinfo">Day Leave Info</router-link></li>			
-								<li><router-link class="slide-item" :class="admS7" @click="ResetAct(), admS7='active', admM='active'" to="/transport">Daily Transport</router-link></li>			
+							<ul class="slide-menu" >
+								<li><router-link class="slide-item" :class="admS1" @click="ResetAct(), admS1='active', admM='active'" to="/employee">{{ $t('employee')}}</router-link></li>
+								<li><router-link class="slide-item" :class="admS2" @click="ResetAct(), admS2='active', admM='active'" to="/roster">{{ $t('roster')}}</router-link></li>
+								<li><router-link class="slide-item" :class="admS3" @click="ResetAct(), admS3='active', admM='active'" to="/fingerscan">{{ $t('scan')}}</router-link></li>			
+								<li><router-link class="slide-item" :class="admS4" @click="ResetAct(), admS4='active', admM='active'" to="/overtime">{{ $t('OT')}}</router-link></li>			
+								<li><router-link class="slide-item" :class="admS5" @click="ResetAct(), admS5='active', admM='active'" to="/annual">{{ $t('al')}}</router-link></li>			
+								<li><router-link class="slide-item" :class="admS6" @click="ResetAct(), admS6='active', admM='active'" to="/leaveinfo">{{ $t('leave')}}</router-link></li>			
+								<li><router-link class="slide-item" :class="admS7" @click="ResetAct(), admS7='active', admM='active'" to="/transport">{{ $t('trans')}}</router-link></li>			
 							</ul>
 						</li>
 
@@ -44,13 +44,13 @@
 						<div v-if="permiss.fuel==1">
 							<li class="slide" :class="fueExp" @click="ResetExp(), fueExp?fueExp='':fueExp='is-expanded'">
 								<a class="side-menu__item" :class="fueM" href="#">
-									<span class="side-menu__label"><i class="mdi mdi-gas-station tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4">Fuels</span></span>
+									<span class="side-menu__label"><i class="mdi mdi-gas-station tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-4">{{ $t('fuel')}}</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="fueS1" @click="ResetAct(), fueS1='active', fueM='active'" to="/fuelcons">Reservation</router-link></li>
-									<li><router-link class="slide-item" :class="fueS2" @click="ResetAct(), fueS2='active', fueM='active'" to="/fuelreport">Report</router-link></li>
-									<li><router-link class="slide-item" :class="fueS3" @click="ResetAct(), fueS3='active', fueM='active'" to="/fuellookup">Lookup</router-link></li>
+									<li><router-link class="slide-item" :class="fueS1" @click="ResetAct(), fueS1='active', fueM='active'" to="/fuelcons">{{ $t('reserve') }}</router-link></li>
+									<li><router-link class="slide-item" :class="fueS2" @click="ResetAct(), fueS2='active', fueM='active'" to="/fuelreport">{{ $t('report') }}</router-link></li>
+									<li><router-link class="slide-item" :class="fueS3" @click="ResetAct(), fueS3='active', fueM='active'" to="/fuellookup">{{ $t('lookup') }}</router-link></li>
 								</ul>
 							</li>
 						</div>
@@ -76,7 +76,7 @@
 						<div v-if="permiss.prod_acc==1">
 							<li class="slide" :class="proExp" @click="ResetExp(), proExp?proExp='':proExp='is-expanded'">
 								<a class="side-menu__item" :class="proM" href="#">
-									<span class="side-menu__label"><i class="mdi mdi-chart-line tx-center tx-18 wd-25"></i><span class="mg-l-10 mg-t-4">Production</span></span>
+									<span class="side-menu__label"><i class="mdi mdi-chart-line tx-center tx-18 wd-25"></i><span class="mg-l-10 mg-t-4">{{ $t('production') }}</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
@@ -92,13 +92,13 @@
 						<div v-if="permiss.safety==1">
 							<li class="slide" :class="safExp" @click="ResetExp(), safExp?safExp='':safExp='is-expanded'">
 								<a class="side-menu__item" :class="safM" href="#">
-									<span class="side-menu__label"><i class="fa fa-medkit tx-16 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">Safety</span></span>
+									<span class="side-menu__label"><i class="fa fa-medkit tx-16 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">{{ $t('safety') }}</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="safS1" @click="ResetAct(), safS1='active', safM='active'" to="/increcord">Incidents</router-link></li>
+									<li><router-link class="slide-item" :class="safS1" @click="ResetAct(), safS1='active', safM='active'" to="/increcord">{{ $t('incident') }}</router-link></li>
 									<!-- <li><router-link class="slide-item" :class="safS2" @click="ResetAct(), safS2='active', safM='active'" to="/increport">Report</router-link></li> -->
-									<li><router-link class="slide-item" :class="safS3" @click="ResetAct(), safS3='active', safM='active'" to="/inclookup">Lookup</router-link></li>
+									<li><router-link class="slide-item" :class="safS3" @click="ResetAct(), safS3='active', safM='active'" to="/inclookup">{{ $t('lookup') }}</router-link></li>
 									<!-- <li><router-link class="slide-item" :class="safS4" @click="ResetAct(), safS4='active', safM='active'" to="/safdocs">File Storage</router-link></li> -->
 								</ul>
 							</li>
@@ -108,13 +108,13 @@
 						<div v-if="permiss.clinic_acc==1">
 							<li class="slide" :class="cliExp" @click="ResetExp(), cliExp?cliExp='':cliExp='is-expanded'">
 								<a class="side-menu__item" :class="cliM" href="#">
-									<span class="side-menu__label"><i class="fa fa-plus-square tx-17 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">Clinic</span></span>
+									<span class="side-menu__label"><i class="fa fa-plus-square tx-17 tx-center wd-25"></i><span class="mg-l-10 mg-t-2">{{ $t('clinic') }}</span></span>
 									<i class="angle fe fe-chevron-down mg-t-4"></i>
 								</a>
 								<ul class="slide-menu">
-									<li><router-link class="slide-item" :class="cliS1" @click="ResetAct(), cliS1='active', cliM='active'" to="/medicalrecord">Medical Record</router-link></li>
-									<li><router-link class="slide-item" :class="cliS2" @click="ResetAct(), cliS2='active', cliM='active'" to="/inclookup">Drug Store</router-link></li>
-									<li><router-link class="slide-item" :class="cliS3" @click="ResetAct(), cliS3='active', cliM='active'" to="/safdocs">Code</router-link></li>
+									<li><router-link class="slide-item" :class="cliS1" @click="ResetAct(), cliS1='active', cliM='active'" to="/treatment">{{ $t('treatment') }}</router-link></li>
+									<li><router-link class="slide-item" :class="cliS2" @click="ResetAct(), cliS2='active', cliM='active'" to="/inclookup">{{ $t('drugstore') }}</router-link></li>
+									<li><router-link class="slide-item" :class="cliS3" @click="ResetAct(), cliS3='active', cliM='active'" to="/safdocs">{{ $t('lookup') }}</router-link></li>
 								</ul>
 							</li>
 						</div>
@@ -122,19 +122,19 @@
 						<!-- SETTING -->
 						<li class="slide" :class="setExp" @click="ResetExp(), setExp?setExp='':setExp='is-expanded'">
 							<a class="side-menu__item" :class="setM" href="#">
-								<span class="side-menu__label"><i class="typcn typcn-cog-outline tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-5">Setting</span></span>
+								<span class="side-menu__label"><i class="typcn typcn-cog-outline tx-center tx-22 wd-25"></i><span class="mg-l-10 mg-t-5">{{ $t('setting') }}</span></span>
 								<i class="angle fe fe-chevron-down mg-t-4"></i>
 							</a>
 							<ul class="slide-menu">
-								<li v-if="permiss.lk_add==1"><router-link class="slide-item" :class="setS1" @click="ResetAct(), setS1='active', setM='active'" to="/lookup">Lookup</router-link></li>
-								<li v-if="permiss.permiss==1"><router-link class="slide-item" :class="setS2" @click="ResetAct(), setS2='active', setM='active'" to="/permiss">Permission</router-link></li>
+								<li v-if="permiss.lk_add==1"><router-link class="slide-item" :class="setS1" @click="ResetAct(), setS1='active', setM='active'" to="/lookup">{{ $t('lookup') }}</router-link></li>
+								<li v-if="permiss.permiss==1"><router-link class="slide-item" :class="setS2" @click="ResetAct(), setS2='active', setM='active'" to="/permiss">{{ $t('permiss') }}</router-link></li>
 							</ul>
 						</li>
 
 						<!-- MACRO -->
 						<li v-if="permiss.mac_acc==1" class="slide" @click="ResetExp(), ResetAct(), macroM='active'">
 							<router-link class="side-menu__item" :class="macroM" to="/macro">
-								<span class="side-menu__label"><i class="mdi mdi-file-excel tx-22 tx-center wd-25"></i><span class="mg-l-10 mg-t-4">Excel Macro</span></span>
+								<span class="side-menu__label"><i class="mdi mdi-file-excel tx-22 tx-center wd-25"></i><span class="mg-l-10 mg-t-4">{{ $t('macro') }}</span></span>
 							</router-link>
 						</li>
 
@@ -160,6 +160,7 @@
 						</div>
 						<div class="main-header-right">
 							<ul class="nav nav-item  navbar-nav-right ms-auto">
+								
 								<!-- <li class="nav-item full-screen fullscreen-button">
 									<a class="new nav-link full-screen-link" href="#" title="Full screen"><svg
 											xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24"
@@ -170,6 +171,41 @@
 											</path>
 										</svg>
 									</a>
+								</li> -->
+
+								<li class="nav me-3">
+									<div class="dropdown nav-itemd-none d-md-flex">
+										<a href="#" class="d-flex nav-item country-flag1" data-bs-toggle="dropdown" aria-expanded="false" title="ປ່ຽນພາສາ">
+											<span class="avatar country-Flag me-0 align-self-center bg-transparent">
+												<img v-if="$i18n.locale=='en'" src="assets/img/flags/us_flag.jpg" alt="img">
+												<img v-else src="assets/img/flags/Laos.png" alt="img">
+											</span>
+											<div class="my-auto">
+												<strong class="me-2 ms-2 my-auto">English</strong>
+											</div>
+										</a>
+										<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end" style="">
+											<a href="#" class="dropdown-item d-flex " @click="Language('en')">
+												<span class="avatar  me-3 align-self-center bg-transparent"><img src="assets/img/flags/us_flag.jpg" alt="img"></span>
+												<div class="d-flex">
+													<span class="mt-2">English</span>
+												</div>
+											</a>
+											<a href="#" class="dropdown-item d-flex" @click="Language('la')">
+												<span class="avatar  me-3 align-self-center bg-transparent"><img src="assets/img/flags/Laos.png" alt="img"></span>
+												<div class="d-flex">
+													<span class="mt-2">Lao</span>
+												</div>
+											</a>
+										</div>
+									</div>
+								</li>
+								
+								<!-- <li class=" nav-item lh-1 me-3">
+									<select class="form-control" v-model="$i18n.locale" >
+										<option value="en">English</option>
+										<option value="la">Laos</option>
+									</select>
 								</li> -->
 
 								<li class="dropdown main-profile-menu nav nav-item nav-link p-0">
@@ -183,8 +219,6 @@
 											<img alt="" v-if="!profile.photo && profile.gender != 'Male'" src="assets/img/female.png">
 										</a>
 
-									
-									
 									<div class="dropdown-menu">
 										<div class="main-header-profile bg-primary p-3">
 											<div class="d-flex wd-100p">
@@ -225,11 +259,11 @@
 
 
 			<!-- Footer opened -->
-			<div class="main-footer ht-40" v-if="isSignin">
+			<!-- <div class="main-footer ht-40" v-if="isSignin">
 				<div class="container-fluid pd-t-0-f ht-100p">
 					<span>Copyright © 2022 <a href="#">XPPL</a>. Designed by <a href="#">Chamlong</a> All rights reserved.</span>
 				</div>
-			</div>
+			</div> -->
 
 
 		</div>
@@ -376,6 +410,14 @@ export default {
 
 		},
 
+		Language(lang){
+			this.$i18n.locale= lang;
+			this.$axios.get(`/api/language?lang=${lang}`)
+			// .then(res => {
+			// 	this.getPermiss()
+			// });
+		},
+
 		async getProfile(){
 			const response = await axios.get('api/profile')
 			this.profile = response.data;
@@ -384,6 +426,9 @@ export default {
 		async getPermiss(){
 			const response = await axios.get('api/permiss')
 			this.permiss = response.data;
+
+			// console.log("Lang:", this.permiss);
+			this.$i18n.locale= response.data.lang;
 		},
 
 		async menu(){
@@ -405,6 +450,8 @@ export default {
 			this.homeAct = 'active';
 			this.getProfile();
 			this.getPermiss();
+
+			
 
         } else {
 			this.isSignin = false;

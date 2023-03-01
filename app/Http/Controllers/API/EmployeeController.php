@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeeController extends Controller{
 
-    public function paginateArray($data, $perPage = 10){
+    public function paginateArray($data, $perPage = 11){
         $page = Paginator::resolveCurrentPage();
         $total = count($data);
         $results = array_slice($data, ($page - 1) * $perPage, $perPage);
@@ -40,7 +40,7 @@ class EmployeeController extends Controller{
                             ->orWhere('b.department', 'like', $dept)
                             ->select('a.id', 'a.gender', 'a.name', 'a.surname', 'a.namelao', 'a.surnamelao', 'a.country', 'a.province', 'a.phone', 'b.position', 'b.department', 'b.section', 'b.startdate', 'b.status', 'b.empid', 'b.scanid', 'b.foodid', 'b.roster', 'b.scantimes', 'b.levels', 'a.photo')
                             ->orderBy('a.name')
-                            ->paginate(10);
+                            ->paginate(11);
 
         } else {
             // Find by current dept
@@ -64,7 +64,7 @@ class EmployeeController extends Controller{
                             ->orWhere('a.namelao', 'like', $namelao)
                             ->select('a.id', 'a.gender', 'a.name', 'a.surname', 'a.namelao', 'a.surnamelao', 'a.country', 'a.province', 'a.phone', 'b.position', 'b.department', 'b.section', 'b.startdate', 'b.status', 'b.empid', 'b.scanid', 'b.foodid', 'b.roster', 'b.scantimes', 'b.levels', 'a.photo')
                             ->orderBy('a.name')
-                            ->paginate(10);
+                            ->paginate(11);
         }
 
         return $empList;

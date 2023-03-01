@@ -164,4 +164,13 @@ class UserController extends Controller
             ]);
     }
 
+    public function Language(Request $request){
+        $userid = auth()->user()->userid;
+        DB::table('permission')
+            ->where('userid', $userid)
+            ->update([
+                'lang' => $request->lang
+            ]);
+    }
+
 }

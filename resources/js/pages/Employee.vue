@@ -32,7 +32,7 @@
                         </div>
                         <div class="d-flex my-xl-auto right-content align-items-center">
                             <div class="pos-relative wd-md-250 wd-100p me-1">
-                                <input class="form-control" style="padding-left: 25px" type="text" placeholder="Search for name" v-model="search" @input="searchChange()" >
+                                <input class="form-control" style="padding-left: 25px" type="text" :placeholder="$t('search')" v-model="search" @input="searchChange()" >
                                     <i class="fe fe-search search-i text-muted"></i>
                                 <button class="btn btn-icon btn-sm search-c text-muted p-0" v-if="btnClear" @click="searchClear()"><i class="fe fe-x" style="font-size: 14px"></i></button>
                             </div>
@@ -198,14 +198,14 @@
                             <div class="row">
                                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="mb-0 laofont">ຊື່ (ລາວ)  <span class=" text-danger">*</span></label>
-                                        <input type="text" class="form-control laofont" v-model="empForm.namelao">
+                                        <label class="mb-0">ຊື່ (ລາວ)  <span class=" text-danger">*</span></label>
+                                        <input type="text" class="form-control" v-model="empForm.namelao">
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="mb-0 laofont">ນາມສະກຸນ (ລາວ)</label>
-                                        <input type="text" class="form-control laofont" v-model="empForm.surnamelao">
+                                        <label class="mb-0">ນາມສະກຸນ (ລາວ)</label>
+                                        <input type="text" class="form-control" v-model="empForm.surnamelao">
                                     </div>
                                 </div>
                                 <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4">
@@ -248,7 +248,7 @@
                                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label class="mb-0">Village</label>
-                                        <input type="text" class="form-control laofont" v-model="empForm.village">
+                                        <input type="text" class="form-control" v-model="empForm.village">
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +456,7 @@
                                             </thead>
                                             <tbody> 
                                                 <tr class="tr-hover" v-for="lst in contData" :key="lst.id">
-                                                    <td class="border-start-0 laofont"> {{ lst.name }} </td>
+                                                    <td class="border-start-0"> {{ lst.name }} </td>
                                                     <td> {{ lst.relate }} </td>
                                                     <td> {{ lst.phone }} </td>
                                                     <td class="laofont"> {{ lst.address }} </td>
@@ -783,7 +783,7 @@
                                 <div class="col-xl-10">
                                     <div class="form-group">
                                         <label class="mb-0">Remarks</label>
-                                        <input type="text" class="form-control laofont" v-model="empForm.remarks">
+                                        <input type="text" class="form-control" v-model="empForm.remarks">
                                     </div>
                                 </div>
                             </div>
@@ -817,7 +817,7 @@
                                 <div class="col-lg-7 col-md-12">
                                     <div class="form-group">
                                         <label class="mb-0">Full Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control laofont" v-model="contForm.name">
+                                        <input type="text" class="form-control" v-model="contForm.name">
                                     </div>
                                 </div>
                                 <div class="col-lg-5 col-md-12">
@@ -835,7 +835,7 @@
                                 <div class="col-lg-7 col-md-12">
                                     <div class="form-group">
                                         <label class="mb-0">Address</label>
-                                        <input type="text" class="form-control laofont" v-model="contForm.address">
+                                        <input type="text" class="form-control" v-model="contForm.address">
                                     </div>
                                 </div>
                             </div>
@@ -892,7 +892,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="mb-0">Remarks</label>
-                                        <input type="text" class="form-control laofont" v-model="bankForm.remarks">
+                                        <input type="text" class="form-control" v-model="bankForm.remarks">
                                     </div>
                                 </div>
                             </div>
@@ -943,7 +943,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="mb-0">Remarks</label>
-                                        <input type="text" class="form-control laofont" v-model="cardForm.remarks">
+                                        <input type="text" class="form-control" v-model="cardForm.remarks">
                                     </div>
                                 </div>
                             </div>
@@ -988,7 +988,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="mb-0">Remarks</label>
-                                        <input type="text" class="form-control laofont" v-model="alForm.remarks">
+                                        <input type="text" class="form-control" v-model="alForm.remarks">
                                     </div>
                                 </div>
                             </div>

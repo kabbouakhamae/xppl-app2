@@ -3,8 +3,10 @@
         <div class="card-body">
             <div class="breadcrumb-header justify-content-between align-items-center mb-1 mt-0" >
                 <div>
-                    <h4 class="card-title mg-b-0">Fuel Reservation</h4>
-                    <p class="tx-12 tx-gray-500 mb-0">Daily fuel reservation records...</p>
+                    <h4 v-if="$i18n.locale=='en'" class="card-title mg-b-0">Fuel Reservation</h4>
+                    <h4 v-else class="card-title mg-b-0">ການຈອງນໍ້າມັນເຊື້ອໄຟ</h4>
+                    <p v-if="$i18n.locale=='en'" class="tx-12 tx-gray-500 mb-0">Daily fuel reservation records...</p>
+                    <p v-else class="tx-12 tx-gray-500 mb-0">ບັນທຶກການຈອງນໍ້າມັນປະຈຳວັນ...</p>
                 </div>
                 <div class="d-flex my-xl-auto right-content align-items-center">
                     <div class="wd-xl-150 wd-lg-150 wd-md-150 wd-70p">
@@ -22,7 +24,7 @@
                         <table class="table main-table-reference text-nowrap mg-b-0">
                             <thead class="position-sticky" style="top: 0px">
                                 <tr>
-                                    <th class="border-0">Refuel Date</th>
+                                    <th class="border-0">{{$t('refueldate')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,7 +35,7 @@
                         </table>
                         <div class="d-flex justify-content-start align-items-center cur-pointer add-hover ms-2 pt-1 pb-2 wd-100" @click="dateNew()" title="Create a new date">
                             <div><i class="fa fa-plus me-1 text-primary tx-10 mb-2"></i></div>
-                            <span class="text-primary tx-13">New</span>
+                            <span class="text-primary tx-13">{{ $t('newItem') }}</span>
                         </div>
                     </div>
                 </div>
@@ -43,23 +45,32 @@
                     <div class="table-responsive element border ht-250">
                         <table class="table main-table-reference text-nowrap mg-b-0">
                             <thead class="position-sticky" style="top: 0px; z-index: 1">
-                                <tr>        
-                                    <th v-if="permiss.fuel_all == 1" class="border-start-0">Department</th>
-                                    <th v-if="permiss.fuel_all == 1">Department Cost</th>
-                                    <th v-else class="border-start-0">Department</th>
-                                    <th>Cost Type</th>
-                                    <th>Cost Code</th>
-                                    <th>Locations</th>
-                                    <th>Approved By</th>
-                                    <th>Created At</th>
-                                    <th>Created By</th>
-                                    <th>Updated At</th>
-                                    <th>Updated By</th>
-                                    <th class="border-end-0 wd-80p position-sticky" style="right: -0.1px">Tools</th>
+                                <tr class="laofont">        
+                                    <th v-if="permiss.fuel_all == 1" class="border-start-0">{{ $t('dept') }}</th>
+                                    <th v-if="permiss.fuel_all == 1">{{ $t('deptcode') }}</th>
+                                    <th v-else class="border-start-0">{{ $t('dept') }}</th>
+                                    <th>{{ $t('costtype') }}</th>
+                                    <th>{{ $t('costcode') }}</th>
+                                    <th>{{ $t('location') }}</th> 
+                                    <th>{{ $t('approveBy') }}</th>
+                                    <th>{{ $t('createAt') }}</th>
+                                    <th>{{ $t('createBy') }}</th>
+                                    <th>{{ $t('updateAt') }}</th>
+                                    <th>{{ $t('updateBy') }}</th>
+                                    <th class="border-end-0 wd-80p position-sticky pe-1" style="right: -0.1px">{{$t('tools')}}
+                                        <!-- <div class=" pos-relative">{{$t('tools')}}</div>
+                                        <div class="d-flex justify-content-end">
+                                            <div class="pos-absolute mg-t-7">
+                                                <button type="button" class="btn btn-info btn-b btn-sm rounded-circle p-0 ht-25 wd-25" title="Add new record" @click="headNew()">
+                                                    <i class="fe fe-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div> -->
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="tr-hover cur-pointer" v-for="(lst, key) in headList" :key="lst.id" @click="headSelected(key, lst.id, lst.cost_type)" :style="key === headRowSel ? 'background-color: #dadee7; color: blue' : ''">
+                                <tr class="tr-hover cur-pointer" v-for="(lst, key) in headList" :key="lst.id" @click="headSelected(key, lst.id, lst.cost_type), btnTest='true'" :style="key === headRowSel ? 'background-color: #dadee7; color: blue' : ''">
                                     <td v-if="permiss.fuel_all == 1" class="border-start-0">{{lst.created_dept}}</td>
                                     <td v-if="permiss.fuel_all == 1">{{lst.cost_dept}}</td>
                                     <td v-else class="border-start-0">{{lst.cost_dept}}</td>
@@ -86,40 +97,49 @@
                         </table>
                         <div v-if="headNewShow" class="d-flex justify-content-start align-items-center cur-pointer add-hover ms-2 ht-30 wd-100" @click="headNew()" title="Create a new item">
                             <div><i class="fa fa-plus me-1 text-primary tx-10 mb-2"></i></div>
-                            <span class="text-primary tx-13">New</span>
+                            <span class="text-primary tx-13">{{ $t('newItem') }}</span>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Detail table -->
-            <div v-if="detailNewShow" class="table-responsive element border mt-4" style="max-height: 450px">
+            <div v-if="detailNewShow" class="table-responsive element border mt-4" style="max-height: 490px">
                 <table class="table main-table-reference text-nowrap mg-b-0">
                     <thead class="position-sticky" style="top: 0px; z-index: 1">
-                        <tr>
-                            <th class="border-start-0">No</th>
-                            <th>Equip No</th>
-                            <th>Equip Description</th>
-                            <th>Liter</th>
-                            <th>SMU</th>
-                            <th>Driver</th>
-                            <th>Shift</th>
-                            <th>Material</th>
-                            <th>Work Order</th>
-                            <th>Reserve No</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th>Updated At</th>
-                            <th>Updated By</th>
-                            <th class="border-end-0 wd-80p position-sticky" style="right: -0.1px">Tools</th>
+                        <tr class="laofont">
+                            <th class="border-start-0 px-1">{{$t('no.')}}</th>
+                            <th>{{$t('equipNo')}}</th>
+                            <th>{{$t('equipDescr')}}</th>
+                            <th>{{$t('liter')}}</th>
+                            <th>{{$t('SMU')}}</th>
+                            <th>{{$t('driver')}}</th>
+                            <th>{{$t('shift')}}</th>
+                            <th>{{$t('material')}}</th>
+                            <th>{{$t('workOrder')}}</th>
+                            <th>{{$t('reserveNo')}}</th>
+                            <th>{{$t('createAt')}}</th>
+                            <th>{{$t('createBy')}}</th>
+                            <th>{{$t('updateAt')}}</th>
+                            <th>{{$t('updateBy')}}</th>
+                            <th class="border-end-0 wd-80p position-sticky pe-1" style="right: -0.1px">{{$t('tools')}}
+                                <!-- <div class=" pos-relative">{{$t('tools')}}</div>
+                                <div class="d-flex justify-content-end">
+                                    <div class="pos-absolute mg-t-7">
+                                        <button type="button" class="btn btn-info btn-b btn-sm rounded-circle p-0 ht-25 wd-25" title="Add new record" @click="detailNew()">
+                                            <i class="fe fe-plus"></i>
+                                        </button>
+                                    </div>
+                                </div> -->
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="tr-hover" v-for="(lst, key) in detailList" :key="lst.id">
-                            <td class="border-start-0">{{ key + 1 }}</td>
+                            <td class="border-start-0 tx-center">{{ key + 1 }}</td>
                             <td>{{ lst.equip_no }}</td>
-                            <td class="laofont">{{ lst.equip_descr }}</td>
-                            <td class="text-end">{{ lst.liter }}</td>
+                            <td>{{ lst.equip_descr }}</td>
+                            <td class="text-end">{{ parseFloat(lst.liter) }}</td>
                             <td class="text-end">{{ lst.smu }}</td>
                             <td class="text-capitalize">{{ lst.driver }}</td>
                             <td>{{ lst.work_shift }}</td>
@@ -145,16 +165,16 @@
                 </table>
                 <div class="d-flex justify-content-start align-items-center cur-pointer add-hover ms-2 ht-30 wd-100" @click="detailNew()" title="Create a new item">
                     <div><i class="fa fa-plus me-1 text-primary tx-10 mb-2"></i></div>
-                    <span class="text-primary tx-13">New</span>
+                    <span class="text-primary tx-13">{{ $t('newItem') }}</span>
                 </div>
             </div>
 
             <!-- Add Date Modal -->
-            <div class="modal fade" id="date" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dateLabel" aria-hidden="true">
+            <div class="modal" id="date" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dateLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header pb-1 bd-b-0">
-                            <h6 class="text-muted main-content-label text-capitalize">Add New Date</h6>
+                            <h6 class="text-muted main-content-label text-capitalize">{{ $t('newDate') }}</h6>
                             <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">                                
@@ -176,36 +196,37 @@
             </div> 
 
             <!-- Modal Header -->
-            <div class="modal fade effect-scale" id="header" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="headLabel" aria-hidden="true">
+            <div class="modal" id="header" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="headLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title text-muted">Reservation Title</h6>
+                            <h6 v-if="$i18n.locale=='en'" class="modal-title text-muted">Reservation Title</h6>
+                            <h6 v-else class="modal-title text-muted">ຫົວຂໍ້ການຈອງ</h6>
                             <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
-                                        <label class="mb-0">Plant <span class=" text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('plant') }} <span class=" text-danger">*</span></label> 
                                         <Multiselect v-model="headForm.plant" :options="lkPant"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="form-group">
-                                        <label class="mb-0">Department / Company <span class=" text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('deptComp') }} <span class=" text-danger">*</span></label> 
                                         <Multiselect v-model="headForm.cost_dept" searchable="true" searchStart="true" @select="deptChanged()" :options="lkDept"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-5 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Cost Type <span class=" text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('costtype') }} <span class=" text-danger">*</span></label> 
                                         <Multiselect v-model="headForm.cost_type" @select="typeChanged()" :options="lkType"/>
                                     </div>
                                 </div>                                
                                 <div class="col-sm-7 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Cost Code <span class=" text-danger">*</span></label>
+                                        <label class="mb-0">{{ $t('costcode') }} <span class=" text-danger">*</span></label>
                                         <Multiselect v-if="headForm.cost_type == 'WBS'" v-model="headForm.cost_no" :options="lkWbs"/>
                                         <cleave v-else-if="headForm.cost_type == 'Cost Center'" :options="options" disabled class="form-control" v-model="headForm.cost_no" />
                                         <cleave v-else :options="options"  class="form-control" v-model="headForm.cost_no" />
@@ -213,27 +234,27 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label class="mb-0">Approve by</label> 
+                                        <label class="mb-0">{{ $t('approveBy') }}</label> 
                                         <Multiselect v-model="headForm.approved_by" :options="lkApprove"/>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label class="mb-0">Location</label>
-                                        <input type="text" class="form-control laofont" v-model="headForm.location">
+                                        <label class="mb-0">{{ $t('location') }}</label>
+                                        <input type="text" class="form-control" v-model="headForm.location">
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button v-if="updShow" type="button" class="btn btn-primary me-1" :class="headAddDis" @click="headUpd()"><i class="fe fe-save"></i> 
-                                    <span class="mx-1">Save</span>
+                                <button v-if="updShow" type="button" class="btn btn-primary me-1" :class="headAddDis" @click="headUpd()"><i class="fe fe-check-circle"></i> 
+                                    <span class="mx-1">{{ $t('update') }}</span>
                                 </button>
                                 <button v-if="addShow" type="button" class="btn btn-primary me-1" :class="headAddDis" @click="headAdd()"><i class="fe fe-plus"></i> 
-                                    <span class="mx-1">Add</span>
+                                    <span class="mx-1">{{ $t('add') }}</span>
                                 </button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fe fe-x"></i> 
-                                    <span class="mx-1">Close</span>
-                                </button>
+                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fe fe-x"></i> 
+                                    <span class="mx-1">{{ $t('close') }}</span>
+                                </button> -->
                             </div>
                         </div>
                     </div>
@@ -241,51 +262,52 @@
             </div>
 
             <!-- Modal details -->
-            <div class="modal fade effect-scale" id="detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true" style="z-index: 1062">
+            <div class="modal" id="detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true" style="z-index: 1062">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title text-muted">Reservation Details</h6>
+                            <h6 v-if="$i18n.locale=='en'" class="modal-title text-muted">Reservation Details</h6>
+                            <h6 v-else class="modal-title text-muted">ລາຍລະອຽດການຈອງ</h6>
                             <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Shift <span class="text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('shift') }} <span class="text-danger">*</span></label> 
                                         <Multiselect v-model="detailForm.work_shift" :options="lkShift"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Equipment No.<span class="text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('equipNo') }}<span class="text-danger">*</span></label> 
                                         <input v-if="headForm.cost_type == 'IO'" type="text" class="form-control" v-model="detailForm.equip_no">
                                         <Multiselect v-else v-model="detailForm.equip_no" searchable="true" @select="equipChanged()" :options="lkEquipno"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 col-12">
                                     <div class="form-group">
-                                        <label class="mb-0">Description</label>
-                                        <input v-if="headForm.cost_type == 'IO'" type="text" class="form-control laofont" v-model="detailForm.equip_descr">
-                                        <input v-else type="text" class="form-control laofont" disabled v-model="detailForm.equip_descr">
+                                        <label class="mb-0">{{ $t('equipDescr') }}</label>
+                                        <input v-if="headForm.cost_type == 'IO'" type="text" class="form-control" v-model="detailForm.equip_descr">
+                                        <input v-else type="text" class="form-control" disabled v-model="detailForm.equip_descr">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">Liter <span class="text-danger">*</span></label>
+                                        <label class="mb-0">{{ $t('liter') }} <span class="text-danger">*</span></label>
                                         <cleave :options="options1" class="form-control" v-model="detailForm.liter"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label class="mb-0">SMU</label>
+                                        <label class="mb-0">{{ $t('SMU') }}</label>
                                         <cleave :options="options" class="form-control" v-model="detailForm.smu"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">Driver <span class="text-danger">*</span></label>
-                                        <label v-else class="mb-0">Driver</label>
+                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">{{ $t('driver') }} <span class="text-danger">*</span></label>
+                                        <label v-else class="mb-0">{{ $t('driver') }}</label>
                                         <input v-if="headForm.cost_type == 'IO'" type="text" class="form-control" v-model="detailForm.driver">
                                         <Multiselect v-else v-model="detailForm.driver" searchable="true" searchStart="true" title="Double click to add driver name" @dblclick="driverNew()" :options="lkDriver"/>                 
                                     </div>
@@ -299,47 +321,47 @@
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">Reserve No</label>
-                                        <label v-else class="mb-0">Reserve No <span class="text-danger">*</span></label>
+                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">{{ $t('reserveNo') }}</label>
+                                        <label v-else class="mb-0">{{ $t('reserveNo') }} <span class="text-danger">*</span></label>
                                         <cleave :options="options"  class="form-control" v-model="detailForm.reserve_no" title="After input the number then press Enter on keyboard to add" @keyup.enter="reserveNoAdd()"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-6">
                                     <div class="form-group">
-                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">Work Order</label>
-                                        <label v-else class="mb-0">Work Order <span class="text-danger">*</span></label>
+                                        <label v-if="headForm.cost_type == 'IO'" class="mb-0">{{ $t('workOrder') }}</label>
+                                        <label v-else class="mb-0">{{ $t('workOrder') }} <span class="text-danger">*</span></label>
                                         <cleave :options="options"  class="form-control" v-model="detailForm.work_order"/>
                                     </div>
                                 </div>
                                 
                                 <div class="col-lg-7 col-12">
                                     <div class="form-group">
-                                        <label class="mb-0">Material <span class="text-danger">*</span></label> 
+                                        <label class="mb-0">{{ $t('material') }} <span class="text-danger">*</span></label> 
                                         <Multiselect v-model="detailForm.material" :options="lkMaterial"/>
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="d-flex justify-content-end">
-                                <button v-if="updShow" type="button" class="btn btn-primary me-1" :class="detailAddDis" @click="detailUpd()"><i class="fe fe-save"></i> 
-                                    <span class="mx-1">Save</span>
+                                <button v-if="updShow" type="button" class="btn btn-primary me-1" :class="detailAddDis" @click="detailUpd()"><i class="fe fe-check-circle"></i> 
+                                    <span class="mx-1">{{ $t('update') }}</span>
                                 </button>
                                 <button v-if="addShow" type="button" class="btn btn-primary me-1" :class="detailAddDis" @click="detailAdd()"><i class="fe fe-plus"></i> 
-                                    <span class="mx-1">Add</span>
+                                    <span class="mx-1">{{ $t('add') }}</span>
                                 </button>
                                 <button v-if="addShow" type="button" class="btn btn-purple me-1" :class="detailAddDis" @click="detailSave()"><i class="fe fe-save"></i> 
-                                    <span class="mx-1">Save</span>
+                                    <span class="mx-1">{{ $t('save') }}</span>
                                 </button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fe fe-x"></i> 
-                                    <span class="mx-1">Close</span>
-                                </button>
+                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fe fe-x"></i> 
+                                    <span class="mx-1">{{ $t('close') }}</span>
+                                </button> -->
                             </div>
                         </div>
                     </div>
                 </div>                                              
             </div>
 
-            <div class="modal fade effect-scale pd-t-100 bd-0 bg-black-7" id="driver" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dropoffLabel" aria-hidden="true">
+            <div class="modal pd-t-100 bd-0 bg-black-7" id="driver" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dropoffLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header pb-1 bd-b-0">
@@ -553,6 +575,8 @@ export default {
             this.detailForm.head_id = id;
             this.headForm.cost_type = type;
             this.getDetail()
+
+
         },
 
         headNew(){
