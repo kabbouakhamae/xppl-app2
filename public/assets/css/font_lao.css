@@ -12,16 +12,35 @@
 } */
 
 
-@font-face {
-  font-family: 'Noto Sans Lao';
-  src: url("fonts/NotoSansLao-Regular.ttf");
+/* @font-face {
+  font-family: 'BoonHome';
+  src: url("fonts/boonhome-400.otf");
   
   font-weight: normal;
   font-style: normal;
 }
 
-* {
-  font-family: 'Roboto', 'Noto Sans Lao', sans-serif;
+*{
+  font-family: 'Roboto', 'BoonHome', sans-serif;
+} */
+
+/* @font-face {
+  font-family: 'Noto Sans Lao';
+  src: url("fonts/NotoSansLao-Regular.ttf");
+  
+  font-weight: normal;
+  font-style: normal;
+} */
+/* @font-face {
+  font-family: 'Noto Sans Lao Looped';
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped&display=swap");
+} */
+
+
+*{
+  /* font-family: 'Roboto','Noto Sans Lao Looped', sans-serif; */
+  /* font-family: 'Roboto','Phet', sans-serif; */
+  font-family: 'Roboto','Noto Sans Lao Looped', sans-serif;
 }
 
 /* @font-face {

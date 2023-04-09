@@ -8,13 +8,20 @@
     <title>XPPL APP</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}"> <!-- ດຶງມາຈາກຟາຍ mix ຢູ່ public ຫຼັງຈາກ compile -->
+
+    <!-- Fonts -->
     <link rel="stylesheet" href="assets/css/font_lao.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
 
     <!-- Icons css -->
     <link href="assets/css/icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendor/fonts/boxicons.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Bootstrap css -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +49,6 @@
 
     <!---Skinmodes css-->
     <link href="assets/css/skin-modes.css" rel="stylesheet" />
-
 
 </head>
 <body class="main-body app sidebar-mini">
@@ -136,9 +142,6 @@
 
     <!-- custom js -->
     <script src="assets/js/custom.js"></script>
-    
-
-    <!-- <div id="app"></div> ດຶງຂໍ້ມູນທັງໝົດຈາກ #app ຈາກ app.js ມາສະແດງຜົນ -->
     
     <script src="{{ mix('js/app.js') }}" type="text/javascript" ></script> <!-- ດຶງມາຈາກຟາຍ mix ຢູ່ public ຫຼັງຈາກ complie -->
 

@@ -358,9 +358,9 @@ export default {
 
     .dropdown-hover:hover{
         color: blue;
-        font-weight: 500;
+        /* font-weight: 500; */
     }
-
+    
     .btn-add:hover{
         background: #DDE1E5;
         border-radius: 50px;

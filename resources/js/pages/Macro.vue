@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-xl-8 col-lg-8 col-12">
+        <!-- <div class="row">
+            <div class="col-xl-8 col-lg-8 col-12"> -->
 
                 <div class="card card-body">
                     <h4 class="card-title text-muted mb-0 my-auto">Excel Macro</h4>
@@ -43,8 +43,8 @@
                     </div>
 
             </div>
-            </div>
-        </div>
+            <!-- </div>
+        </div> -->
     </div>
 </template>
 

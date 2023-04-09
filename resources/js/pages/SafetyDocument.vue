@@ -93,78 +93,78 @@
                 </div>
             </div>
         </div>
-    </div>
+        <!-- Modal Category -->
+        <div class="modal fade effect-scale" id="category" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cateLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label">Category</h6>
+                        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
+                    </div>
 
-    <!-- Modal Category -->
-    <div class="modal fade effect-scale" id="category" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cateLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header pb-1 bd-b-0">
-                    <h6 class="main-content-label">Category</h6>
-                    <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
-                </div>
-
-                <div class="modal-body pt-2">  
-                    <div class="form-group">
-                        <label class="mb-0">Code  <span class=" text-danger">*</span></label>
-                        <input type="text" class="form-control laofont" v-model="cateForm.category">
-                    </div>   
-                    <div class="form-group">
-                        <label class="mb-0">Description</label>
-                        <textarea class="form-control laofont" style="height: 100px" v-model="cateForm.descr"></textarea>
-                    </div>   
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" :class="addCodeDis" @click="addCate()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
-                        <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal"><i class="fe fe-x"></i><span class="mx-1">Close</span></button>
+                    <div class="modal-body pt-2">  
+                        <div class="form-group">
+                            <label class="mb-0">Code  <span class=" text-danger">*</span></label>
+                            <input type="text" class="form-control laofont" v-model="cateForm.category">
+                        </div>   
+                        <div class="form-group">
+                            <label class="mb-0">Description</label>
+                            <textarea class="form-control laofont" style="height: 100px" v-model="cateForm.descr"></textarea>
+                        </div>   
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" :class="addCodeDis" @click="addCate()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
+                            <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal"><i class="fe fe-x"></i><span class="mx-1">Close</span></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>                                              
+            </div>                                              
+        </div>
+
+        <!-- Modal File -->
+        <div class="modal fade effect-scale" id="files" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fileLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header pb-1 bd-b-0">
+                        <h6 class="main-content-label">{{fileForm.category}}</h6>
+                        <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
+                    </div>
+
+                    <div class="modal-body mt-2">  
+
+
+                        <!-- <div class="mt-1" style="margin-start: 11px">
+                            <a class="add-hover p-0" href="#" @click="newFiles()" title="Add new file"><span class="tx-13">Add...</span></a>    
+                            <input class="d-none" ref="fileInput" type="file" accept=".xlsm" @change="addFile()">
+                        </div>  -->
+
+                        <input type="file" @change="onSeclected" class="mb-3 cur-pointer" ref="inputFile">
+
+
+
+                        <!-- <div class="form-group mt-4">
+                            <label class="mb-0">File Name  <span class=" text-danger">*</span></label>
+                            <input type="text" class="form-control laofont" v-model="fileForm.file_name">
+                        </div>    -->
+
+
+                        <div class="form-group">
+                            <label class="mb-0">File Description</label>
+                            <textarea class="form-control laofont" style="height: 100px" v-model="fileForm.file_descr"></textarea>
+                        </div>   
+                        <div class="form-group">
+                            <label class="mb-0">Last Update</label>
+                            <input type="date" class="form-control" v-model="fileForm.last_update">
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" :class="addDocDis" @click="addFile()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
+                            <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal"><i class="fe fe-x"></i><span class="mx-1">Close</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>                                              
+        </div>
     </div>
 
-    <!-- Modal File -->
-    <div class="modal fade effect-scale" id="files" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fileLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header pb-1 bd-b-0">
-                    <h6 class="main-content-label">{{fileForm.category}}</h6>
-                    <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span class="tx-24" aria-hidden="true">×</span></button>
-                </div>
-
-                <div class="modal-body mt-2">  
-
-
-                    <!-- <div class="mt-1" style="margin-start: 11px">
-                        <a class="add-hover p-0" href="#" @click="newFiles()" title="Add new file"><span class="tx-13">Add...</span></a>    
-                        <input class="d-none" ref="fileInput" type="file" accept=".xlsm" @change="addFile()">
-                    </div>  -->
-
-                    <input type="file" @change="onSeclected" class="mb-3 cur-pointer" ref="inputFile">
-
-
-
-                    <!-- <div class="form-group mt-4">
-                        <label class="mb-0">File Name  <span class=" text-danger">*</span></label>
-                        <input type="text" class="form-control laofont" v-model="fileForm.file_name">
-                    </div>    -->
-
-
-                    <div class="form-group">
-                        <label class="mb-0">File Description</label>
-                        <textarea class="form-control laofont" style="height: 100px" v-model="fileForm.file_descr"></textarea>
-                    </div>   
-                    <div class="form-group">
-                        <label class="mb-0">Last Update</label>
-                        <input type="date" class="form-control" v-model="fileForm.last_update">
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" :class="addDocDis" @click="addFile()"><i class="fe fe-plus"></i><span class="mx-1">Add</span></button> 
-                        <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal"><i class="fe fe-x"></i><span class="mx-1">Close</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>                                              
-    </div>
 
 
 </template>

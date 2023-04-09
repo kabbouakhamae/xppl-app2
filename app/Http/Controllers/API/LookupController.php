@@ -29,6 +29,11 @@ class LookupController extends Controller
         return $position;
     }
 
+    public function positionLao(){
+        $positionLao = DB::select("select code as value, descr_lao as label from lookup_code where category ='position' and used = 1 and descr_lao is not null");
+        return $positionLao;
+    }
+
     public function status(){
         $status = DB::select("select code as value, code as label from lookup_code where category ='employee status' and used = 1");
         return $status;
@@ -60,13 +65,18 @@ class LookupController extends Controller
     }
 
     public function dept(){
-        $dept = DB::select("select department as value, department as label from department");
+        $dept = DB::select("select department as value, department as label from department where active=1 order by department");
         return $dept;
     }
 
     public function depts(){
         $dept = DB::select("select department as value, department as label from department where password is not null");
         return $dept;
+    }
+
+    public function deptLao(){
+        $deptLao = DB::select("select department as value, department_lao as label from department");
+        return $deptLao;
     }
 
     public function section(){

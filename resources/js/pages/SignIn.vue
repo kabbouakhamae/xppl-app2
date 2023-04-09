@@ -83,7 +83,6 @@ export default {
         if(window.Laravel.isLoggedin_laravel){
             window.location.href = "/";
         }
-
         next();
 	}
 };

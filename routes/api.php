@@ -24,7 +24,8 @@ use App\Http\Controllers\API\ProductionController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\InventoryController;
 use App\Http\Controllers\API\ClinicController;
-use App\Http\Controllers\API\TestController;
+use App\Http\Controllers\API\HQPaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -200,9 +201,6 @@ Route::group(['prefix' => 'fingerscan', 'middlewar' => 'auth:santum'], function(
     Route::get('/summary2', [FingerscanController::class, 'summary2']);
     Route::get('/header', [FingerscanController::class, 'header']);
 
-
-    Route::get('/testprod', [FingerscanController::class, 'testProd']);
-
 });
 
 // SAFETY
@@ -266,8 +264,28 @@ Route::group(['prefix' => 'overtime', 'middlewar' => 'auth:santum'], function(){
 
 // CLINIC
 Route::group(['prefix' => 'clinic', 'middlewar' => 'auth:santum'], function(){
-    Route::post('/registername', [ClinicController::class, 'RegisterName']);
-    Route::get('/newid', [ClinicController::class, 'NewID']);
+    Route::get('/lookup', [ClinicController::class, 'Lookup']);
+    Route::get('/lkcategory', [ClinicController::class, 'LKCategory']);
+    Route::get('/lkcode', [ClinicController::class, 'LKCode']);
+    Route::post('/addlkcode', [ClinicController::class, 'AddLKCode']);
+    Route::post('/dellkcode/{id}', [ClinicController::class, 'DelLKCode']);
+    Route::post('/updlkcode', [ClinicController::class, 'UpdLKCode']);
+    Route::get('/lkmedicine', [ClinicController::class, 'LKMedicine']);
+    Route::post('/addlkmedicine', [ClinicController::class, 'AddLKMedicine']);
+    Route::post('/updlkmedicine', [ClinicController::class, 'UpdLKMedicine']);
+    Route::post('/dellkmedicine/{id}', [ClinicController::class, 'DelLKMedicine']);
+    Route::get('/patientlist', [ClinicController::class, 'PatientList']);
+    Route::get('/treatmentdata', [ClinicController::class, 'TreatmentData']);
+    Route::get('/medicationdata', [ClinicController::class, 'MedicationData']);
+    Route::post('/addpatient', [ClinicController::class, 'AddPatient']);
+    Route::post('/delpatient/{id}', [ClinicController::class, 'DelPatient']);
+    Route::post('/addtreatment', [ClinicController::class, 'AddTreatment']);
+    Route::post('/deltreatment/{id}', [ClinicController::class, 'DelTreatment']);
+    Route::post('/updpatient', [ClinicController::class, 'UpdPatient']);
+    Route::post('/updtreatment', [ClinicController::class, 'UpdTreatment']);
+    Route::post('/delmedicine/{id}', [ClinicController::class, 'DelMedicine']);
+    Route::post('/addmedicine', [ClinicController::class, 'AddMedicine']);
+    Route::post('/updmedicine', [ClinicController::class, 'UpdMedicine']);
 
 
 });
@@ -284,8 +302,28 @@ Route::group(['prefix' => 'production', 'middlewar' => 'auth:santum'], function(
 Route::group(['prefix' => 'inventory', 'middlewar' => 'auth:santum'], function(){
     Route::get('/prrecord', [InventoryController::class, 'prRecord']);
     // Route::get('/proddata', [InventoryController::class, 'prodData']);
+});
 
-
+// HQ Payment Requisition
+Route::group(['prefix' => 'hqpayment', 'middlewar' => 'auth:santum'], function(){
+    Route::get('/lookup', [HQPaymentController::class, 'Lookup']);
+    Route::get('/checkid', [HQPaymentController::class, 'CheckID']);
+    Route::post('/addpayment', [HQPaymentController::class, 'AddPayment']);
+    Route::post('/updpayment', [HQPaymentController::class, 'UpdPayment']);
+    Route::post('/addfiles', [HQPaymentController::class, 'AddFiles']);
+    Route::post('/delfile/{filename}', [HQPaymentController::class, 'DelFile']);
+    Route::post('/delpayment/{id}', [HQPaymentController::class, 'DelPayment']);
+    
+    Route::get('/getalldata', [HQPaymentController::class, 'GetAllData']);
+    Route::get('/getpending', [HQPaymentController::class, 'GetPending']);
+    Route::get('/getapprove', [HQPaymentController::class, 'GetApprove']);
+    Route::get('/getreject', [HQPaymentController::class, 'GetReject']);
+    Route::get('/getallfile', [HQPaymentController::class, 'GetAllFile']);
+    Route::post('/rejected', [HQPaymentController::class, 'Rejected']);
+    Route::post('/approved', [HQPaymentController::class, 'Approved']);
+    
+    Route::get('/getpendingnotic', [HQPaymentController::class, 'GetPendingNotic']);
+    Route::get('/getpendingnoticfile', [HQPaymentController::class, 'GetPendingNoticFile']);
 });
 
 // LOOKUP
@@ -294,6 +332,7 @@ Route::group(['prefix' => 'lookup', 'middlewar' => 'auth:santum'], function(){
     Route::get('/province', [LookupController::class, 'province']);
     Route::post('/district', [LookupController::class, 'district']);
     Route::get('/position', [LookupController::class, 'position']);
+    Route::get('/positionlao', [LookupController::class, 'positionLao']);
     Route::get('/status', [LookupController::class, 'status']);
     Route::get('/contract', [LookupController::class, 'contract']);
     Route::get('/levels', [LookupController::class, 'levels']);
@@ -302,6 +341,7 @@ Route::group(['prefix' => 'lookup', 'middlewar' => 'auth:santum'], function(){
     Route::get('/site', [LookupController::class, 'site']);
     Route::get('/dept', [LookupController::class, 'dept']);
     Route::get('/depts', [LookupController::class, 'depts']);
+    Route::get('/deptlao', [LookupController::class, 'deptLao']);
     Route::get('/section', [LookupController::class, 'section']);
     Route::get('/crew', [LookupController::class, 'crew']);
     Route::get('/name', [LookupController::class, 'name']);

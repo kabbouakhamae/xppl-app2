@@ -352,9 +352,6 @@
                                 <button v-if="addShow" type="button" class="btn btn-purple me-1" :class="detailAddDis" @click="detailSave()"><i class="fe fe-save"></i> 
                                     <span class="mx-1">{{ $t('save') }}</span>
                                 </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fe fe-x"></i> 
-                                    <span class="mx-1">{{ $t('close') }}</span>
-                                </button> -->
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@
                         <button class="btn btn-icon btn-sm btn-i p-0" data-bs-toggle="dropdown" title="Tools">
                             <i class="mdi mdi-dots-horizontal text-gray" style="font-size: 15px"></i>
                         </button> 
-                        <div class="dropdown-menu tx-13">
+                        <div class="dropdown-menu rounded-5 box-shadow-pink tx-13">
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="ExportExcel()">
                                 <i class="far fa-file-excel me-2"></i><span>Export To Excel</span>
                             </div>

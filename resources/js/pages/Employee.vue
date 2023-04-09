@@ -13,7 +13,7 @@
                         <button class="btn btn-icon btn-sm btn-i p-0" data-bs-toggle="dropdown" title="Tools">
                             <i class="mdi mdi-dots-horizontal text-gray" style="font-size: 15px"></i>
                         </button> 
-                        <div class="dropdown-menu tx-13">
+                        <div class="dropdown-menu rounded-5 box-shadow-pink tx-13">
                             <div class="dropdown-item cur-pointer dropdown-hover" @click="expCurrentEmp()">
                                 <i class="mdi mdi-file-excel me-2 tx-16"></i><span>Export Current Employee</span>
                             </div>
@@ -2007,7 +2007,7 @@ export default {
 
         searchClear(){
             this.search = '';
-            this.btnClear = false,
+            this.btnClear = false;
             this.getEmpData();
         },
 

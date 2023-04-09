@@ -8,14 +8,14 @@
                 <div class="card-header pd-r-15 pd-t-10 pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center">
-                            <h4 v-if="$i18n.locale=='en'" class="card-title mg-b-0 text-muted text-capitalize">Incident Records In {{year}}</h4>
+                            <h4 v-if="$i18n.locale=='en'" class="card-title mg-b-0 text-muted">Incident Records In {{year}}</h4>
                             <h4 v-else class="card-title mg-b-0 text-muted text-capitalize">ບັນທຶກເຫດການໃນປິ {{year}}</h4>
                         </div>
                         <div class="d-flex justify-content-start">
                             <button class="btn btn-icon btn-sm btn-i p-0" data-bs-toggle="dropdown" title="Tools">
                                 <i class="mdi mdi-dots-horizontal text-gray" style="font-size: 15px"></i>
                             </button> 
-                            <div class="dropdown-menu tx-13">
+                            <div class="dropdown-menu rounded-5 box-shadow-pink tx-13">
                                 <div class="dropdown-item cur-pointer dropdown-hover" @click="exportIncident()">
                                     <i class="mdi mdi-file-excel me-2 tx-16"></i><span>Export All Incidents</span>
                                 </div>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="table-responsive border-start border-end border-bottom" style="max-height: 78vh">
-                        <table class="table main-table-reference text-nowrap mg-b-0">
+                        <table class="table main-table-reference text-nowrap mg-b-0" style="scrollHeight: 2000px">
                             <thead class="position-sticky" style="top: 0px; z-index: 1">
                                 <tr>
                                     <!-- <th class="position-sticky border-start-0" style="left: -0.1px">ID</th> -->
@@ -134,11 +134,10 @@
                                 <tr v-for="(row, inx) in incData" :key="row.id" class="tr-hover">
                                     <!-- <td class="border-start-0 position-sticky cur-pointer" style="left: -0.1px; background-color: #FFFFFF" title="Double click to see details" @click="preview(row.id)" >{{row.inc_id}}</td> -->
                                     <td class="border-start-0 tx-center" >{{inx +1}}</td>
-                                    <th class="tx-center">{{row.inc_no}}</th>
+                                    <td class="tx-center">{{row.inc_no}}</td>
                                     <td>{{dformat(row.inc_date)}}</td>
                                     <td class="bg-danger cur-pointer" v-if="row.risk_rating >=20" @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
                                     <td class="cur-pointer" v-else @click="preview(row.id, row.inc_id)" title="Preview">{{cutWord(row.inc_title)}}</td>
-                                    <!-- <td>{{cutWord(row.inc_title)}}</td> -->
                                     <td>{{row.company}}</td>
                                     <td>{{row.dept}}</td>
                                     <td>{{row.inc_group}}</td>
@@ -655,7 +654,7 @@ export default {
     },
 
     mounted() {
-        
+
     },
 
     computed: {
@@ -691,7 +690,7 @@ export default {
             const dept = await axios.get('/api/lookup/dept')
             this.lkDept = dept.data;
 
-            this.getIncident();
+            const res = await this.getIncident();
 
             this.loading = false; 
 
@@ -774,13 +773,11 @@ export default {
             this.loading = false; 
         },
 
-        getIncident(){
-            this.$axios.get(`/api/safety/increcord?year=${this.year}&search=${this.search}`)
-            .then(res => {
-                this.incData = res.data;
-                this.filterMode = '';
-                $('#Filter').modal('hide');
-            })
+        async getIncident(){
+            const res = await axios.get(`/api/safety/increcord?year=${this.year}&search=${this.search}`)
+            this.incData = res.data;
+            this.filterMode = '';
+            $('#Filter').modal('hide');
         },
 
         searchChanged(){
@@ -981,7 +978,7 @@ export default {
 
         delTmp(inx){
             this.tmpFiles.splice(inx,1);
-            console.log(index);
+            // console.log(index);
         },
 
         addFiles(){

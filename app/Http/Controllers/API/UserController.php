@@ -143,7 +143,6 @@ class UserController extends Controller
             ->where('id', $request->id)
             ->update([
                 'permiss' => $request->permiss,
-                'safety' => $request->safety,
                 'lk_add' => $request->lkAdd,
                 'lk_edit' => $request->lkEdit,
                 'lk_del' => $request->lkDel,
@@ -160,7 +159,26 @@ class UserController extends Controller
                 'fuel' => $request->fuel,
                 'fuel_all' => $request->fuelAll,
                 'ros_all' => $request->rosAll,
-                'ros_edit' => $request->rosEdit
+                'ros_edit' => $request->rosEdit,
+                'mac_acc' => $request->mac_acc,
+                'clinic_acc' => $request->clinic_acc,
+                'clinic_add' => $request->clinic_add,
+                'clinic_edit' => $request->clinic_edit,
+                'clinic_del' => $request->clinic_del,
+                'safety' => $request->safety,
+                'saf_add' => $request->saf_add,
+                'saf_edit' => $request->saf_edit,
+                'saf_del' => $request->saf_del,
+                'adm_acc' => $request->adm_acc,
+                'hqpr_acc' => $request->hqpr_acc,
+                'hqpr_all' => $request->hqpr_all,
+                'hqpr_add' => $request->hqpr_add,
+                'hqpr_edit' => $request->hqpr_edit,
+                'hqpr_del' => $request->hqpr_del,
+                'hqpr_app' => $request->hqpr_app,
+                'hqpr_noti' => $request->hqpr_noti,
+                'hqpr_sett' => $request->hqpr_sett,
+                'gen_sett' => $request->gen_sett
             ]);
     }
 

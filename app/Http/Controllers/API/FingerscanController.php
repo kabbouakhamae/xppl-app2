@@ -65,12 +65,6 @@ class FingerscanController extends Controller
     }
 
     public function AcLog(Request $request){
-        // $param = [
-        //     $request->date,
-        //     $request->userid
-        // ];
-        // $aclog = DB::select('exec uspEmpScanAcLog ?, ?', $param);
-
         $aclog = DB::table('emp_fingerprints as a')
                     ->join('emp_details as b', 'a.userid', 'b.userid')
                     ->join(DB::raw('(select max(id) as mxid, userid from emp_details group by userid) as c'),
@@ -80,7 +74,6 @@ class FingerscanController extends Controller
                     ->where('b.department', $request->dept)
                     ->whereBetween('a.scan_date', [$request->datefr, $request->dateto])
                     ->get('a.*');
-
         return $aclog;
     }
 

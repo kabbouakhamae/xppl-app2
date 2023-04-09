@@ -22,7 +22,10 @@ import Overtime from "../pages/Overtime.vue";
 import ProdEntry from "../pages/ProdEntry.vue";
 import PR from "../pages/PR.vue";
 import SafetyDocument from "../pages/SafetyDocument.vue";
-import TreatmentRecord from "../pages/ClinicTreatmentRecord.vue";
+import Treatment from "../pages/ClinicTreatment.vue";
+import CliLookup from "../pages/ClinicLookup.vue";
+import HQPayment from "../pages/HQPaymentRequisition.vue";
+
 import Macro from "../pages/Macro.vue";
 
 
@@ -141,14 +144,20 @@ const routes =[
         component: SafetyDocument
     },
     {
-        name: "Treatment",
+        name: "treatment",
         path: "/treatment",
-        component: TreatmentRecord
+        component: Treatment
     },
-
-
-
-
+    {
+        name: "clilookup",
+        path: "/clilookup",
+        component: CliLookup
+    },
+    {
+        name: "HQ Payment Requisition",
+        path: "/hqpayment",
+        component: HQPayment
+    },
 ];
 
 
