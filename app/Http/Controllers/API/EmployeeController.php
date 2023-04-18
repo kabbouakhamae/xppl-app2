@@ -216,7 +216,7 @@ class EmployeeController extends Controller{
     }
 
     public function currentEmp(Request $request){
-        $curEmp = DB::select("SELECT a.Gender, a.Name, a.Surname, a.NameLao, a.SurnameLao, a.Phone, b.Position, a.Birthday, a.Country, a.Province, a.District, a.Village, b.StartDate, b.Status, b.Site, b.Department, b.Section, b.EmpID, b.Scanid, b.Foodid, b.Roster, b.Scantimes, b.Levels, b.Contract, c.ContactPerson, d.PersonalCards, b.Remarks
+        $curEmp = DB::select("select a.Gender, a.Name, a.Surname, a.NameLao, a.SurnameLao, a.Phone, b.Position, a.Birthday, a.Country, a.Province, a.District, a.Village, b.StartDate, b.Status, b.Site, b.Department, b.Section, b.EmpID, b.Scanid, b.Foodid, b.Roster, b.Scantimes, b.Levels, b.Contract, c.ContactPerson, d.PersonalCards, b.Remarks
                               FROM dbo.emp_names a 
                                     LEFT OUTER JOIN dbo.utfEmpDetails() b ON b.userid = a.id
                                     LEFT OUTER JOIN dbo.utf_EmpContactPerson() c ON c.UserID = a.id
@@ -230,7 +230,7 @@ class EmployeeController extends Controller{
     }
 
     public function exEmp(Request $request){
-        $exEmp = DB::select("SELECT a.Gender, a.Name, a.Surname, a.NameLao, a.SurnameLao, a.Phone, b.Position, a.Birthday, a.Country, a.Province, a.District, a.Village, b.StartDate, b.Status, b.Site, b.Department, b.Section, b.EmpID, b.Scanid, b.Foodid, b.Roster, b.Scantimes, b.Levels, b.Contract, c.ContactPerson, d.PersonalCards, b.Remarks
+        $exEmp = DB::select("select a.Gender, a.Name, a.Surname, a.NameLao, a.SurnameLao, a.Phone, b.Position, a.Birthday, a.Country, a.Province, a.District, a.Village, b.StartDate, b.Status, b.Site, b.Department, b.Section, b.EmpID, b.Scanid, b.Foodid, b.Roster, b.Scantimes, b.Levels, b.Contract, c.ContactPerson, d.PersonalCards, b.Remarks
                               FROM dbo.emp_names a 
                                     LEFT OUTER JOIN dbo.utfEmpDetails() b ON b.userid = a.id
                                     LEFT OUTER JOIN dbo.utf_EmpContactPerson() c ON c.UserID = a.id

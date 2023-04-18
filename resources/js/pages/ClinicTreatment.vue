@@ -1215,9 +1215,9 @@ export default {
 
         AddMedication(){
             let fd = this.medicaForm;
-            if(this.medicaFilter.find((i)=>i.medicine==fd.medicine)){
-                let q = this.medicaFilter.find((i)=>i.medicine==fd.medicine).qty;
-                this.medicaFilter.find((i)=>i.medicine==fd.medicine).qty = q + fd.qty;
+            if(this.medicaFilter.find((i) => i.medicine == fd.medicine)){
+                let q = this.medicaFilter.find((i) => i.medicine == fd.medicine).qty;
+                this.medicaFilter.find((i) => i.medicine == fd.medicine).qty = q + fd.qty;
             } else {
                 this.medicaFilter.push({
                     medicine: fd.medicine,

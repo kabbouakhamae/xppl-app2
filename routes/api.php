@@ -306,24 +306,35 @@ Route::group(['prefix' => 'inventory', 'middlewar' => 'auth:santum'], function()
 
 // HQ Payment Requisition
 Route::group(['prefix' => 'hqpayment', 'middlewar' => 'auth:santum'], function(){
+    Route::get('/prpermission', [HQPaymentController::class, 'PRPermission']);
     Route::get('/lookup', [HQPaymentController::class, 'Lookup']);
+    Route::get('/namelist', [HQPaymentController::class, 'NameList']);
     Route::get('/checkid', [HQPaymentController::class, 'CheckID']);
     Route::post('/addpayment', [HQPaymentController::class, 'AddPayment']);
-    Route::post('/updpayment', [HQPaymentController::class, 'UpdPayment']);
     Route::post('/addfiles', [HQPaymentController::class, 'AddFiles']);
+    Route::post('/updpayment', [HQPaymentController::class, 'UpdPayment']);
     Route::post('/delfile/{filename}', [HQPaymentController::class, 'DelFile']);
     Route::post('/delpayment/{id}', [HQPaymentController::class, 'DelPayment']);
+    Route::post('/addapprovename', [HQPaymentController::class, 'AddApproveName']);
+    Route::post('/delapprovename', [HQPaymentController::class, 'DelApproveName']);
+    Route::post('/updapprovename', [HQPaymentController::class, 'UpdApproveName']);
     
-    Route::get('/getalldata', [HQPaymentController::class, 'GetAllData']);
-    Route::get('/getpending', [HQPaymentController::class, 'GetPending']);
-    Route::get('/getapprove', [HQPaymentController::class, 'GetApprove']);
-    Route::get('/getreject', [HQPaymentController::class, 'GetReject']);
-    Route::get('/getallfile', [HQPaymentController::class, 'GetAllFile']);
+    Route::post('/getalldata', [HQPaymentController::class, 'GetAllData']);
+    Route::post('/getpending', [HQPaymentController::class, 'GetPending']);
+    Route::post('/getapproved', [HQPaymentController::class, 'GetApproved']);
+    Route::post('/getrejected', [HQPaymentController::class, 'GetRejected']);
+    Route::post('/getallfile', [HQPaymentController::class, 'GetAllFile']);
+    Route::post('/getapprovelist', [HQPaymentController::class, 'GetApproveList']);
     Route::post('/rejected', [HQPaymentController::class, 'Rejected']);
     Route::post('/approved', [HQPaymentController::class, 'Approved']);
     
+
     Route::get('/getpendingnotic', [HQPaymentController::class, 'GetPendingNotic']);
     Route::get('/getpendingnoticfile', [HQPaymentController::class, 'GetPendingNoticFile']);
+
+
+    // Route::post('/alldata', [HQPaymentController::class, 'AllData']);
+
 });
 
 // LOOKUP

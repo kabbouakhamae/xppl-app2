@@ -1,0 +1,679 @@
+scan_id,food_id,empid,title,Name,Position,Department,str_date,used_2023,remain_010323
+3017,23017,XPPLAD08221,Mr,Xaysompho Vongsalasilth,LV Driver,Administration,18-01-2023,0,1.767123288
+2987,22987,XPPLAD08177,MS,Pathong Vongphachan,Housemaid,Administration,26-12-2022,0,2.712328767
+2975,22975,XPPLAD08176,MS,In Phoummalay,Housemaid,Administration,21-12-2022,0,2.794520548
+2935,22935,XPPLAD08114,Mr,Yong Phonesavanh,LV Driver,Administration,09-12-2022,0,3.410958904
+2907,22907,XPPLAD08080,Mr,Somchith Lathhanathong,Water Filter monitoring staff,Administration,22-11-2022,0,4.109589041
+2892,22892,XPPLAD08078,Mr,Baeb Khouisouly,Gardener,Administration,10-11-2022,0,4.273972603
+2893,22893,XPPLAD08079,Mr,Phonexay Savan,Gardener,Administration,10-11-2022,0,4.602739726
+2803,22803,XPPLAD07841,Mr,Champa Saiysamphan,General Manager Assistant,Administration,01-11-2022,0,4.97260274
+2841,22841,XPPLAD08014,Mr,Khonesavanh Vongoutsalath,LV Driver,Administration,09-10-2022,5,0.630136986
+2795,22795,XPPLAD07844,Mr,Thane Boualien,LV Driver,Administration,16-09-2022,2,0.95890411
+2792,22792,XPPLAD07843,Mr,Hatnakhone Keophila,LV Driver,Administration,13-09-2022,1,2.876712329
+2783,22783,XPPLAD07828,Mr,Bounchan Chanthalangsy,LV Driver,Administration,26-08-2022,0.5,3.102739726
+2776,22776,XPPLAD07827,Mr,Jokee Sydavong,LV Driver,Administration,19-08-2022,0,8.01369863
+2770,22770,XPPLAD07822,Mr,Vilat Sivilay,LV Driver,Administration,16-08-2022,0,6.095890411
+2748,22748,XPPLAD07790,Ms,Syamphone Linpanya,Housemaid,Administration,27-07-2022,0,6.95890411
+2739,22739,XPPLAD07789,Ms,Vilayphone Phounsipaserd,Housemaid,Administration,21-07-2022,3,5.589041096
+2724,22724,XPPLAD07785,Mr,Jonhny Sanesy,Camp Maintenance Staff,Administration,04-07-2022,3,6.404109589
+2681,22681,XPPLAD07738,Mr,Phousavanh ,Gardener,Administration,31-05-2022,9,2.301369863
+2682,22682,XPPLAD07739,Mr,Hoy ,Gardener,Administration,31-05-2022,1,3.678082192
+2612,22612,XPPLAD07634,Mr,Somsy LAISEUAKUL,Camp Supervisor,Administration,14-03-2022,4,6.506849315
+2597,22597,XPPLAD07635,Ms,Vilaivanh Sysouphan,Senior Camp Officer,Administration,11-03-2022,2,7.130136986
+2541,22541,XPPLAD07567,Mr,Sackpaserth Duangsaiyasack,LV Driver,Administration,18-02-2022,6,4.582191781
+2524,22524,XPPLAD07562,Ms,Vanna Daengamphone,Housemaid,Administration,10-02-2022,0,10.82191781
+2516,22516,XPPLAD07560,Ms,Phonethip Onmixay,Housemaid,Administration,08-02-2022,7,6.863013699
+2513,80068,XPPLAD07549,Mr,Outhanakone Sorlatsavong,LV Driver,Administration,28-01-2022,1,3.356164384
+2854,22854,NT1SEE07533,MS,Lathtana CHANTHALANG,Admin Officer,Administration,18-01-2022,12,2.767123288
+2460,63019,XPPLAD07410,Mr,Thevan Singpasack,LV Driver,Administration,30-11-2021,0.5,5.287671233
+2442,70067,XPPLAD07405,Mr,Chanthana Chanthavong,LV Driver,Administration,26-11-2021,6.5,1.445205479
+2433,65010,XPPLAD07407,Mr,Kai Bualavong,LV Driver,Administration,23-11-2021,3,2.445205479
+2391,65054,XPPLAD07412,Ms,Sonexay Kongmany,Housemaid,Administration,09-11-2021,0,5.143835616
+2394,70102,XPPLAD07409,Mr,Syviengkham Suvannalad,LV Driver,Administration,09-11-2021,4,5.643835616
+2378,63186,XPPLAD07404,Mr,Intha Chanthavilay,IT Officer,Administration,02-11-2021,0,16.93150685
+2372,80060,XPPLAD07278,Mr,Kaysone Inthakoummarn,Deputy Admin Manager,Administration,31-10-2021,2,6.01369863
+2362,63163,XPPLAD07403,Mr,Vilathda Vongkhamlar,LV Driver,Administration,29-10-2021,0,17.59589041
+2314,63191,XPPLAD07297,Ms,Sengmany Phoudthavong,Admin Officer,Administration,17-10-2021,4,5.006849315
+2209,70107,XPPLAD07194,Ms,Noy Khamphukdee,Housemaid,Administration,03-08-2021,2,11.67123288
+2204,77044,XPPLAD07208,Mr,Thanouphet Sysavanh,LV Driver,Administration,02-08-2021,0,4.671232877
+2205,70026,XPPLAD07204,Mr,Hatsady Latsavong,LV Driver,Administration,02-08-2021,2,3.712328767
+2206,63169,XPPLAD07207,Mr,Phoukhong Vorlachit,LV Driver,Administration,02-08-2021,1,5.561643836
+2131,10037,XPPLAD07105,Mr,Souvanh Sypasong,Admin Officer,Administration,27-05-2021,0,16.46575342
+2122,10033,XPPLAD07059,Mr,Khamlar Souphithack,LV Driver,Administration,27-03-2021,0,7.308219178
+2037,7057,XPPLAD07057,Mr,Boualy Chanthavong,LV Driver,Administration,25-08-2020,5,6.101369863
+2028,63217,XPPLAG07024,Mr,Pheng Saykhamkeo,Gardener,Administration,16-07-2020,5,27.46575342
+1187,5260,XPPLMN05260,Mr,Keo Soudsawang,Camp Maintenance Staff,Administration,31-05-2020,3,3.365753425
+20,2,PSGCON0002,Mr,Bounthai Souphida,Camp Supervisor,Administration,01-02-2020,6.5,3.465753425
+482,3844,XPPLMG03844,Ms,Loiy Keokhanthong,Housemaid,Administration,11-09-2018,0.5,3.054794521
+444,63101,XPPLIT01038,Mr,Sheshofu Sumpholphakdee,IT Supervisor,Administration,09-07-2018,3,2.582191781
+1101,38,XPPLSAW0038,Mr,Thao Souvanchantha,Gardener,Administration,22-11-2017,4,3.595890411
+816,5259,XPPLMN05259,Mr,Detsamay Phouchanh,Camp Maintenance Staff,Administration,26-09-2015,2,3.356164384
+808,5262,XPPLAD05262,Ms,Ming Phattheuan,Housemaid,Administration,16-09-2015,4,7.465753425
+1011,54,XPPLSAW0054,Mr,Sakda Kittilath,LV Driver,Administration,01-08-2015,0,6.431506849
+653,4733,XPPLAD04733,Ms,Somsy ,Housemaid,Administration,20-03-2015,8,2.965753425
+619,4341,XPPLAD04341,Mr,Outhid Vongphakdee,LV Driver,Administration,09-02-2015,0,5.267123288
+223,3573,XPPLMG03573,Ms,Phanh Pianmany,Housemaid,Administration,26-06-2014,0,22.46575342
+297,3704,XPPLEN03704,Mr,Kianta ,Camp Maintenance Staff,Administration,26-06-2014,1,14.52739726
+364,3540,XPPLAD03540,Mr,Phongsavath Khammavong,LV Driver,Administration,11-06-2014,5.5,6.808219178
+2,94,XPPLIT00094,Mr,Anongsack Leunammachack,IT Officer,Administration,03-01-2014,2,1.068493151
+58,63038,XPPLEN03149,Mr,Lae Phongoudom,Camp Maintenance Staff,Administration,01-12-2013,8,5.136986301
+12,63091,XPPLMG02560,Mr,Supases Wisarnsingh,General Manager,Administration,28-06-2013,0,58.46575342
+60,2207,XPPLMN02207,Mr,Od Daengamphone,LV Driver,Administration,01-03-2013,0,9.547945205
+8,1369,XPPLAD01369,Ms,Lae ,Housemaid,Administration,27-09-2012,0,12.7260274
+455,1335,XPPLAD01335,Mr,Changpor Yang,LV Driver,Administration,27-09-2012,0,3.47260274
+112,872,XPPLAD00872,Ms,Souban Vongsetha,Housemaid,Administration,26-09-2012,1,10.46575342
+1158,70064,XPPLSU06979,Ms,Thipphanom Saenpanya,Admin Officer,Administration,16-11-2008,2,3.184931507
+2471,77133,PSGHRB01182,Ms,Sengsong Vongsalien,Administration Manager,Administration,01-02-2011,0,17.46575342
+2751,22751,XPPLMN07805,Mr,Khamphai Thammavong,Electrician,Electrical,05-08-2022,3,5.506849315
+2563,22563,XPPLMN07570,Mr,Phanadda Keokounpasack,Electrician,Electrical,28-02-2022,1,2.883561644
+2534,22534,XPPLMN07569,Mr,Xayyavong Kiemmanikanxay,Electrician,Electrical,16-02-2022,3.5,1.575342466
+2439,7424,XPPLMN07424,Mr,Amthai Sayyalith,Admin Officer,Electrical,25-11-2021,4,1.835616438
+2440,7426,XPPLMN07426,Mr,Sanaphai Sengsavang,Electrician,Electrical,25-11-2021,2,2.821917808
+2386,7428,XPPLMN07428,Mr,Sungkho Kongsaisy,Electrician,Electrical,04-11-2021,4,1.849315068
+2387,7425,XPPLMN07425,Mr,Intong Pakorbkeo,Electrician,Electrical,04-11-2021,0,5.849315068
+2354,10327,XPPLMN07321,Mr,Khonesavan Inthapon,Electrician,Electrical,27-10-2021,3,3.678082192
+2262,65008,XPPLMN07319,Mr,Boualar Khamphoumy,Electrician,Electrical,05-10-2021,5.5,4.582191781
+2264,63079,XPPLMN07320,Mr,Dasun  Chanthala,Electrician,Electrical,05-10-2021,1,2.95890411
+2133,10047,XPPLMN07109,Mr,Phonevilai Namsaly,Electrician,Electrical,07-06-2021,3,1.349315068
+2134,10046,XPPLMN07108,Mr,Keoudone Naonivong,Electrician,Electrical,07-06-2021,1,6.01369863
+2128,40046,XPPLMN07101,Mr,Phettongsa Bouddakham,Electrician,Electrical,21-04-2021,0,8.945205479
+511,4055,XPPLMN04055,Mr,Phimpha Chanthavilay,Electrician,Electrical,05-12-2014,4,3.465753425
+419,2736,XPPGEN02736,Mr,Phousa Simekda,Electrician,Electrical,30-10-2013,1.5,1.965753425
+29,2693,XPPLEN02693,Mr,Apiwat Mautsa,Electrical Supervisor,Electrical,27-09-2013,4,4.48630137
+2974,22974,XPPLEN08179,Mr,Sisomphone Sengmanivanh,Construction Assistant,Engineering,21-12-2022,0,2.917808219
+2968,22968,XPPLEN08149,Mr,Thoun ,Construction Assistant,Engineering,19-12-2022,0,2.794520548
+2961,22961,XPPLEN08150,Mr,Douan Somsoubanh,Construction Assistant,Engineering,16-12-2022,0,3.123287671
+2939,22939,XPPLEN08115,Mr,Chuay Dalen,Capenter,Engineering,10-12-2022,0,3.369863014
+2925,22925,XPPLEN08102,Mr,Thack ,Construction Assistant,Engineering,01-12-2022,3,0.739726027
+2912,22912,XPPLEN08090,Mr,Hen ,Construction Assistant,Engineering,24-11-2022,0,4.02739726
+2889,22889,XPPLEN08055,Mr,Dan Tonetsy,Construction Assistant,Engineering,06-11-2022,0,4.767123288
+2875,22875,XPPLEN08040,Mr,Khammany Thongsan,Construction Assistant,Engineering,22-10-2022,0,5.136986301
+2866,22866,XPPLEN08039,Mr,Kaoyord Keo-onsone,Construction Assistant,Engineering,18-10-2022,0,5.547945205
+2863,22863,XPPLEN08041,Mr,Chandai Biddavong,Construction Assistant,Engineering,17-10-2022,0,5.589041096
+2864,22864,XPPLEN08042,Mr,Sackda Xok,Construction Assistant,Engineering,17-10-2022,0,5.589041096
+2850,22850,XPPLEN07981,Mr,Kone Boualavong,Construction Assistant,Engineering,11-10-2022,4,1.835616438
+2828,22828,XPPLEN07980,Mr,Ongsy Keovichit,Construction Assistant,Engineering,05-10-2022,0,6.04109589
+2820,22820,XPPLEN07979,Mr,Miew Douangmala,Construction Assistant,Engineering,02-10-2022,0,4.082191781
+2813,22813,XPPLEN07978,Mr,Keosivanh BAOTONSAY,Construction Assistant,Engineering,01-10-2022,2,4.205479452
+2791,22791,XPPLEN07847,Mr,Siamphone Xayyalath,Civil Engineer,Engineering,04-09-2022,5,1.356164384
+2772,22772,XPPLEN07832,Mr,Khemphet Thaviboun,Civil Engineer,Engineering,17-08-2022,2.5,1.595890411
+2738,22738,XPPLEN07788,Mr,Nahan Poneliyen,Construction Assistant,Engineering,19-07-2022,2.5,1.212328767
+2736,22736,XPPLEN07776,Mr,Tom  Xayyanouanchan,Construction Assistant,Engineering,06-07-2022,3,0.780821918
+2725,22725,XPPLEN07779,Mr,Laisuk ,Construction Assistant,Engineering,05-07-2022,2,1.493150685
+2727,22727,XPPLEN07780,Mr,Koud ,Construction Assistant,Engineering,05-07-2022,5,1.863013699
+2728,22728,XPPLEN07778,Mr,Phaiy ,Construction Assistant,Engineering,05-07-2022,8,0.821917808
+2719,22719,XPPLEN07763,Mr,Khamma Inna,Construction Assistant,Engineering,28-06-2022,5,2.650684932
+2717,22717,XPPLEN07762,Mr,Beerlao Bouddahak,Construction Assistant,Engineering,27-06-2022,2,0.98630137
+2625,22625,XPPLEN07674,Mr,Boy ,Welder,Engineering,05-04-2022,2,3.602739726
+2519,7205,XPPLMI07609,Mr,Keosiamphone Somnuek,Helper,Engineering,10-02-2022,0,5.739726027
+2561,22561,XPPLNP06249,Mr,Vixayphone Lardsaphone,Civil Engineer,Engineering,02-02-2022,1,2.150684932
+2479,63161,XPPLEN07518,Mr,Jonh Vilayphone,Mason and Capenter,Engineering,09-12-2021,0,3.328767123
+2452,7417,XPPLEN07417,Mr,Bieng Keomany,Construction Assistant,Engineering,29-11-2021,0,3.821917808
+2294,63107,XPPLEN07294,Mr,Siphachanh Phonemany,Concrete Mixer Supervisor,Engineering,13-10-2021,2,2.089041096
+2296,10314,XPPLEN07293,Mr,Phone Sinthavong,Civil Engineer,Engineering,13-10-2021,5,2.753424658
+2291,63178,XPPLMN07307,Mr,Phetdavanh thongbandit,Admin Officer,Engineering,12-10-2021,7,-0.205479452
+2149,40027,KSOMIH04891,Mr,Lamngern Yodsopha,Senior Surveyor,Engineering,01-10-2021,1.5,3.246575342
+2097,10000,XPPLEN07037,Mr,Monekham Indasack,Construction Assistant,Engineering,31-01-2021,5,0.664383562
+2098,10001,XPPLEN07038,Mr,Bounyasack Vannilath,Construction Assistant,Engineering,31-01-2021,4,1.534246575
+2079,70014,XPPLEN7017,Mr,Kaikeo Singphetxayphanya,Construction Assistant,Engineering,27-12-2020,0,9.878082192
+9,1,PSGCON0001,Mr,Pi-an Philavong,Road Engineer,Engineering,26-01-2020,1.5,1.157534247
+1092,6250,XPPLNP06250,Ms,Kaisone Khodsombath,Civil Engineer,Engineering,01-12-2017,3,3.965753425
+1077,63069,XPPLAD04735,Mr,Vinsensius ,Contract Engineer,Engineering,01-09-2016,0,15.79452055
+54,63029,XPPLEN03153,Mr,Ketsana Xayyavong,Foreman Bridge Construction,Engineering,01-12-2013,4,2.52739726
+209,63028,XPPLEN03144,Mr,Keoudone Lattanalangsy,Deputy Manager Civil Engineer,Engineering,01-12-2013,3,13.46575342
+3045,23045,XPPLEN08255,Mr,Khammeung Chithtavong,Engineer Manager,Engineering,15-02-2023,0,0.616438356
+2943,22943,XPPLMI08119,Mr,Zaiyzan Soumphonphakdy,Excavator Operator,Engineering,12-12-2022,0,3.287671233
+148,1834,XPPLMI01834,Mr,Saenkham Mounsomchay,Excavator Operator,Engineering,27-09-2012,3.5,4.253424658
+2904,22904,XPPLFA08081,MS,Phatsaya Somvichith,Accounting Officer,Finance-Accounting,20-11-2022,0.5,3.691780822
+2090,6926,PSGFAA06926,Mr,Khamlar Phaengkhamhuk,Accountant-Gol Relation & Budgeting Shipping,Finance-Accounting,15-01-2021,5,0.890410959
+16,20016,KSOMNF05745,Mr,Vilasanh Vongsalien,Costing & Inventory Supervisor,Finance-Accounting,10-05-2019,1.5,1.801369863
+929,5530,XPPLAD05530,Ms,Pouna Ngonkasermsuk,Accounting Supervisor,Finance-Accounting,06-12-2015,1.5,0.684931507
+474,2669,XPPLAD02669,Mr,Latthakone Douangphachanh,Finance and Accounting Officer,Finance-Accounting,01-11-2013,0.5,3.732876712
+2702,22702,XPPLMN07752,Mr,Kane Sysomphaeng,Welder,Fixed Plant Maint-KL,15-06-2022,4,4.602739726
+2676,22676,XPPLMN07725,Mr,Veerapon Kaewpan,Processing Plant Maintenance Supervisor,Fixed Plant Maint-KL,25-05-2022,4,2.506849315
+2665,22665,XPPLMN07723,Mr,Watcharaphon Kongphattharasan,Machanic fitter & welder ,Fixed Plant Maint-KL,17-05-2022,5,6.876712329
+2666,22666,XPPLMN07724,Mr,Kailit Nakachat,Machanic fitter & welder ,Fixed Plant Maint-KL,17-05-2022,5,6.876712329
+481,65087,XPPLMN03845,Mr,Chanthavong Soundala,Welder,Fixed Plant Maint-KL,27-10-2021,2,5.178082192
+2348,63126,XPPLMN07284,Mr,Korlakan Xaypunya,Welder,Fixed Plant Maint-KL,26-10-2021,2,2.719178082
+2349,10329,XPPLMN07286,Mr,Saleumsay Kanthalard,Admin Officer,Fixed Plant Maint-KL,26-10-2021,1,2.136986301
+2350,77051,XPPLMN07323,Mr,Phomvilay Boudtavong,Welder,Fixed Plant Maint-KL,26-10-2021,2,2.219178082
+2280,77084,XPPLMN07370,Mr,Sack Amphone,Mechanic Assistant,Fixed Plant Maint-KL,11-10-2021,7,1.835616438
+2157,40026,XPPLMN07139,Mr,Vilat Vivongphet,Mechanic,Fixed Plant Maint-KL,20-07-2021,2,9.246575342
+2147,40056,XPPLMN07135,Mr,Lamphone Pasuntivong,Mechanic,Fixed Plant Maint-KL,09-07-2021,7,5.657534247
+2148,40057,XPPLMN07136,Mr,Sengdokkeo Khounmixay,Mechanic,Fixed Plant Maint-KL,08-07-2021,7,1.575342466
+2143,40058,XPPLMN07133,Mr,Saman Nontajan,Mechanic Supervisor,Fixed Plant Maint-KL,03-07-2021,5,18.94520548
+3010,23010,XPPLMI08200,Mr,Thonglid Xaysana,Water truck,Heavy Equipment,07-01-2023,0,2.219178082
+2936,22936,XPPLMI08118,Mr,Sivixay Kongmany,Water truck,Heavy Equipment,10-12-2022,0,3.369863014
+2929,22929,XPPLMI08136,Mr,Noyvilay ,Water truck,Heavy Equipment,04-12-2022,0,3.534246575
+2926,22926,XPPLMI08100,Mr,Bao Xaiyyavong,Compactor Operator,Heavy Equipment,02-12-2022,2,1.616438356
+2914,22914,XPPLMI08088,Mr,Bounpheng Phomphiphack,Water truck,Heavy Equipment,25-11-2022,3,0.98630137
+2891,22891,XPPLMI08059,Mr,Nouhai Sybounheuang,Dump Truck Driver,Heavy Equipment,08-11-2022,0,4.684931507
+2847,22847,XPPLMI08013,Mr,Voom Chansonethong,Dump Truck Driver,Heavy Equipment,11-10-2022,2,1.835616438
+2718,22718,XPPLMI07767,Mr,Khaeksavan Khodsavath,Crane Truck Operator,Heavy Equipment,29-06-2022,4,0.534246575
+2610,22610,XPPLMI07655,Mr,Vilaysack Khamphoume,Admin Officer,Heavy Equipment,14-03-2022,3.5,2.006849315
+2587,22587,XPPLMI07616,Mr,Noy Keovilay,Crane Truck Operator 5T,Heavy Equipment,05-03-2022,4,3.876712329
+2569,22569,XPPLMN07579,Mr,Sonsarn Soulinthone,Dump Truck Driver,Heavy Equipment,28-02-2022,0,8.082191781
+2566,22566,XPPLMN07578,Mr,Serksavan Sithsouvath,Dump Truck Driver,Heavy Equipment,27-02-2022,0,4.123287671
+2542,22542,XPPLMN07581,Mr,Sing Thepkaisone,Excavator Operator,Heavy Equipment,19-02-2022,6,1
+2412,63176,XPPLMI07463,Mr,Sommy Vongvisaysack,Foreman,Heavy Equipment,19-11-2021,2,2.02739726
+2410,77039,XPPLMI07447,Mr,Bounthavy Sysavan,Dump Truck Driver,Heavy Equipment,18-11-2021,0,11.2739726
+2376,40050,XPPLMN07353,Mr,Sayaumphone Airdavan,Dump Truck Driver,Heavy Equipment,02-11-2021,0,15.43150685
+2346,63181,XPPLMI07283,Mr,Ouan Amsouphai,Heavy Equipment Supervisor,Heavy Equipment,26-10-2021,5,1.219178082
+2331,10316,XPPLMN07376,Mr,Kong Leuammany,Wheel Loader,Heavy Equipment,21-10-2021,3,7.924657534
+2328,10320,XPPLMI07282,Mr,Khonsamay Vorlabout,Foreman,Heavy Equipment,20-10-2021,4.5,0.424657534
+2265,63149,XPPLMN07333,Mr,Khing Xayyavongsor,Bulldozer Operator,Heavy Equipment,05-10-2021,4,6.082191781
+2247,63109,XPPLMI07230,Ms,Phonepaseuth Thammavongsa,Admin Officer,Heavy Equipment,26-08-2021,3,1.143835616
+2237,10305,XPPLMI07239,Mr,Soulasith Phengsyya,Grader Operator,Heavy Equipment,19-08-2021,1,8.51369863
+2239,10303,XPPLMI07231,Mr,Phonesy Ladmeexai,Trailer Operator,Heavy Equipment,19-08-2021,2,14.01369863
+2228,40064,XPPLMI07240,Mr,Syphone Keoouthin,Crane Truck Driver 50T,Heavy Equipment,11-08-2021,7,1.219178082
+2229,63117,XPPLMI07211,Mr,Boualar Phongoudom,Compactor Operator,Heavy Equipment,11-08-2021,0,16.49315068
+2227,63125,XPPLMI07213,Mr,Chanthasone Borvongdadeth,Concrete mixer Driver,Heavy Equipment,10-08-2021,5,3.561643836
+2225,63015,XPPLMI07214,Mr,Daolounny Phetkaisone,Wheel Loader,Heavy Equipment,07-08-2021,0,11.3630137
+2214,70037,XPPLMI07217,Mr,Inthone Keoounlar,Excavator Operator,Heavy Equipment,06-08-2021,0,13.04794521
+2198,77014,XPPLMI07243,Mr,Thongsouk Phommachanh,Excavator Operator,Heavy Equipment,01-08-2021,3,3.47260274
+2255,10044,XPPLMI07182,Mr,Laokham Vongsoulith,Wheel Loader,Heavy Equipment,01-08-2021,0,9.01369863
+2163,40065,XPPLMI07160,Mr,Toy Phommachanda,Dump Truck Driver,Heavy Equipment,23-07-2021,3,13.80136986
+2159,40008,XPPLMI07163,Mr,Tia ,Wheel Loader,Heavy Equipment,22-07-2021,3,6.123287671
+2132,10041,XPPLMI07106,Mr,Songka Kongmixay,Crane Truck Driver 50T,Heavy Equipment,01-06-2021,11,8.260273973
+1177,65065,XPPLEN04309,Mr,Ham Phommachanda,Bulldozer Operator,Heavy Equipment,01-06-2020,0,23.9369863
+1176,4311,XPPLEN04311,Mr,Siya Phommachanda,Grader Operator,Heavy Equipment,30-05-2020,10,5.365753425
+1180,3104,XPPLMI03104,Mr,Kunlaya Chanyanee,Excavator Operator,Heavy Equipment,30-05-2020,9,1.365753425
+1133,6975,XPPLM06975,Mr,Noy ,Concrete mixer Driver,Heavy Equipment,04-05-2020,3,3.890410959
+1008,26,XPPLSAW0026,Mr,Toi Sivixay,Excavator Operator,Heavy Equipment,02-12-2017,1,3.342465753
+1009,63068,XPPLSAW0028,Mr,Tom ,Wheel Loader,Heavy Equipment,02-12-2017,2,23.46575342
+459,63010,XPPLMI01965,Mr,Bounmar ,Crane Truck Driver 50T,Heavy Equipment,04-10-2017,1,19.96575342
+1019,98,XPPLSAW0098,Mr,Bounnaem Xayyalath,Trailer Operator,Heavy Equipment,08-09-2015,6,8.465753425
+998,77,XPPLSAW0077,Mr,Bounporn Kongmany,Dump Truck Driver,Heavy Equipment,01-08-2015,4,3.150684932
+50,3141,XPPLEN03141,Mr,Nae ,Grader Operator,Heavy Equipment,01-12-2013,0,0.890410959
+192,65089,XPPLEN03139,Mr,Kham-ouan Souvannasan,Wheel Loader,Heavy Equipment,01-12-2013,4,15.96575342
+221,63021,XPPLEN03128,Mr,Johnny Amphone,Wheel Loader,Heavy Equipment,01-12-2013,3,3.746575342
+460,3140,XPPLEN03140,Mr,Santipab Xayyavong,Trailer Operator,Heavy Equipment,01-12-2013,2,4.054794521
+124,2885,XPPLMI02885,Mr,Joe ,Dump Truck Driver,Heavy Equipment,17-11-2013,2,6.595890411
+2890,22890,XPPLMI08070,Mr,Bounkham Soulivong,Service Truck Operator,Heavy Equipment,08-11-2022,0,4.520547945
+2600,22600,XPPLMI07619,Mr,Sengcalernpon Vorakouman,Dump Truck Driver,Heavy Equipment,12-03-2022,2,5.089041096
+2531,22531,XPPLMN07572,Mr,Sathaphone Souvannasan,Dump Truck Driver,Heavy Equipment,14-02-2022,4,2.657534247
+2437,70020,XPPLMI07450,Mr,Phetsamai Sathiya,Dump Truck Driver,Heavy Equipment,25-11-2021,2,8.98630137
+2406,22406,XPPLMI07454,Mr,Somphet Sengmany,Dump Truck Driver,Heavy Equipment,18-11-2021,9,1.773972603
+2218,77001,XPPLMI07223,Mr,Khamphaiy Onmyxay,Compactor Operator,Heavy Equipment,06-08-2021,3,7.547945205
+2166,40006,XPPLMI07144,Mr,Somphong Latsaphon,Excavator Operator,Heavy Equipment,23-07-2021,2,8.54109589
+2119,10017,XPPLMI7072,Mr,Lor Bouddavong,Excavator Operator,Heavy Equipment,20-03-2021,0,8.760273973
+2080,7021,XPPLMN07021,Mr,Kilavanh Vongphasy,Excavator Operator,Mine Geology-Exploration,04-01-2021,0.5,6.219178082
+2745,22745,XPPLHR07799,Ms,Thipvalath Khettavong,HR Officer,Human Resource,25-07-2022,3,3.04109589
+2312,70040,XPPLHR07281,Ms,Vannaseng Chanthavong,HR Officer,Human Resource,17-10-2021,5,0.465753425
+2313,70059,XPPLHR07298,Mr,Phoutthavong Xaisouliane,Senior HR Officer,Human Resource,17-10-2021,3,4.178082192
+3,6201,KSOHRR06201,Ms,Angkhana Samnanveth,Senior HR Officer,Human Resource,26-08-2016,0,2.534246575
+3041,23041,XPPLHR08252,Mr,Sodasith Vanthavee,HR Supervisor,Human Resource,12-02-2023,0,0.739726027
+2257,22257,XPPLMI08198,Mr,Songkarn Litdet,Sampling,Laboratory,29-12-2022,0,2.589041096
+2994,22994,XPPLLB08203,Mr,Yane SAYKHAMSOUK,Sampling,Laboratory,29-12-2022,2,0.589041096
+2998,22998,XPPLLB08204,Mr,Phoutthaphone Vongphachan,Sampling,Laboratory,29-12-2022,0,2.589041096
+2999,22999,XPPLLB08205,Mr,Hieb Duangdavanh,Sampling,Laboratory,29-12-2022,0,2.589041096
+3000,23000,XPPLMI08199,Mr,Khamsy Vilaysack,Sampling,Laboratory,29-12-2022,0,2.589041096
+2976,22976,XPPLLB08206,Mr,Sarth Wanmaniseng,Sampling,Laboratory,21-12-2022,0,2.917808219
+2927,22927,XPPLLB08103,Mr,Sisavanh Sengmany,Sampling,Laboratory,04-12-2022,0,3.616438356
+2909,22909,XPPLLB08089,Mr,Khamsamone Siphaket,Sampling,Laboratory,23-11-2022,0,4.068493151
+2899,22899,XPPLLB08076,Mr,Nyia Kue Vangxiogkue,Chemist Assistant,Laboratory,15-11-2022,0,4.397260274
+2895,22895,XPPLLB08075,Mr,Layang Nhiavue,Lab Assistant,Laboratory,10-11-2022,2,2.315068493
+2840,22840,XPPLLB08011,Mr,Bounpasong Sihanouvong,Sampling,Laboratory,09-10-2022,4.5,1.417808219
+2831,22831,XPPLLB08010,Mr,Souli Vilapha,Quality Control Assistant,Laboratory,06-10-2022,0.5,5.54109589
+2781,22781,XPPLLB07833,Mr,Phomsai Vanhthakeo,Lab Assistant,Laboratory,25-08-2022,7,0.726027397
+2763,22763,XPPLLB07817,Mr,Lodchana Liewternghua,Sampling,Laboratory,13-08-2022,4,4.260273973
+2764,22764,XPPLLB07818,Mr,Bae Phanomvan,Sampling,Laboratory,13-08-2022,3,2.260273973
+2765,22765,XPPLLB07816,Mr,Thien Tulangyid,Coal Preparation,Laboratory,13-08-2022,6,2.219178082
+2759,22759,XPPLLB07814,Mr,Jamphachan Luangthilarth,Coal Preparation,Laboratory,10-08-2022,4.5,3.883561644
+2761,22761,XPPLLB07813,Mr,Somyod Inxayyavong,Coal Preparation,Laboratory,10-08-2022,1.5,6.383561644
+2757,22757,XPPLLB07812,Mr,Bounlieng Sonedeyngarm,Coal Preparation,Laboratory,09-08-2022,5,3.424657534
+2732,22732,XPPLLB07787,Mr,Bounma  Indavong,Sampling,Laboratory,06-07-2022,1,2.575342466
+2733,22733,XPPLLB07786,Mr,Khanvanh Santisouk,Lab Assistant,Laboratory,06-07-2022,3,2.157534247
+2705,22705,XPPLLB07755,Mr,Sonenapha Boupphadee,Sampling,Laboratory,18-06-2022,3,2.438356164
+2678,22678,XPPLLB07728,Mr,Phaivanh Sinthapon,Sampling,Laboratory,27-05-2022,0,8.465753425
+2677,22677,XPPLLB07727,Ms,Ladtana Keopaserth,Lab Assistant,Laboratory,26-05-2022,0,8.506849315
+2674,22674,XPPLLB07726,Mr,Phongthao Soupor,Junior Chemist,Laboratory,24-05-2022,5,2.267123288
+2675,22675,XPPLMI07715,Mr,Saengchan Sisouphan,Controller,Laboratory,24-05-2022,1,2.465753425
+2673,22673,XPPLMI07721,Ms,Tula Xaysengkhong,Lab Assistant,Laboratory,23-05-2022,0,8.630136986
+2634,22634,XPPLLB07686,Mr,Laryang  Xianengyang,Junior Chemist,Laboratory,09-04-2022,8,3.938356164
+2621,22621,XPPLLB07647,Mr,Pheng Phimmasone,Coal Preparation,Laboratory,26-03-2022,4,3.47260274
+2533,22533,XPPLMI07608,Mr,Himphone manivan,Helper,Laboratory,16-02-2022,3,5.534246575
+2435,7422,XPPLLB07422,Ms,Yolanda Xayyavong,Lab Assistant,Laboratory,24-11-2021,3,3.52739726
+2408,7487,XPPLMI07487,Ms,Koung Sengphachan,Chemist Assistant,Laboratory,18-11-2021,14,5.273972603
+2409,7420,XPPLLB07420,Ms,Khampan Xayyavong,Admin Officer,Laboratory,18-11-2021,3,11.2739726
+2389,7423,XPPLLB07423,Mr,Beuang Mongmany,Quality Control,Laboratory,06-11-2021,1.5,2.445205479
+2357,10006,XPPLLB07310,Mr,Aoum Phoneda,Quality Control,Laboratory,27-10-2021,0,8.178082192
+2303,70015,XPPLLB07312,Mr,Chansouk Douangboutta,Quality Control,Laboratory,15-10-2021,3,1.883561644
+2305,10036,XPPLLB07317,Mr,Sengdao Chanthalangsy,Quality Control,Laboratory,15-10-2021,1,2.260273973
+2306,65062,XPPLLB07316,Mr,Neun Phonesavanh,Quality Control,Laboratory,15-10-2021,3,5.130136986
+2282,63141,XPPLLB07308,Mr,Alex Sunda,Quality Control,Laboratory,12-10-2021,4,1.089041096
+2287,63074,XPPLLB07313,Mr,Keua Sysavanh,Quality control,Laboratory,12-10-2021,5,1.431506849
+2288,63100,XPPLLB07318,Mr,Singkeosy thongpinvanxay,Quality Control,Laboratory,12-10-2021,3,3.671232877
+2271,63106,XPPLMN07366,Mr,Phim Seemaneetien,Quality Control Foreman,Laboratory,07-10-2021,3,7.753424658
+1143,4882,XPPLLB04882,Mr,Khamsai Latsavong,Lab Assistant,Laboratory,07-05-2020,6,15.31369863
+1145,6964,XPPLLB06964,Ms,Sun Phetsomphou,Lab Assistant,Laboratory,07-05-2020,1,13.26575342
+1138,2242,XPPLMI02242,Ms,Latsamy Sybouaban,Lab Assistant,Laboratory,05-05-2020,8,1.447945205
+1144,5386,XPPLLB05386,Mr,Phothichak Sengxayyaphone,Quality Control,Laboratory,07-04-2020,4,3.642465753
+1067,6833,XPPLEP06833,Mr,Keopanya Soundala,Chemist,Laboratory,22-05-2018,1,8.965753425
+990,5921,XPPLLB05921,Mr,Khamhou Chanthalangsy,Chemist,Laboratory,27-05-2016,3,8.602739726
+935,20935,XPPLLB05413,Mr,Bounleck Saevang,Senior Chemist,Laboratory,09-12-2015,5.5,0.520547945
+707,4752,XPPLLB04752,Mr,Kidaeng Phoutthavong,Chemist,Laboratory,01-05-2015,5,3.568493151
+576,3006,XPPLLB03006,Mr,Lewi Chaowiwat,Senior Chemist,Laboratory,05-12-2013,0,11.96575342
+557,328,XPPLLBS00328,Mr,Sichaleun Bounsophim,Senior Chemist,Laboratory,26-08-2013,4,10.73287671
+535,22616,XPPLLB02616,Mr,Southi Saythaley,QC  Leader,Laboratory,05-08-2013,2,2.924657534
+556,63150,XPPLLB02580,Mr,Somporn Saevang,Deputy Project Manager of Quality Control and Production,Laboratory,01-08-2013,20,-7.534246575
+3003,23003,XPPLAD08178,Mr,Santiphab Phommalaysy,Logistic Officer,Marketing,05-01-2023,0,2.301369863
+2949,22949,XPPLAD08116,Mr,Somsouk Mouayonglao,Logistic Supervisor,Marketing,01-12-2022,0,3.410958904
+2752,22752,XPPLSUW07807,Mr,Souvanna Kitisevolaphan,DATA CLERK FOR WEIGHBRIDGE,Marketing,08-08-2022,6,2.465753425
+2753,22753,XPPLSUW07808,MS,Sipaphai Chansavang,DATA CLERK FOR WEIGHBRIDGE,Marketing,08-08-2022,1,7.465753425
+2755,22755,XPPLSUW07810,Mr,Panxai Chongvilai,DATA CLERK FOR WEIGHBRIDGE,Marketing,08-08-2022,1,6.924657534
+2756,22756,XPPLSUW07811,Mr,Damsomphone Viengkham,DATA CLERK FOR WEIGHBRIDGE,Marketing,08-08-2022,5.5,1.924657534
+2599,22599,XPPLSUW07632,Mr,Phimpha Chanthanuvong,DATA CLERK FOR WEIGHBRIDGE,Marketing,11-03-2022,0,3.630136986
+2510,6999,XPPLGE07550,Ms,Temdeuan Sonbouakham,DATA CLERK FOR WEIGHBRIDGE,Marketing,04-01-2022,1.5,6.842465753
+2093,65015,XPPLEN07027,Mr,Bounphama kaphommajak,DATA CLERK FOR WEIGHBRIDGE,Marketing,22-01-2021,2,5.321917808
+964,5783,XPPLSU05783,Ms,Douangmala Nanthavong,DATA CLERK FOR WEIGHBRIDGE,Marketing,18-11-2017,7,18.46575342
+1086,6180,XPPLSU06180,Ms,Mung Keosouvan,DATA CLERK FOR WEIGHBRIDGE,Marketing,01-08-2016,6,2.849315068
+2248,63108,XPPLRK07198,Mr,Souksanom Xayyavaddy,Logistic Supervisor,Marketing,27-08-2021,3.5,2.184931507
+39,20039,XPPLGE04596,Mr,Kongmoon Phengsavanh,Senior Geologist,Mine Geology-Exploration,10-04-2015,0,14.96575342
+3009,23009,XPPLGE08212,Mr,Phanthong Duongphanya,Graduate Geologist,Mine Geology-Exploration,07-01-2023,0,2.219178082
+3008,23008,XPPLGE08211,Mr,Sack ,Geologist Assistant,Mine Geology-Exploration,06-01-2023,0,2.136986301
+3001,23001,XPPLGE08210,Mr,Therng Sibsongsyamphone,Geologist Assistant,Mine Geology-Exploration,03-01-2023,0,2.383561644
+2995,22995,XPPLGE08207,Mr,Nia ,Geologist Assistant,Mine Geology-Exploration,29-12-2022,0,2.589041096
+2996,22996,XPPLGE08208,Mr,Huay ,Geologist Assistant,Mine Geology-Exploration,29-12-2022,0,2.589041096
+2997,22997,XPPLGE08209,Mr,Yone ,Geologist Assistant,Mine Geology-Exploration,29-12-2022,0,2.589041096
+2971,22971,XPPLGE08158,Mr,Khamphaen Vongkeo,Geologist Assistant,Mine Geology-Exploration,20-12-2022,0,2.95890411
+2950,22950,XPPLGE08132,Mr,Jeck Xaybounkham,Geologist Assistant,Mine Geology-Exploration,13-12-2022,0,3.246575342
+2951,22951,XPPLGE08133,Mr,Kongxay Khamsawai,Geologist Assistant,Mine Geology-Exploration,13-12-2022,0,3.246575342
+2952,22952,XPPLGE08134,Mr,Keo Bounny,Geologist Assistant,Mine Geology-Exploration,13-12-2022,0,3.246575342
+2953,22953,XPPLGE08135,Mr,Boy Chaobountanh,Geologist Assistant,Mine Geology-Exploration,13-12-2022,0,3.246575342
+2922,22922,XPPLGE08093,Mr,Khamphakphoum Bonesavanh,Geologist Assistant,Mine Geology-Exploration,01-12-2022,0,3.739726027
+2911,22911,XPPLGE08091,Mr,Soukkhy Sackdavong,Geologist Assistant,Mine Geology-Exploration,24-11-2022,0,4.02739726
+2771,22771,XPPLAD07823,Mr,Thaksinxay Phommavanh,LV Driver,Mine Geology-Exploration,16-08-2022,3.5,1.47260274
+2766,22766,XPPLAD07824,Mr,Soukkhy Sybounheuang,LV Driver,Mine Geology-Exploration,13-08-2022,0,8.260273973
+2532,22532,XPPLAD07565,Mr,Phoukong Oudomsouk,LV Driver,Mine Geology-Exploration,15-02-2022,2,2.116438356
+2506,94127,XPPLGE07541,Mr,Sopha Keomanyvone,Graduate Geologist,Mine Geology-Exploration,03-01-2022,2.5,3.636986301
+2480,65033,XPPLGE07507,Mr,Khamlar Nidphavanxay,Geologist Assistant,Mine Geology-Exploration,09-12-2021,4.5,2.410958904
+2475,4128,XPPLGE07505,Mr,Khamper Soudphithack,Geologist Assistant,Mine Geology-Exploration,03-12-2021,2,2.157534247
+2459,7440,XPPLGE07440,Mr,Veha bountan,Geologist Assistant,Mine Geology-Exploration,30-11-2021,0,5.780821918
+2421,7433,XPPLGE07433,Mr,Daolieng Khamphouboua,Junior Geologist,Mine Geology-Exploration,21-11-2021,1,3.150684932
+1120,63118,XPPLGE07330,Mr,Sonexay Kommanivanh,Geologist,Mine Geology-Exploration,30-10-2021,1,1.890410959
+2345,10324,XPPLGE07327,Mr,Nilun Phunsing,Junior Geologist,Mine Geology-Exploration,26-10-2021,4,2.719178082
+2338,10311,XPPLGE07332,Mr,Khamhoung Senphiavong,Junior Geologist,Mine Geology-Exploration,23-10-2021,2,1.595890411
+2125,10009,XPPLGE07103,Mr,Kiengkai ,Graduate Geologist,Mine Geology-Exploration,02-04-2021,0,8.397260274
+2096,22096,XPPLGE07046,Mr,Center Phetkongmung,LV Driver,Mine Geology-Exploration,29-01-2021,3,0.993150685
+2092,22092,XPPLEN07031,Mr,Leuang Phetsomphou,Graduate Geologist,Mine Geology-Exploration,19-01-2021,1,3.945205479
+2075,7013,XPPLEN07013,Mr,Dolar Douangphachanh,Admin Officer,Mine Geology-Exploration,21-12-2020,2,1.719178082
+2073,65034,XPPLGE07012,Mr,Binly Pengmuangkoun,Junior Geologist,Mine Geology-Exploration,06-12-2020,2,5.065753425
+2072,63202,XPPLGE06998,Mr,Khamsone Chanthavisouk,Junior Geologist,Mine Geology-Exploration,28-11-2020,2,3.173972603
+2067,6995,XPPLGE06995,Mr,Bounluen Soundala,Geologist,Mine Geology-Exploration,23-11-2020,3,2.010958904
+2059,7004,XPPLGE07004,Mr,Mirinda Khounnasean,Drilling Assistant,Mine Geology-Exploration,12-11-2020,0,4.342465753
+2055,77024,XPPLGE07082,Mr,Phaivanh Mahaphom,LV Driver,Mine Geology-Exploration,26-10-2020,2,1.334246575
+2046,7069,XPPLGE07069,Mr,Mythouna Oupalath,Driller,Mine Geology-Exploration,02-10-2020,1,5.265753425
+2036,27050,XPPLGE07050,Mr,Ley Sombatdee,Driller Assistant,Mine Geology-Exploration,02-08-2020,5,0.519178082
+2018,80051,KSOEPM02293,Mr,Khamsouk Sisombath,Driller,Mine Geology-Exploration,24-07-2020,0,12.86712329
+2021,22021,KSOEPM04504,Mr,Noukham Sisombath,Drilling Mechanic,Mine Geology-Exploration,24-07-2020,2,4.675342466
+2012,7032,XPPLGE07032,Mr,Vilay Bounthap,Drilling Assistant,Mine Geology-Exploration,23-07-2020,3,3.878082192
+2032,7026,XPPLGE07026,Mr,Joy Panthongvilay,Driller,Mine Geology-Exploration,17-07-2020,2.5,1.290410959
+1161,7011,KSOGEG07011,Mr,Thongphanh Chanthanouvong,Drilling Mechanic,Mine Geology-Exploration,27-05-2020,9,1.232876712
+1159,2474,XPPLGE02474,Mr,Vanphila Luangsisombath,Geologist,Mine Geology-Exploration,26-05-2020,2,2.565753425
+1147,49,XPPLSAW0049,Mr,Xokmixai Thammasit,Driller,Mine Geology-Exploration,08-05-2020,2,2.156164384
+1132,65029,XPPLEP06974,Mr,Thongsa Kommaly,Driller Assistant,Mine Geology-Exploration,04-05-2020,6,2.054794521
+1134,18,XPPLSAW0018,Mr,Boualien Sysoulath,Driller,Mine Geology-Exploration,04-05-2020,3,1.465753425
+1136,2216,XPPLMI02216,Mr,Douangmala ,Driller Supervisor,Mine Geology-Exploration,04-05-2020,2,2.465753425
+1137,3,XPPLSAW0003,Mr,Kardmany Phommachit,Driller,Mine Geology-Exploration,04-05-2020,6,1.965753425
+1114,4600,XPPLEP04600,Mr,Phonexai Xayyasane,Junior Geologist,Mine Geology-Exploration,29-04-2020,12,3.665753425
+1117,2542,XPPLGE02542,Mr,Inpon Vongchamphone,Junior Geologist,Mine Geology-Exploration,29-04-2020,2,1.323287671
+1119,3839,XPPLGE03839,Mr,Phonepasith Xaysouliyo,Junior Geologist,Mine Geology-Exploration,29-04-2020,3,1.665753425
+1121,40054,XPPLEP06766,Mr,Kindavanh Phetsomphou,Junior Geologist,Mine Geology-Exploration,29-04-2020,4,2.965753425
+1126,6970,XPPLEP06970,Mr,Simma Phimmasen,Drilling Assistant,Mine Geology-Exploration,29-04-2020,0,4.18630137
+1118,3020,XPPLGE03020,Mr,Pho Mardmany,Senior Field Supervisor,Mine Geology-Exploration,26-04-2020,2,1.720547945
+32,4598,XPPLEP04598,Mr,Somchanh Thammavong,Senior Geologist,Mine Geology-Exploration,18-11-2019,2,1.397260274
+70,65038,XPPLEP02727,Mr,Xayyasone Senmungxay,Junior Geologist,Mine Geology-Exploration,10-11-2019,2,6.280821918
+28,3934,XPPLMN03934,Mr,Kung Leepaserth,Junior Geologist,Mine Geology-Exploration,04-11-2019,21,2.465753425
+1083,21083,XPPLSAW0066,Mr,Nouanta Xayyaphet,Driller,Mine Geology-Exploration,06-12-2017,5,0.568493151
+806,5097,XPPLLB05097,Ms,Boualivanh Khampathoumphone,Admin Officer,Mine Geology-Exploration,15-09-2015,1,3.061643836
+103,2720,XPPLEP02720,Mr,Khonesavanh Vongkhamsao,Geologist Supervisor,Mine Geology-Exploration,17-10-2013,0,5.431506849
+17,5773,XPPLGE05773,Mr,Chamlong Kabbouakham,Database Geologist,Mine Geology-Exploration,01-06-2013,0.5,7.965753425
+15,2408,XPPLGE02408,Mr,Kingkham Rattalangsy,Geology Manager,Mine Geology-Exploration,10-04-2013,2,2.150684932
+25,670,XPPLEP00670,Mr,Khamphout Chomevychit,Geologist,Mine Geology-Exploration,30-10-2009,5,3.01369863
+1080,60,XPPLSAW0060,Mr,Phoukhiaw Sisoulath,Driller Supervisor,Mine Geology-Exploration,01-12-2004,7,9.965753425
+3021,23021,New Hire,Mr,Vannaxai Northacane,Junior Geologist,Mine Geology-Exploration,24-01-2023,0,1.520547945
+3023,23023,XPPLGE08235,Mr,Oudomphone Phimchanthong,Graduate Geologist,Mine Geology-Exploration,25-01-2023,0,1.479452055
+3022,23022,XPPLGE08234,Mr,Sulard Phetsamee,Graduate Geologist,Mine Geology-Exploration,25-01-2023,0,1.479452055
+3024,23024,XPPLGE08236,Mr,Vandy Hak-en,Graduate Geologist,Mine Geology-Exploration,27-01-2023,0,1.397260274
+3026,23026,XPPLGE08231,Mr,Merng MALIYA,Junior Geologist,Mine Geology-Exploration,28-01-2023,0,1.356164384
+3031,23031,XPPLGE08237,Mr,Phongvilaysack Yayyasan,Graduate Geologist,Mine Geology-Exploration,01-02-2023,0,1.191780822
+3032,23032,XPPLGE08238,Mr,Lik Kongdala,Graduate Geologist,Mine Geology-Exploration,01-02-2023,0,1.191780822
+3033,23033,XPPLGE08239,Mr,Khamsaoxiong Khouxiong,Graduate Geologist,Mine Geology-Exploration,01-02-2023,0,1.191780822
+3034,23034,XPPLGE08241,Mr,Somboun Manorind,Geologist,Mine Geology-Exploration,02-02-2023,0,0.657534247
+3036,23036,XPPLGE08232,Mr,Ti Phoumphachid,Junior Geologist,Mine Geology-Exploration,03-02-2023,0,1.109589041
+3037,23037,XPPLGE08240,Mr,Vilaivanh Xai-outhone,Graduate Geologist,Mine Geology-Exploration,07-02-2023,0,0.945205479
+3039,23039,XPPLGE08233,Mr,Kor Vannayong,Junior Geologist,Mine Geology-Exploration,11-02-2023,0,0.780821918
+3020,23020,XPPLMI08216,Mr,Joy Thindasing,Dump man,Mining,20-01-2023,0,1.684931507
+3018,23018,XPPLMI08219,Mr,Soulivanh Sinthapon,Dump man,Mining,18-01-2023,0,1.767123288
+3019,23019,XPPLMI08215,Mr,Vongdeuan Vongchandy,Grader Operator,Mining,18-01-2023,0,1.150684932
+3016,23016,XPPLMI08214,Mr,Vy Phimmasen,Bulldozer Operator,Mining,15-01-2023,0,1.890410959
+3013,23013,XPPLMI08218,Mr,Phoun ,Dump man,Mining,14-01-2023,0,1.931506849
+2551,22551,XPPLMI08213,Mr,Toui Keomanysok,Excavator Operator,Mining,14-01-2023,0,1.931506849
+3012,23012,XPPLMI08217,Mr,Ounkham ,Dump man,Mining,13-01-2023,0,1.97260274
+3011,23011,XPPLMI08197,Mr,Tambee Nanthavong,Grader Operator,Mining,07-01-2023,0,2.219178082
+3005,23005,XPPLMI08196,Mr,Keophongsa Maha-elam,Dump Truck Driver D,Mining,06-01-2023,0,2.260273973
+3004,23004,XPPLMI08195,Mr,Chantha Souliya,Dump Truck Driver D,Mining,05-01-2023,0,2.301369863
+3002,23002,XPPLMI08194,Mr,Vannaphoum Singsombath,Dump Truck Driver D,Mining,04-01-2023,0,2.342465753
+2991,22991,XPPLMI08180,Mr,Seksaksith Akhom,Service Truck Operator,Mining,29-12-2022,0,2.589041096
+2990,22990,XPPLMI08182,Mr,Khamphan Yengkhiewdy,Dump Truck Driver B,Mining,28-12-2022,0,2.630136986
+2988,22988,XPPLMI08181,Mr,Phetsomboun Yodsaenlue,Dump Truck Driver,Mining,26-12-2022,0,2.712328767
+2989,22989,XPPLMI08193,Mr,Hong Sayphoulapeung,Dump Truck Driver D,Mining,26-12-2022,0,2.712328767
+2986,22986,XPPLMI08192,Mr,Lidaphone Jumsilivong,Dump Truck Driver D,Mining,24-12-2022,1,1.794520548
+2309,22309,XPPLMI08189,Mr,Tery Saysamern,Dump Truck Driver D,Mining,23-12-2022,0,2.794520548
+2984,22984,XPPLMI08191,Mr,Xaisavanh Xaiyaphet,Dump Truck Driver D,Mining,23-12-2022,0,2.835616438
+2985,22985,XPPLMI08190,Mr,Saiyfon Konglattana,Dump Truck Driver D,Mining,23-12-2022,0,2.835616438
+2981,22981,XPPLMI08187,Mr,Kaloun Vannasing,Dump Truck Driver B,Mining,22-12-2022,0,2.876712329
+2982,22982,XPPLMI08188,Mr,Khambone Chanvanpheng,Dump Truck Driver  D,Mining,22-12-2022,0,2.876712329
+2977,22977,XPPLMI08186,Mr,Air Xayyalath,Dump Truck Driver B,Mining,21-12-2022,0,2.219178082
+2978,22978,XPPLMI08185,Mr,Chanthakhone Fongsavanh,Dump Truck Driver C,Mining,21-12-2022,0,2.917808219
+2979,22979,XPPLMI08184,Mr,Vern ,Dump Truck Driver C,Mining,21-12-2022,0,2.917808219
+2980,22980,XPPLMI08183,Mr,Serm ,Dump Truck Driver,Mining,21-12-2022,0,2.917808219
+2003,22003,XPPLMI08156,Mr,Chittiphanh Akkhavongsa,Dump Truck Driver A,Mining,20-12-2022,0,2.95890411
+2970,22970,XPPLMI08155,Mr,Seesavath Khammavongsa,Data Clerk,Mining,20-12-2022,0,2.917808219
+2972,22972,XPPLMI08157,Mr,Khamphone Khamphila,Dump Truck Driver,Mining,20-12-2022,0,2.95890411
+2973,22973,XPPLMI08154,Mr,Somsanouk Sone-Anou,Data Clerk,Mining,20-12-2022,0,2.95890411
+2967,22967,XPPLMI08140,MS,Mekkhala Thongchanda,Dump Truck Driver B,Mining,19-12-2022,0,2.547945205
+2966,22966,XPPLMI08141,Mr,Phetsouphanh Phannavongsa,Dump man,Mining,18-12-2022,0,3.04109589
+2965,22965,XPPLMI08145,Mr,Soukthavy Sengsouly,Mine Planner,Mining,17-12-2022,0,3.082191781
+2964,22964,XPPLMI08146,Mr,Phonexay Xaysavang,Mine Planner,Mining,16-12-2022,0,3.123287671
+2960,22960,XPPLMI08143,Mr,Phaiykeo Douangpasert,Dump man,Mining,15-12-2022,0,3.164383562
+2955,22955,XPPLMI08127,Mr,Sacklakhone Xayyakone,Dump man,Mining,14-12-2022,1,2.205479452
+2956,22956,XPPLMI08128,Mr,Samlue Sysamai,Dump man,Mining,14-12-2022,0,3.205479452
+2957,22957,XPPLMI08126,Mr,Bectsounjo ,Dump Truck Driver D,Mining,14-12-2022,0,3.205479452
+2941,12941,XPPLMI08123,Mr,Outh Phouthavong,Dump Truck Driver D,Mining,12-12-2022,0,3.287671233
+2944,12944,XPPLMI08124,Mr,Seethat Vannalerd,Dump Truck Driver D,Mining,12-12-2022,0,3.246575342
+2945,22945,XPPLMI08125,Mr,Hatlaty Chanthaphone,Dump Truck Driver D,Mining,12-12-2022,0,3.287671233
+2946,22946,XPPLMI08129,Mr,Noudeng Santhavongsee,Stone Crushing Plant Operator,Mining,12-12-2022,0,3.287671233
+2947,22947,XPPLMI08130,Mr,Lingsa Keovannala,Stone Crushing Plant Operator,Mining,12-12-2022,0,2.465753425
+2948,12948,XPPLMI08131,Mr,Phoupha Syghachuck,Stone Crushing Plant Operator,Mining,12-12-2022,0,2.465753425
+2940,22940,XPPLMI08122,Mr,Soukchanh Douangchang,Dump Truck Driver D,Mining,11-12-2022,0,3.328767123
+2937,22937,XPPLMI08120,Mr,Vard Inthinard,Dump Truck Driver,Mining,10-12-2022,0,3.369863014
+2938,22938,XPPLMI08121,Mr,Eung Lopma,Dump Truck Driver D,Mining,10-12-2022,0,3.369863014
+2933,22933,XPPLMI08098,Mr,Tone Sydaothan,Dump Truck Driver B,Mining,06-12-2022,0,3.493150685
+2928,22928,XPPLMI08099,Mr,Lamphern Phommalin,Grader Operator A,Mining,04-12-2022,0,3.575342466
+2930,22930,XPPLMI08096,Mr,Chit Manysy,Dump Truck Driver B,Mining,04-12-2022,0,3.575342466
+2931,22931,XPPLMI08097,Mr,Moud Sordesa,Dump Truck Driver B,Mining,04-12-2022,0,3.616438356
+2923,22923,XPPLMI08094,MS,Ting Vongsalad,Dump Truck Driver D,Mining,01-12-2022,0,3.739726027
+2917,22917,XPPLMI08083,Mr,Chanchaem Yardtivong,Dump Truck Driver C,Mining,26-11-2022,0,3.945205479
+2915,22915,XPPLMI08086,Mr,Phasouk Sengmanyvin,Dump Truck Driver,Mining,25-11-2022,0,3.98630137
+2908,22908,XPPLMI08087,MS,De Singsurat,Dump Truck Driver,Mining,23-11-2022,3,1.068493151
+2905,22905,XPPLMI08068,Mr,Somdachan Mongmany,Dump Truck Driver,Mining,21-11-2022,3,1.150684932
+2906,22906,XPPLMI08069,MS,Dith Muenlouang,Dump Truck Driver C,Mining,21-11-2022,3,0.98630137
+2903,22903,XPPLMI08067,Mr,Boualapha Inthavong,Dump Truck Driver,Mining,19-11-2022,3,1.232876712
+2901,22901,XPPLMI08065,Mr,Jiew Sonevilay,Dump Truck Driver,Mining,18-11-2022,3,1.273972603
+2900,22900,XPPLMI08063,Mr,Sick Lethida,Dump Truck Driver,Mining,17-11-2022,3,1.315068493
+2896,22896,XPPLMI08062,Mr,Ngern Mittaphone,Dump Truck Driver,Mining,13-11-2022,1,3.479452055
+2897,22897,XPPLMI08061,Mr,Noy Laddavan,Dump Truck Driver,Mining,13-11-2022,2,2.479452055
+2888,22888,XPPLMI08064,Mr,Tone Inthavong,Dump Truck Driver,Mining,04-11-2022,0,4.849315068
+2884,22884,XPPLMI08057,Mr,Aiy Phanthouluck,Mine Planner,Mining,01-11-2022,0,4.97260274
+2880,22880,XPPLMI08020,Mr,Mouk Phetdouangseng,Data Clerk,Mining,27-10-2022,3,1.849315068
+2878,22878,XPPLMI08033,Mr,O Bouddavong,Dump Truck Driver,Mining,26-10-2022,3,2.219178082
+2877,22877,XPPLMI08032,Mr,Phouvieng Chanthavone,Dump Truck Driver,Mining,24-10-2022,3,2.178082192
+2872,22872,XPPLMI08023,Mr,Khamphai Xaiypanya,Dump Truck Driver,Mining,21-10-2022,1,4.424657534
+2873,22873,XPPLMI08031,Mr,Vongduean Sengphachan,Dump Truck Driver,Mining,21-10-2022,3,2.424657534
+2874,22874,XPPLMI08025,Mr,Inpong Somthiemped,Dump Truck Driver,Mining,21-10-2022,0,5.424657534
+2868,22868,XPPLMI08030,Mr,Vaiythava PHABOUN,Dump Truck Driver,Mining,19-10-2022,4,1.506849315
+2865,22865,XPPLMI08021,Mr,Buan Ketnahang,Dump Truck Driver,Mining,17-10-2022,0,5.589041096
+2861,22861,XPPLMI08035,Mr,Keo-odone Somphonenalad,Grader Operator,Mining,16-10-2022,4,1.630136986
+2858,22858,XPPLMI08029,Mr,Thongsavanh Siphanlavong,Dump Truck Driver,Mining,15-10-2022,0,5.671232877
+2859,22859,XPPLMI08022,Mr,Kilo Xayyalad,Dump Truck Driver,Mining,15-10-2022,0,5.671232877
+2844,22844,XPPLMI07992,Mr,Kham Phomphida,Dump Truck Driver,Mining,10-10-2022,3,1.465753425
+2845,22845,XPPLMI07991,Mr,Bounhup Simmavong,Dump Truck Driver,Mining,10-10-2022,1,2.835616438
+2838,22838,XPPLMI08000,Mr,Phonesamai Sihathep,Pump Assistant,Mining,09-10-2022,0,5.917808219
+2835,22835,XPPLMI07987,Mr,Khemphone Keokounnavong,Dump Truck Driver,Mining,07-10-2022,0,6
+2829,22829,XPPLMI07998,Mr,Bounma Michanta,Water truck,Mining,06-10-2022,0,5.917808219
+2815,22815,XPPLMI07983,Mr,yuea Phoutthasao,Stone Crushing Plant Operator,Mining,01-10-2022,2,4.246575342
+2816,22816,XPPLMI07982,Mr,Nai Kaimanisy,Stone Crushing Plant Operator,Mining,01-10-2022,2,1.246575342
+2817,22817,XPPLMI07984,Mr,Sonzai Zaisomephone,Dump man,Mining,01-10-2022,2,3.246575342
+2804,22804,XPPLMI07963,Mr,Sinpasha Thongthavy,Dump Truck Driver,Mining,24-09-2022,3,3.534246575
+2807,22807,XPPLRK07970,Mr,Letta Xayyavong,Security Guard,Mining,24-09-2022,4,2.534246575
+2800,22800,XPPLMI07961,Mr,Phouttavan Chitpanya,Dump Truck Driver,Mining,20-09-2022,4,1.698630137
+2801,22801,XPPLMI07962,MS,Soulanya Latsaphong,Dump Truck Driver,Mining,20-09-2022,0,6.698630137
+2798,22798,XPPLAD07845,Mr,Viengxay Xayavong,LV Driver,Mining,17-09-2022,5,1.821917808
+2797,22797,XPPLMI07851,Mr,Thongkhoun Dala,Excavator Operator,Mining,16-09-2022,5,0.239726027
+2785,22785,XPPLMI07852,Mr,Bouala Phondalai,Dump man,Mining,01-09-2022,3,1.479452055
+2786,22786,XPPLMI07853,Mr,Jaity ,Dump man,Mining,01-09-2022,0,6.815068493
+2789,22789,XPPLMI07848,Mr,No Lorvanxay,Dump man,Mining,01-09-2022,2,3.479452055
+2769,22769,XPPLAD07821,Mr,Lamphone Saiysamone,LV Driver,Mining,16-08-2022,4,2.054794521
+2749,22749,XPPLMI07796,Mr,Yang Manee,Blasting Assistant,Mining,27-07-2022,7,1.95890411
+2747,22747,XPPLMI07795,Mr,Athid Sitthisan,Blasting Assistant,Mining,26-07-2022,4,5
+2740,22740,XPPLMI07791,Mr,Somchai Mongmanee,Blasting Assistant,Mining,23-07-2022,2,4.123287671
+2741,22741,XPPLMI07792,Mr,Sieheua Keoouthone,Blasting Assistant,Mining,23-07-2022,2,4.123287671
+2742,22742,XPPLMI07793,Mr,Paseuthsack Sinthapon,Blasting Assistant,Mining,23-07-2022,2,3.623287671
+2743,22743,XPPLMI07794,Mr,Khiem Theamsamay,Blasting Assistant,Mining,23-07-2022,0,8.123287671
+2731,22731,XPPLMN07781,Mr,Theung Phimmasan,Pump Assistant,Mining,06-07-2022,0,3.821917808
+2730,22730,XPPLGE07783,Mr,Hardboy ,Blasting Assistant,Mining,05-07-2022,2,1.198630137
+2721,22721,XPPLMI07764,Mr,Thorh Tiengsithong,Bulldozer Operator,Mining,28-06-2022,6,3.150684932
+2691,22691,XPPLMI07744,Mr,Socsavan Paesaiyya,Pump Assistant,Mining,04-06-2022,4,3.636986301
+2651,0,XPPLMI07730,Mr,Nguy?n V?n Nguyên,Excavator Operator 800,Mining,27-04-2022,5,1.575342466
+2646,22646,XPPLMN07690,Mr,Thanin Nama,Pump Maintenance,Mining,22-04-2022,1,10.75342466
+2647,22647,XPPLMN07691,Mr,Vanhxay Thongdala,Pump Maintenance,Mining,22-04-2022,6,0.904109589
+2594,22594,XPPLMI07627,Ms,Partthana Phommala,TX45T,Mining,11-03-2022,3,3.424657534
+2592,22592,XPPLMI07623,Ms,Sonelay Boualivongxay,TX45T,Mining,08-03-2022,5,-0.397260274
+2584,22584,XPPLMI07624,Mr,Vissanu Ruckthai,Mining Shift Charge Supervisor,Mining,05-03-2022,3,1.335616438
+2585,22585,XPPLMI07625,Mr,Attapol Saykamta,Mine Contract and Compliance Supervisor,Mining,05-03-2022,1,3.876712329
+2586,22586,XPPLMI07622,Ms,Nalin Thipphomvong,TX45T,Mining,05-03-2022,3,2.226027397
+2583,22583,XPPLMI07614,Mr,Pun Khampoun,Dump Truck Driver,Mining,04-03-2022,0,7.417808219
+2580,22580,XPPLMI07620,Ms,Nouphone Khamphoumy,TX45T,Mining,02-03-2022,5,4
+2570,22570,XPPLMN07588,Ms,Phetsy Chanda,TX45T,Mining,28-02-2022,2,0.582191781
+2565,22565,XPPLMN07589,Mr,Kongmany Synolard,Bulldozer Operator,Mining,27-02-2022,3,0.876712329
+2568,22568,XPPLMN07577,Mr,Bounthiem Saengphavin,Dump Truck Driver,Mining,27-02-2022,2,6.123287671
+2553,22553,XPPLMI07597,Mr,Xaypaserth Vilavong,DATA CLERK FOR WEIGHBRIDGE,Mining,24-02-2022,0,10.74657534
+2557,22557,XPPLMN07585,Ms,Amphonh Kompattha,TX45T,Mining,24-02-2022,1,3.623287671
+2544,22544,XPPLMN07576,Ms,Ladpanee Phompachaleun,TX45T,Mining,21-02-2022,4,3.287671233
+2539,22539,XPPLMN07582,Mr,Odai Taiphone,Excavator Operator,Mining,18-02-2022,3,1.424657534
+2536,22536,XPPLMN07574,Mr,Sanxay Piewkhamphouvong,Dump Truck Driver,Mining,17-02-2022,9,2.034246575
+2525,22525,XPPLMN07573,Mr,Somdy Souvannasan,Dump Truck Driver,Mining,14-02-2022,1,4.452054795
+2507,2793,XPPLGE07542,Ms,ThongKhoun Phonesavan,DATA CLERK,Mining,03-01-2022,2.5,1.219178082
+2508,7244,XPPLGE07543,Ms,Khunkhone Phommalayloun,DATA CLERK,Mining,03-01-2022,5,9.383561644
+2489,3476,XPPLMN07552,Mr,Polsil Satthaporn,Deputy project Manager,Mining,18-12-2021,3,5.04109589
+2490,77020,XPPLMN07554,Mr,Sattaya Intum,Mining Shift Charge Supervisor,Mining,18-12-2021,4,2.54109589
+2491,63059,XPPLMN07553,Mr,Jedsada  Tharot,Mining Shift Charge Supervisor,Mining,18-12-2021,1,3.04109589
+2473,65006,XPPLMI07271,Mr,Thongphan Chitdala,Deputy Pit Superintendent,Mining,02-12-2021,1,2
+2434,7385,XPPLMI07476,Mr,Sengaloun Phaikhampong,Mine Operator Foreman,Mining,24-11-2021,9,0.48630137
+1140,77032,XPPLMI07455,Mr,Souphanh Souriya,Dump Truck Driver,Mining,23-11-2021,3,1.239726027
+2423,7477,XPPLMI07477,Mr,Onchan Xayyavong,Mine Planner,Mining,22-11-2021,0.5,8.109589041
+2419,7471,XPPLMI07471,Mr,Len Khamphouvieng,Blast Drilling Operator,Mining,21-11-2021,0,3.609589041
+2417,7483,XPPLMI07483,Mr,Bounthavin Sysouphan,Mine Operator Foreman,Mining,20-11-2021,3,5.198630137
+2411,7482,XPPLMI07482,Mr,Amphone Vongsavan,Pit Foreman,Mining,19-11-2021,4,2.732876712
+2402,7485,XPPLMI07485,Mr,Vilaxay Narmsaly,DATA CLERK FOR WEIGHBRIDGE,Mining,15-11-2021,4,3.246575342
+2400,7478,XPPLMI07478,Mr,Anousack Pongsavathmixay,Mining Assistant,Mining,13-11-2021,2,6.479452055
+2399,70039,XPPLMI07462,Ms,Phet Khamsaen,Wheel Loader,Mining,11-11-2021,6,0.479452055
+2382,7475,XPPLMI07475,Mr,Tapued Keosompou,Blasting Assistant,Mining,04-11-2021,2,1.849315068
+2385,7473,XPPLMI07473,Mr,Somsack Somphet,Blast Drilling Operator,Mining,03-11-2021,0,4.890410959
+2374,7480,XPPLMI07480,Mr,Juek Sayyasone,Mining Assistant,Mining,02-11-2021,0,5.431506849
+2373,63102,XPPLMN07374,Mr,Kuang Duangdaeng,Water truck,Mining,31-10-2021,0,11.51369863
+2353,27274,XPPLMI07274,Mr,Anong Sysoupha,Mine Planner,Mining,27-10-2021,6,5.678082192
+2358,63134,XPPLMN07360,Mr,Dook Vida,Excavator Operator,Mining,27-10-2021,0,5.636986301
+2339,10312,XPPLLB07251,Mr,Sisouvan Keopouvong,Foreman,Mining,23-10-2021,0,5.97260274
+2340,10317,XPPLLB07252,Mr,Thongsamai Leuangvilaisack,Pit Foreman,Mining,23-10-2021,2,5.219178082
+2336,10322,XPPLMN07365,Mr,Taokham Voutthasin,Excavator Operator,Mine Geology-Exploration,21-10-2021,3,3.178082192
+2323,63192,XPPLMI07260,Ms,Pathoumlack Ahingsa,Admin Officer,Mining,19-10-2021,3.5,1.506849315
+2297,70011,XPPLMI07273,Mr,Nilaphong Fongsavath,Pit Foreman,Mining,15-10-2021,3,1.301369863
+2300,70004,XPPLMN07336,Mr,Phetsamay Keomany,DATA CLERK FOR WEIGHBRIDGE,Mining,15-10-2021,0,6.171232877
+2266,63086,XPPLMN07334,Mr,Vila Siboula,Bulldozer Operator,Mining,05-10-2021,5,3.082191781
+2258,65009,XPPLMI07267,Mr,Somsanouk Sangdeelord,Mining Assistant,Mining,02-10-2021,4,0.95890411
+2259,63146,XPPLMI07268,Mr,Sungkai Phonesavanh,Mining Assistant,Mining,02-10-2021,4,1.164383562
+2260,77015,XPPLMI07270,Mr,Phonesacksy Saynamlao,Mining Assistant,Mining,02-10-2021,3,2.205479452
+2250,63115,XPPLMI07234,Mr,Sivisay Sengsouphy,Foreman,Mining,31-08-2021,2,3.732876712
+2241,10301,XPPLMI07219,Mr,Joy Savanh,Excavator Operator,Mining,20-08-2021,5,4.97260274
+2236,10300,XPPLMI07226,Ms,Khonekham ,TX45T,Mining,19-08-2021,10,3.01369863
+2240,10302,XPPLMI07225,Ms,Khamsawai Yommalard,TX45T,Mining,19-08-2021,2,15.51369863
+2233,7203,XPPLAD07203,Mr,Bundit Soudthanou,LV Driver,Mining,17-08-2021,0,2.808219178
+2197,77010,XPPLMI07195,Mr,Kongmany Ketboutda,Foreman,Mining,31-07-2021,2,3.294520548
+2194,63057,XPPLMI07166,Mr,Air sayavong,Water truck,Mining,30-07-2021,4,2.335616438
+2184,40052,XPPLMI07169,Ms,Bouabarn Sisoutho,TX45T,Mining,29-07-2021,2,2.136986301
+2180,40017,XPPLMI07173,Ms,Khammelin ,TX45T,Mining,28-07-2021,7,1.047945205
+2173,40013,XPPLMI07171,Ms,Douangkhoun Inpone,TX45T,Mining,26-07-2021,3,6.5
+2174,40015,XPPLMI07176,Ms,Toun Saenmany,TX45T,Mining,26-07-2021,4,8.5
+2175,40016,XPPLMI07170,Ms,Douangchai Keokhamsouk,TX45T,Mining,26-07-2021,4,1.876712329
+2177,40012,XPPLMI07177,Ms,Vongdeuan Keokhamsouk,TX45T,Mining,26-07-2021,4,1.630136986
+1221,40067,XPPLMI07148,Mr,Airnoy Phommachanda,Excavator Operator,Mining,23-07-2021,5,0.520547945
+2142,7123,XPPLMI07123,Mr,Sisomphone Sidakhom,Senior Drilling Operator and Blasting Monitor,Mining,27-06-2021,3,2.068493151
+2141,22141,XPPLMI07116,Mr,Somboun Vang,Mine Planning Engineer,Mining,17-06-2021,1,9.438356164
+2139,7114,XPPLMI07114,Mr,Air Keovisai,Blasting Monitor,Mining,11-06-2021,0,6.150684932
+2101,7041,XPPLGE07041,Mr,Manivanh Suriya,Dump Truck Driver,Mining,31-01-2021,4,0.547945205
+1202,21202,XPPLLB06988,Mr,Kavee Pimpasong,Pump Monitor Staff,Mining,21-06-2020,0.5,2.465753425
+1199,27015,KSOGEG07015,Mr,Tiem Vorladet,Dump Truck Driver,Mining,17-06-2020,4,6.665753425
+1212,2856,XPPLMI02856,Mr,Mixay Khamlida, Mine Operator Supervisor,Mining,01-06-2020,0,22.75068493
+1186,6567,KSOMIH06567,Mr,Khonesavanh Sukhod,Excavator Operator,Mining,26-05-2020,4,2.321917808
+1211,2268,XPPLMI02268,Mr,Jimmy Auckhamoungkhoun,Foreman,Mining,25-05-2020,0,9.832876712
+1153,63030,XPPLMI02385,Mr,Khamphat Phonepheng,Pump Monitor Foreman,Mining,17-05-2020,0,6.468493151
+965,5774,XPPLEN05774,Mr,Keobounthan Xayyalath,Dump Truck Driver,Mining,18-11-2017,3,13.96575342
+1157,65064,XPPLMI05103,Mr,Gregorio Tampican,Pit Superintendent,Mining,08-09-2015,6,0.465753425
+2074,2671,KSOMIH02671,Mr,Khaikham Khonelathep,Drill & Blast Supervisor,Mining,01-09-2013,5,14.96575342
+52,827,XPPLMI00827,Mr,Buenaventura Rimando,Mining Manager,Mining,22-11-2012,0,42.46575342
+5,2664,XPPLSU02664,Ms,Siphachan Douangdala,Admin officer,Mining,28-11-2008,0,4.726027397
+3025,23025,XPPLMI08242,Mr,Daosouk Xaiyyavong,Excavator Operator,Mining,27-01-2023,0,1.397260274
+3028,23028,XPPLMI08244,Mr,Chansy Saiybounpoua,Dump man,Mining,31-01-2023,0,1.232876712
+3029,23029,XPPLMI08245,Mr,Xaysana Phommachack,Water truck,Mining,31-01-2023,0,1.232876712
+3030,23030,XPPLMI08246,Mr,Chandone ,Dump Truck Driver,Mining,01-02-2023,0,1.191780822
+2779,22779,XPPLAD07831,Mr,Thanetxay lattanalangsy,Mechanic Assistant,Mobile Maintenance,20-08-2022,6,0.97260274
+1155,21155,XPPLMN04056,Mr,Thanva Khamsingsavath,Electrician,Mobile Maintenance,04-01-2023,0,2.342465753
+2983,22983,XPPLMN08201,Mr,Obee Sannamphan,Welder Assistant,Mobile Maintenance,23-12-2022,0,2.753424658
+2963,22963,XPPLMN08151,Mr,Thongva Khamphasy,Electrical Maintenance of Vehicle Assistant,Mobile Maintenance,16-12-2022,0,3.123287671
+2942,22942,XPPLMN08117,Mr,Chandone Boualapha,Welder Assistant,Mobile Maintenance,11-12-2022,3,0.205479452
+2898,22898,XPPLMN08073,Mr,Khansai Phommajuk,Mechanic Assistant,Mobile Maintenance,14-11-2022,0,4.438356164
+2885,22885,XPPLMN08074,Mr,Paeng Paserdsytha,Oiler Assistant,Mobile Maintenance,02-11-2022,3,1.684931507
+2886,22886,XPPLMN08072,Mr,Daeng Noiysomvangkor,Mechanic Assistant,Mobile Maintenance,02-11-2022,4,0.931506849
+2883,22883,XPPLMN08071,Mr,Noy Phasavath,Heavy Equipment Maintenance,Mobile Maintenance,01-11-2022,0,4.97260274
+2808,22808,XPPLMN07971,Mr,Xaiyavong Noyxaiyasone,Admin Officer,Mobile Maintenance,24-09-2022,5.5,0.664383562
+2790,22790,XPPLMN07846,Mr,Sungkhy Sysungvone,Heavy Mechanic,Mobile Maintenance,01-09-2022,3,1.479452055
+23,20023,KSOMNF06513,Mr,Phetsamone Laththavong,Oiler,Mobile Maintenance,24-08-2022,1,2.397260274
+2780,22780,XPPLMN07834,Mr,Hongthong Souksombath,Oiler,Mobile Maintenance,23-08-2022,4,0.726027397
+2774,22774,XPPLMN07835,Mr,Sit  Chanlangkham,Mechanic Assistant,Mobile Maintenance,19-08-2022,7.5,0.51369863
+2775,22775,XPPLMN07836,Mr,Souttha Sysouvanh,Mechanic Assistant,Mobile Maintenance,19-08-2022,3,2.97260274
+2671,22671,XPPLMN07722,Mr,Pathompong Panyomoon,Machine Maintenance Planning Supervisor,Mobile Maintenance,20-05-2022,3,5.253424658
+2660,22660,L-10966,Mr,Keonakhone Paenglaboud,Mechanic,Mobile Maintenance,01-05-2022,2,3.034246575
+2645,22645,XPPLMN07689,Mr,Nikorn  Moonfu,Truck Maintenance,Mobile Maintenance,22-04-2022,0,12.90410959
+2615,22615,XPPLMN07642,Mr,Waranon Thura,Mobile Maintenance Manager,Mobile Maintenance,23-03-2022,2,1.636986301
+2601,22601,XPPLMN07636,Mr,Khammon Phetsayya,Mechanic,Mobile Maintenance,12-03-2022,4,1.136986301
+2602,22602,XPPLMN07637,Mr,Khamphouk Inthavongsa,Mechanic Assistant,Mobile Maintenance,12-03-2022,7,3.089041096
+2608,22608,XPPLMN07638,Mr,Phoutphathai Saiysumphan,Mechanic Assistant,Mobile Maintenance,12-03-2022,6,0.089041096
+2548,22548,XPPLMI07596,Mr,Soulivan Khampapan,Controller,Mobile Maintenance,22-02-2022,0,7.123287671
+2522,22522,XPPLMN07592,Mr,Souban Chanthavong,Electrical Maintenance of Vehicle,Mobile Maintenance,10-02-2022,1,3.821917808
+2501,63171,XPPLMN07545,Mr,David Phonchaleun,Mechanic Assistant,Mobile Maintenance,26-12-2021,2,14.71232877
+2499,63042,XPPLMN07527,Mr,Inpun Bounyavong,Mechanic Assistant,Mobile Maintenance,22-12-2021,2,1.383561644
+2493,70043,XPPLMN07523,Mr,Khampasith Sinnasone,Mechanic Assistant,Mobile Maintenance,19-12-2021,4,2.917808219
+2261,63078,XPPLMN07402,Ms,Joy Vongsedtha,Admin Officer,Mobile Maintenance,05-10-2021,6.5,0.424657534
+2230,70071,XPPLMN07246,Mr,Koi Bounmadam,Oiler Assistant,Mobile Maintenance,12-08-2021,4,2.01369863
+2217,7245,XPPLMN07245,Mr,Bounpheng Inthasomsack,Oiler,Mobile Maintenance,06-08-2021,3,1.390410959
+1162,7008,XPPLMN07140,Mr,Nalongxay Thanapha,Heavy Mechanic,Mobile Maintenance,29-07-2021,1,11.46575342
+1156,40001,XPPLMI07184,Mr,Syoulai Sivongdao,Heavy Mechanic,Mobile Maintenance,25-07-2021,0,7.815068493
+2154,40023,XPPLMI07183,Mr,Saen Sombath,TIRE MAN,Mobile Maintenance,14-07-2021,4,1.246575342
+2129,40041,XPPLMN07104,Mr,Adun Chanabut,Heavy Mechanic,Mobile Maintenance,15-05-2021,2.5,1.417808219
+2110,10021,XPPLGE07062,Mr,Homta ,Mechanic Assistant,Mobile Maintenance,21-02-2021,2,1.760273973
+2061,80019,XPPLGE07003,Mr,Khounkham ,Junior Dump Truck Mechanic,Mobile Maintenance,13-11-2020,8.5,3.465753425
+2058,70029,XPPLMN07009,Mr,Phoutsada bounmadam,Heavy Mechanic,Mobile Maintenance,08-11-2020,6,1.190410959
+2049,7075,XPPLGE07075,Mr,Khammanh Panivong,Junior Dump Truck Mechanic,Mobile Maintenance,02-10-2020,1.5,1.190410959
+2050,63152,XPPLGE07078,Mr,Vath Chanthanouvong,Mechanic Assistant,Mobile Maintenance,02-10-2020,4,3.224657534
+1169,91027,KSOMNM01027,Mr,Kindavong Xouanephasouk,Lathe Man,Mobile Maintenance,30-05-2020,0.5,2.883561644
+1173,5,XPPLSAW0005,Mr,Sonexay Xayyavong,Mechanic Assistant,Mobile Maintenance,30-05-2020,1,8.365753425
+1154,3187,XPPLMN03187,Mr,Nin ,TIRE MAN,Mobile Maintenance,21-05-2020,7,0.842465753
+1131,20014,XPPLSAW0014,Mr,Somchanh Bouachanh,Mechanic Assistant,Mobile Maintenance,01-05-2020,6,6.894520548
+19,4771,XPPLMN04771,Mr,Kesy Xayyalath,Heavy Mechanic,Mobile Maintenance,03-06-2019,3.5,3.883561644
+24,3176,XPPLMN03176,Mr,Phet Sivongdao,Heavy Mechanic,Mobile Maintenance,03-06-2019,4,0.698630137
+360,3670,XPPLMN03670,Mr,Sounthone Sisavath,Mechanic Assistant,Mobile Maintenance,02-12-2017,5,2.020547945
+76,2203,XPPLGE02203,Mr,Vichit Siphangdouang,Junior Dump Truck Mechanic,Mobile Maintenance,18-11-2017,5,2.883561644
+1001,15,XPPLSAW0015,Mr,Sengfainyone Thongpadith,Oiler,Mobile Maintenance,01-08-2015,5,2.924657534
+1029,37,XPPLSAW0037,Mr,Mee Phommachanh,Vehicle Mechanic,Mobile Maintenance,01-08-2015,0,3.219178082
+456,3182,XPPLMN03182,Mr,Deuk Hubxaythong,Lathe Man,Mobile Maintenance,01-12-2013,0,10.46575342
+3038,23038,XPPLMN08251,Mr,Kuekha Houatouxay,Equipment Maintenance Planning officer,Mobile Maintenance,10-02-2023,0,0.821917808
+1222,70068,XPPLSU06981,Ms,Phimpha Ngaovongsy,Procurement officer,Procurement,22-06-2020,2,15.92465753
+1205,95823,KSOSUW05823,Ms,Oy Keosengchanh,Procurement Supervisor,Procurement,20-06-2020,3,27.06575342
+2959,22959,XPPLMI08148,Mr,Boon Phoneda,Operator,Production,15-12-2022,0,3.164383562
+2921,22921,XPPLMI08101,Mr,Mixay Tongmany,Operator,Production,01-12-2022,0,3.698630137
+2799,22799,XPPLLB07960,Mr,Chanthadar Donenalath,Operator,Production,20-09-2022,0,6.698630137
+2672,22672,XPPLMI07716,Mr,Korlakan Saiyachit,Controller,Production,22-05-2022,7,4.547945205
+2593,22593,XPPLMI07641,Mr,Keoounheuan Meungxaykham,Foreman,Production,08-03-2022,0,5.753424658
+2581,22581,XPPLMI07643,Mr,Ole Manivong,Controller,Production,04-03-2022,2,5.876712329
+2483,10313,XPPLMI07517,Mr,Thongsaly Singnalath,Process Engineer,Production,11-12-2021,0,13.82876712
+2474,6224,XPPLMI07516,Mr,Kongkeo Phommaly,Process Engineer,Production,03-12-2021,0,15.15753425
+2447,7492,XPPLMI07492,Mr,Keoduangta Indavong,Controller,Production,28-11-2021,3.5,0.452054795
+2446,7488,XPPLMI07488,Ms,Phansa Khamphone,Admin Officer,Production,27-11-2021,4,1.404109589
+2443,7486,XPPLMI07486,Mr,Xaysanasack Phothisalanasouk,Controller,Production,26-11-2021,0,7.945205479
+2380,7337,XPPLMN07337,Mr,Sysaketh Keothavone,Controller,Production,02-11-2021,0,5.479452055
+2355,22355,XPPLLB07257,Mr,Vilayphone Song,Database Production,Production,27-10-2021,2,1.890410959
+2337,10319,XPPLMN07340,Mr,Thavin Bongdasone,Controller,Production,22-10-2021,5,4.136986301
+2304,10039,XPPLMN07338,Mr,Singkapo Mongkhounvilay,Controller,Production,13-10-2021,1,2.602739726
+947,5603,XPPLMI05603,Mr,Anan Phommachan,Foreman,Production,10-12-2017,0,35.46575342
+1053,70006,XPPLSAW0030,Mr,Khonesavath Sisoulath,Field Staff,Production,02-12-2017,3,4.260273973
+2694,22694,XPPLRK07742,Mr,Kingtavanh Pinpanya,Safety Officer,Safety and Environment,08-06-2022,6,3.97260274
+2664,22664,XPPLSEE07709,Mr,Xonlathar Yannaxai,Environment Officer,Safety and Environment,17-05-2022,1,7.876712329
+2663,22663,XPPLSEE07710,Mr,Zaythong Xaiyadeth,Environment Officer,Safety and Environment,13-05-2022,0,12.04109589
+2614,22614,XPPLRK07646,Ms,Keokhankit Saothongxay,SHE Manager,Safety and Environment,22-03-2022,2,2.178082192
+2564,22564,XPPLRK07615,Mr,Samonechai Phommavongsa,Admin Officer,Safety and Environment,27-02-2022,0,4.54109589
+2367,70022,XPPLSEE07290,Mr,Mixay Pasavath,Environmental Supervisor,Safety and Environment,29-10-2021,0,6.095890411
+2065,6994,XPPLSEE06994,Mr,Tongkham Manivong,Resettlement & Compensation Supervisor,Safety and Environment,17-11-2020,0,6.345205479
+21,6956,XPPLGE06956,Mr,Sonemexay Phetxomepoo,Environment Officer,Safety and Environment,03-02-2020,0,9.165753425
+372,3009,XPPLHR03009,Mr,Thongvanh Chanthavong,Social Officer,Safety and Environment,24-03-2014,3,2.273972603
+37,648,XPPLAD00648,Mr,Thongphet Vongkeo,CR Coordinator,Safety and Environment,01-07-2008,2.5,11.92465753
+3035,23035,XPPLSEE08247,MS,Koychai Xayyaphet,Admin Officer,Safety and Environment,02-02-2023,0,1.150684932
+3040,23040,XPPLSEE08248,Mr,Kongchay Phanhthong,Safety Officer,Safety and Environment,12-02-2023,0,0.739726027
+3042,23042,XPPLSEE08249,MS,Pouna Bounyongsa,Environment Officer,Safety and Environment,14-02-2023,0,0.657534247
+3043,23043,XPPLSEE08250,Mr,Bounpheng Chanthaphavong,Emergency Respond Officer,Safety and Environment,14-02-2023,0,0.657534247
+3044,23044,XPPLRK08254,Mr,No Luangkod,Emergency Respond Officer,Safety and Environment,15-02-2023,0,0.616438356
+2919,22919,XPPLRK08106,Mr,Jien Termsaythlay,Security Guard,Security and Clinic,30-11-2022,0,3.698630137
+2920,22920,XPPLRK08107,Mr,Khamphai Chanthalangsy,Security Guard,Security and Clinic,30-11-2022,0,3.780821918
+2894,22894,XPPLRK08077,Mr,Thidsaphar Huanmanee,Admin officer,Security and Clinic,10-11-2022,2,2.602739726
+2855,22855,XPPLAD08037,Mr,Phout Xaisongkham,Security Guard,Security and Clinic,14-10-2022,2,3.712328767
+2823,22823,XPPLRK08006,Mr,Binly Sysommaiy,Security Guard,Security and Clinic,05-10-2022,0,6.082191781
+2824,22824,XPPLRK08004,Mr,Donkhing Namkhamhaeng,Security Guard,Security and Clinic,05-10-2022,0,6.082191781
+2826,22826,XPPLRK08007,Mr,Laivan Keochampa,Security Guard,Security and Clinic,05-10-2022,3,2
+2827,22827,XPPLRK08005,Mr,Tingthong Sengphachan,Security Guard,Security and Clinic,05-10-2022,2,4.082191781
+2821,22821,XPPLRK08002,Mr,Phonemany Thongsavanh,Security Guard,Security and Clinic,04-10-2022,0,6.123287671
+2822,22822,XPPLRK08003,Mr,Sytavay Kanthalad,Security Guard,Security and Clinic,04-10-2022,0,6.123287671
+2806,22806,XPPLRK07969,Mr,Ottichak Thepphisit,Security officer,Security and Clinic,24-09-2022,0,5.534246575
+2700,22700,XPPLRK07748,Mr,Khaivong Xayyasone,Security Guard,Security and Clinic,14-06-2022,0,5.684931507
+2659,22659,XPPLRK07661,Ms,Pockky Vorlakoumman,Nurse,Security and Clinic,03-05-2022,0,9.452054795
+2649,22649,XPPLRK07697,Mr,Vilaythong Phanamnarth,Security Guard,Security and Clinic,27-04-2022,9,3.698630137
+2638,22638,XPPLRK07662,Ms,Palisa Chitpanya,Nurse,Security and Clinic,19-04-2022,0,3.404109589
+2632,22632,XPPLRK07693,Mr,Xayyaphong Keomapouang,Security Guard,Security and Clinic,08-04-2022,2,4.979452055
+2633,22633,XPPLRK07694,Mr,Thepthida Oudomphanh,Security Guard,Security and Clinic,08-04-2022,0,5.479452055
+2624,22624,XPPLRK07659,Mr,Vixay Vongsatry,Site Physician,Security and Clinic,05-04-2022,3,3.897260274
+2603,22603,XPPLRK07640,Mr,Noukham Liengmany,Security officer,Security and Clinic,12-03-2022,0,4.424657534
+2537,22537,XPPLRK07614,Mr,Phetvilay Khamdalaphone,Security Guard,Security and Clinic,17-02-2022,1,4.534246575
+2530,22530,XPPLRK07613,Mr,Ting Phaimany,Security Guard,Security and Clinic,14-02-2022,4,0.369863014
+337,3601,XPPLRK07612,Mr,Dom Ningkhamnuanlavong,Security Guard,Security and Clinic,11-02-2022,0,3.075342466
+598,4325,XPPLRK07611,Mr,Phaeng Sophaphom,Security Guard,Security and Clinic,09-02-2022,5,9.863013699
+2502,6513,XPPLRK07546,Mr,Khamsavaeng Duangsone,Security Guard,Security and Clinic,28-12-2021,0,5.465753425
+2504,2456,XPPLRK07548,Mr,Phimmasone Phanthakeson,Security Guard,Security and Clinic,28-12-2021,0,6.630136986
+2251,63116,XPPLRK07199,Mr,Chanthanome Vongsoulith,Safety and Security Senior officer,Security and Clinic,31-08-2021,3,4.020547945
+2244,10308,XPPLAD07209,Mr,Xaisettha Sengsay,Security officer,Security and Clinic,24-08-2021,6,1.650684932
+1146,10004,XPPLEP06973,Mr,Onta Phonesavath,Security officer,Security and Clinic,08-05-2020,7,2.265753425
+880,20880,XPPLRK05361,Ms,Seng-aloun Sengthong,Nurse,Security and Clinic,01-11-2015,9,2.349315068
+3014,23014,XPPLSU08220,MS,Souksun Kanniyom,Outbound officer,Supply Chain,14-01-2023,0,1.931506849
+2825,22825,XPPLSU08008,Mr, Airnoy Vongkhamsao,Dump man,Supply Chain,05-10-2022,3,3.082191781
+2750,22750,XPPLSUW07806,Ms,Salika Vongsettha,Document Controller,Supply Chain,04-08-2022,0,8.465753425
+2720,22720,KSOSUW07769,Mr,Akethavisup Pommacak,Fuel Tender,Supply Chain,28-06-2022,0,3.150684932
+2589,22590,XPPLSUW07628,Ms,Vannida Namsok,Warehouse Officer,Supply Chain,07-03-2022,7,0.794520548
+2590,22589,XPPLSUW07629,Mr,Thanva Syvongsa,Senior inbound officer,Supply Chain,07-03-2022,4,1.294520548
+2468,63063,XPPLSU07528,Mr,Sengkeo Phommachan,Storeman,Supply Chain,01-12-2021,3.5,3.746575342
+2444,7489,XPPLMI07489,Ms,Souksakhone Vongsetha,Admin Officer,Supply Chain,27-11-2021,0,8.904109589
+2388,65030,XPPLSUW07413,Mr,Khampun Songsavan,Warehouse Officer,Supply Chain,04-11-2021,4,4.849315068
+2368,7300,XPPLSU07300,Mr,Bejey Mounthijuck,Inventory Officer,Supply Chain,31-10-2021,6.5,1.349315068
+2366,10328,XPPLSU07301,Mr,Hin Sayyavong,Storeman,Supply Chain,29-10-2021,2,5.48630137
+2162,40062,XPPLMI07150,Mr,Deng Phongoudom,Fuel Truck Driver,Supply Chain,23-07-2021,0,5.45890411
+2123,10019,XPPLSU07075,Mr,Inpeng Chommany,Storeman,Supply Chain,27-03-2021,12,4.47260274
+2117,7074,XPPLSU07074,Mr,Bounnam Lorpanya,Warehouse officer,Supply Chain,12-03-2021,3,1.260273973
+2054,90137,KSOMIH00137,Mr,Bounpone Dalaseng,Fuel Truck Driver,Supply Chain,01-01-2021,4,1.684931507
+1216,1948,KSOPPI01948,Mr,Paseuth Sipasong,Fuel Truck Warehouse,Supply Chain,23-06-2020,0,6.205479452
+2004,22004,KSOSUW04630,Ms,Tick Vongsavanthong,Warehouse Supervisor,Supply Chain,23-06-2020,5,22.96575342
+1206,4127,KSOSUP04127,Mr,Syphone Vongvilai,Inventory Supervisor,Supply Chain,20-06-2020,0.5,2.965753425
+277,2663,XPPLSU02663,Ms,Kinnaly Phousiboudda,Warehouse officer,Supply Chain,30-12-2017,7,5.965753425
+1026,70047,XPPLSAW0008,Mr,Si-amkha Nanthavong,Fuel Truck Driver,Supply Chain,06-12-2017,1,3.883561644
+6,2599,XPPLSU02599,Mr,Khamphone Phaengkeomany,Team Leader inbound,Supply Chain,13-07-2013,2.5,7.054794521
+2773,22773,XPPLMI07838,Mr,Oudomxay  Manivong,Graduate Survey,Survey,19-08-2022,3,1.397260274
+2644,22644,XPPLMI07681,Mr,Keooudone Xaysalyvong,Survey Technician,Survey,22-04-2022,4.5,1.404109589
+2422,7493,XPPLMI07493,Mr,Bounkham Keokhanthong,Survey Assistant,Survey,22-11-2021,6,3.109589041
+2150,40028,KSOEPS07081,Mr,Souphonexay KhongSombath,Senior Surveyor,Survey,09-07-2021,3,3.335616438
+2151,40029,KSOEPS07082,Mr,Sinxay Hanthaluexay,Survey Technician,Survey,09-07-2021,3,0.452054795
+1226,40040,KSOGEG05331,Mr,Boualin Kaikham,Surveyor,Survey,25-06-2020,0,5.349315068
+791,80068,XPPLMI05102,Mr,Ouxa Soundala,Survey Technician,Survey,26-08-2015,3,1.746575342
+10,1363,XPPLMI01363,Mr,Sak Chanthasone,Survey Superintendent,Survey,26-09-2012,2,1.924657534
+3046,23046,XPPLSEE08256,Mr,Souknilanh Phoudthakhaiyalard,Environment Officer,Safety and Environment,16-02-2023,0,0.575342466
+3047,23047,XPPLFA08253,MS,Phokham NGONKASEUMSOUK,Accounting Payable Officer,Finance-Accounting,01-02-2023,0,1.191780822
+3048,23048,XPPLEN08257,Mr,Dam Vongsavanh,Construction Assistant,Engineering,19-02-2023,0,0.452054795
+3049,23049,XPPLSEE08258,Mr,Thone SOUKSAVATH,Environment Officer,Safety and Environment,19-02-2023,0,0.452054795
+3050,23050,XPPLHR08259,Mr,Chansamoud Phouybanhdith,HR Officer,Human Resource,20-02-2023,0,0.410958904

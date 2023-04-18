@@ -174,8 +174,7 @@
               >
                 <td v-if="showCol.no" class="px-1 text-center border-start-0">{{rowInx + 1}}</td>
                 <td
-                  class="px-1 position-sticky cur-pointer border-start-0 bg-white"
-                  style="left: -1px;"
+                  class="px-1 position-sticky cur-pointer border-start-0 bg-white" style="left: -1px;"
                   title="Double click to see Roster details"
                   @dblclick="rosDetail(row.userid)"
                 >

@@ -937,6 +937,6 @@ export default {
 
     .add-hover:hover{
         color: blue;
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 </style>

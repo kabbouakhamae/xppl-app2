@@ -139,7 +139,7 @@
             <!-- /*
               ^ Payment Requisition menu 
             */-->
-            <div v-if="permiss.hqpr_acc==1">
+            <div v-if="prPermiss.user_type =='admin' || !!parseInt(prPermiss.acc)">
               <li class="slide" :class="HQPay">
                 <a class="side-menu__item" :class="HQPayM" @click="HQPay ? HQPay='':HQPay='is-expanded', dash='', adm='', fuel='', prod='', safe='', clin='', sett=''" href="#">
                   <span class="side-menu__label">
@@ -425,7 +425,7 @@
                   </div>
                 </li>
                 
-                <li v-if="!!parseInt(permiss.hqpr_noti)" class="dropdown nav-itemd-none nav-item main-header-notification" id="drop">
+                <li v-if="!!parseInt(prPermiss.noti)" class="dropdown nav-itemd-none nav-item main-header-notification" id="drop">
                   <a class="new nav-link" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bx bx-bell bx-sm pos-relative text-muted"></i>
                     <span v-if="pendData.length > 0" class="badge rounded-circle badge-notifications pos-absolute tx-10" style="left: 24px; bottom: 20px; width: 17px; height: 17px; background: rgb(255, 62, 29);">{{ pendData.length }}</span>
@@ -698,6 +698,7 @@ export default {
 
       profile: [],
       permiss: [],
+      prPermiss: [],
       pendData: [],
       pendFile: [],
       attFiles: [],
@@ -712,8 +713,20 @@ export default {
 
   methods: {
     async onLoad() {
-      const pendData = await this.getPending();
-      const pendFile = await this.getPendingFile();
+
+      const prof = await axios.get("api/profile");
+      this.profile = prof.data;
+
+      const genPerm  = await axios.get("api/permiss");
+      this.permiss = genPerm.data;
+      this.$i18n.locale = genPerm.data.lang;
+
+      const prPerm  = await axios.get("api/hqpayment/prpermission");
+      this.prPermiss = prPerm.data;
+
+
+      // const pendData = await this.getPending();
+      // const pendFile = await this.getPendingFile();
     },
 
     signOut() {
@@ -785,22 +798,10 @@ export default {
       this.$axios.get(`/api/language?lang=${lang}`);
     },
 
-    async getProfile() {
-      const response = await axios.get("api/profile");
-      this.profile = response.data;
-    },
-
-    async getPermiss() {
-      const response = await axios.get("api/permiss");
-      this.permiss = response.data;
-
-      this.$i18n.locale = response.data.lang;
-    },
-
-    async menu() {
-      const menu = await axios.get("/api/menu");
-      this.menuAcc = menu.data;
-    },
+    // async menu() {
+    //   const menu = await axios.get("/api/menu");
+    //   this.menuAcc = menu.data;
+    // },
 
     async getPending(){
       const pend = await axios.get('/api/hqpayment/getpendingnotic')
@@ -916,8 +917,6 @@ export default {
       this.appClass = "main-content app-content";
 
       this.homeAct = "active";
-      this.getProfile();
-      this.getPermiss();
       this.onLoad();
     } else {
       this.isSignin = false;
